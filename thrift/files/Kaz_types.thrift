@@ -296,6 +296,7 @@ struct CertificateInfo
   10: optional string email;
   11: optional string organization;
   12: optional string fullName;
+  13: optional string bin;
 }
 
 /** Функции для поиска по содержимому документа */

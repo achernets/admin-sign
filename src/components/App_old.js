@@ -1,9 +1,7 @@
 import React, { useState } from 'react';
 import { Button } from 'antd';
 import ATable from './components/Table';
-import './App.css';
-
-
+import './App.scss';
 
 const data = [
   {
@@ -59,7 +57,7 @@ const col1 = [
     dataIndex: 'title',
     width: 150
   },
-]
+];
 
 const col2 = [
   {
@@ -72,15 +70,15 @@ const col2 = [
     dataIndex: 'text',
     width: 150
   }
-]
+];
 
 
 const App = () => {
   const [columns, setColumns] = useState(col1);
 
   const change = () => {
-    setColumns(columns.length === 3 ? col2 : col1)
-  }
+    setColumns(columns.length === 3 ? col2 : col1);
+  };
 
   const updateColumns = (index, width) => {
     const nextColumns = [...columns];
@@ -89,10 +87,10 @@ const App = () => {
       width: width,
     };
     setColumns(nextColumns);
-  }
+  };
 
   //const width = columns.filter(({ width }) => !width).length === 0 ? sumBy(columns, 'width') : '100%';
-  console.log(columns)
+  //console.log(columns);
   return (<div className="App" style={{ width: 500 }}>
 
     <ATable
@@ -112,6 +110,6 @@ const App = () => {
     {/* </div> */}
   </div>
   );
-}
+};
 
 export default App;

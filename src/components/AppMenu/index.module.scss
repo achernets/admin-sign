@@ -1,0 +1,26 @@
+.sider {
+  overflow: auto;
+  height: 100vh;
+  position: fixed;
+  left: 0;
+  z-index: 2;
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 100%;
+  padding: 20px 0px 5px 0;
+}
+
+.avatar {
+  width: 14px;
+  height: 14px;
+  vertical-align: baseline;
+}
+
+.sub_menu {
+  height: calc(100vh - 5px);
+  overflow: scroll;
+}

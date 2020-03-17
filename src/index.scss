@@ -1,0 +1,25 @@
+@import "styles/fonts.scss";
+body {
+  overflow: hidden;
+}
+#root {
+  width: 100%;
+  height: 100%;
+}
+
+.ReactVirtualized__List {
+  outline: 0;
+}
+// .ant-form-item-label,
+// .ant-form-item-control {
+//   line-height: normal;
+// }
+
+/*fix автозаполнения */
+
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+input:-webkit-autofill:active {
+  transition: background-color 5000s ease-in-out 0s;
+}

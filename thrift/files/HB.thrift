@@ -2,10 +2,16 @@ include "common.thrift"
 
 namespace java com.devtech.kaz.thrift.gen
 
+/** тип данных */
 enum HBColumnType {
+    /** текстовое поле с поддержкой мулитиязычности */
     TEXT,
+    /** числовое поле */
     NUMBER,
-    USER_CHOICE
+    /** выбор пользователя */
+    USER_CHOICE,
+    /** текстовое поле с одним значением для всех языков */
+    GLOBAL_TEXT
 }
 
  /** Значение справочника */

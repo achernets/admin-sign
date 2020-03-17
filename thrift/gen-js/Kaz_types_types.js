@@ -1441,6 +1441,7 @@ CertificateInfo = class {
     this.email = null;
     this.organization = null;
     this.fullName = null;
+    this.bin = null;
     if (args) {
       if (args.serialNumber !== undefined && args.serialNumber !== null) {
         this.serialNumber = args.serialNumber;
@@ -1477,6 +1478,9 @@ CertificateInfo = class {
       }
       if (args.fullName !== undefined && args.fullName !== null) {
         this.fullName = args.fullName;
+      }
+      if (args.bin !== undefined && args.bin !== null) {
+        this.bin = args.bin;
       }
     }
   }
@@ -1575,6 +1579,13 @@ CertificateInfo = class {
           input.skip(ftype);
         }
         break;
+        case 13:
+        if (ftype == Thrift.Type.STRING) {
+          this.bin = input.readString().value;
+        } else {
+          input.skip(ftype);
+        }
+        break;
         default:
           input.skip(ftype);
       }
@@ -1644,6 +1655,11 @@ CertificateInfo = class {
     if (this.fullName !== null && this.fullName !== undefined) {
       output.writeFieldBegin('fullName', Thrift.Type.STRING, 12);
       output.writeString(this.fullName);
+      output.writeFieldEnd();
+    }
+    if (this.bin !== null && this.bin !== undefined) {
+      output.writeFieldBegin('bin', Thrift.Type.STRING, 13);
+      output.writeString(this.bin);
       output.writeFieldEnd();
     }
     output.writeFieldStop();

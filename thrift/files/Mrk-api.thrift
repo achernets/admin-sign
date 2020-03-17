@@ -183,6 +183,7 @@ struct MrkDigitalSign {
   /** Детальная информация о подписях (пользователь, время, сертификат)*/
   5: optional list<MrkDigitalSignDetails> signDetails;
   6: optional string signature;
+  7: optional common.SignProviderType signProviderType;
 }
 
 /** Детальная информация о подписи*/
@@ -201,6 +202,7 @@ struct MrkDigitalSignDetails {
   10: optional string email;
   11: optional string organization;
   12: optional string fullName;
+  13: optional string bin;
 }
 
 struct MrkDocumentData {
@@ -258,7 +260,8 @@ service MrkClientService {
   map<string, string> getAllLanguages() throws (1: ex.PreconditionException validError, 2: ex.ServerException error);
 
   MrkClientSession authMrkClient(1: string login; 2: string password, 3: string ip, 4: string langCode, 5: i32 cacheVersion) throws (1: ex.PreconditionException validError, 2: ex.ServerException error);
-  MrkClientSession refreshMrkClientSession(1: common.AuthTokenBase64 token) throws (1: ex.PreconditionException validError, 2: ex.ServerException error);MrkAccount registration(1:MrkClient cl, 2: string password, 3:MrkOrganization organization) throws (1: ex.PreconditionException validError, 2: ex.ServerException error);
+  MrkClientSession refreshMrkClientSession(1: common.AuthTokenBase64 token) throws (1: ex.PreconditionException validError, 2: ex.ServerException error);
+  MrkAccount registration(1:MrkClient cl, 2: string password, 3:MrkOrganization organization) throws (1: ex.PreconditionException validError, 2: ex.ServerException error);
   bool changePassword(1: string token, 2: string oldPassword, 3: string password, 4: string confirmation) throws (1: ex.PreconditionException validError, 2: ex.ServerException error);
 
   MrkAccount getFullAccountInfo(1: string token) throws (1: ex.PreconditionException validError, 2: ex.ServerException error);
@@ -302,6 +305,7 @@ service MrkClientService {
 
 service MrkUserService {
   MrkUserSession authMrkUser(1: string login; 2: string password, 3: string ip, 4: string langCode, 5: i32 cacheVersion) throws (1: ex.PreconditionException validError, 2: ex.ServerException error);
+  MrkUserSession refreshMrkUserSession(1: common.AuthTokenBase64 token) throws (1: ex.PreconditionException validError, 2: ex.ServerException error);
 
   MrkUserPage getMrkUserPage(1: string token, 2: filter.KazFilter filter) throws (1: ex.PreconditionException validError, 2: ex.ServerException error);
   MrkUser changeMrkUser(1: string token, 2: MrkUser toUpdate, 3: string password, 4:string idToRemove) throws (1: ex.PreconditionException validError, 2: ex.ServerException error);
@@ -315,4 +319,5 @@ service MrkUserService {
   MrkAccount changeMrkAccount(1: string token, 2:MrkAccount toChange) throws (1: ex.PreconditionException validError, 2: ex.ServerException error);
 
   MrkAlmexSysUserPage getMrkAlmexSysUserPage(1: string token, 2: filter.KazFilter filter) throws (1: ex.PreconditionException validError, 2: ex.ServerException error);
+  bool logout(1: string token) throws (1: ex.PreconditionException validError, 2: ex.ServerException error);
 }

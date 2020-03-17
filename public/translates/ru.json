@@ -1,0 +1,35 @@
+{
+  "common": {
+    "error": "Ошибка",
+    "cancel": "Отменить",
+    "save": "Сохранить",
+    "next": "Дальше",
+    "attachments": "Вложения",
+    "true": "Да",
+    "false": "Нет",
+    "close": "Закрыть",
+    "add_more": "Добавить еще",
+    "reset": "Сбросить",
+    "save_changes": "Сохранить изменения"
+  },
+  "confirmation": {
+    "title": "Подтвердите действие",
+    "okText": "Подтвердить"
+  },
+  "form": {
+    "required": "'${name}' oбязательное"
+  },
+  "notification": {
+    "sendDocument_title": "Ваше письмо отправлено",
+    "registration_message": "Вы успешно зарегистрировались",
+    "registration_description": "Необходимо подтвердить ваш электронный ящик",
+    "profile_update_message": "Успешное обновление профиля",
+    "profile_update_description": "Все изменения вступят в силу после выхода из системы"
+  },
+  "SignIn": {
+    "locale_not_found": "Файл не найден",
+    "login": "Логин",
+    "password": "Пароль",
+    "sign_in": "Войти"
+  }
+}

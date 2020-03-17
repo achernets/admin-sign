@@ -11,7 +11,8 @@ if (typeof Int64 === 'undefined' && typeof require === 'function') {
 HBColumnType = {
   'TEXT' : 0,
   'NUMBER' : 1,
-  'USER_CHOICE' : 2
+  'USER_CHOICE' : 2,
+  'GLOBAL_TEXT' : 3
 };
 ThriftTransportType = {
   'HTTP' : 0,

@@ -1973,6 +1973,7 @@ MrkDigitalSign = class {
     this.clientId = null;
     this.signDetails = null;
     this.signature = null;
+    this.signProviderType = null;
     if (args) {
       if (args.id !== undefined && args.id !== null) {
         this.id = args.id;
@@ -1991,6 +1992,9 @@ MrkDigitalSign = class {
       }
       if (args.signature !== undefined && args.signature !== null) {
         this.signature = args.signature;
+      }
+      if (args.signProviderType !== undefined && args.signProviderType !== null) {
+        this.signProviderType = args.signProviderType;
       }
     }
   }
@@ -2056,6 +2060,13 @@ MrkDigitalSign = class {
           input.skip(ftype);
         }
         break;
+        case 7:
+        if (ftype == Thrift.Type.I32) {
+          this.signProviderType = input.readI32().value;
+        } else {
+          input.skip(ftype);
+        }
+        break;
         default:
           input.skip(ftype);
       }
@@ -2104,6 +2115,11 @@ MrkDigitalSign = class {
       output.writeString(this.signature);
       output.writeFieldEnd();
     }
+    if (this.signProviderType !== null && this.signProviderType !== undefined) {
+      output.writeFieldBegin('signProviderType', Thrift.Type.I32, 7);
+      output.writeI32(this.signProviderType);
+      output.writeFieldEnd();
+    }
     output.writeFieldStop();
     output.writeStructEnd();
     return;
@@ -2124,6 +2140,7 @@ MrkDigitalSignDetails = class {
     this.email = null;
     this.organization = null;
     this.fullName = null;
+    this.bin = null;
     if (args) {
       if (args.id !== undefined && args.id !== null) {
         this.id = args.id;
@@ -2160,6 +2177,9 @@ MrkDigitalSignDetails = class {
       }
       if (args.fullName !== undefined && args.fullName !== null) {
         this.fullName = args.fullName;
+      }
+      if (args.bin !== undefined && args.bin !== null) {
+        this.bin = args.bin;
       }
     }
   }
@@ -2258,6 +2278,13 @@ MrkDigitalSignDetails = class {
           input.skip(ftype);
         }
         break;
+        case 13:
+        if (ftype == Thrift.Type.STRING) {
+          this.bin = input.readString().value;
+        } else {
+          input.skip(ftype);
+        }
+        break;
         default:
           input.skip(ftype);
       }
@@ -2327,6 +2354,11 @@ MrkDigitalSignDetails = class {
     if (this.fullName !== null && this.fullName !== undefined) {
       output.writeFieldBegin('fullName', Thrift.Type.STRING, 12);
       output.writeString(this.fullName);
+      output.writeFieldEnd();
+    }
+    if (this.bin !== null && this.bin !== undefined) {
+      output.writeFieldBegin('bin', Thrift.Type.STRING, 13);
+      output.writeString(this.bin);
       output.writeFieldEnd();
     }
     output.writeFieldStop();
