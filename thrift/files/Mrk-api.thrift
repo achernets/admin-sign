@@ -57,6 +57,7 @@ struct MrkAccount {
   5: bool contragent;
   6: bool blocked;
   7: bool signed;
+  8: MrkDigitalSign digitalSign;
  }
 
 struct MrkClientSession {
@@ -253,7 +254,7 @@ struct MrkHistoryPage {
 
 struct MrkAlmexSysUserPage {
   1: list<MrkAlmexSysUser> almexUsersData;
-    2: i32 count;
+  2: i32 count;
 }
 
 service MrkClientService {
@@ -307,7 +308,24 @@ service MrkClientService {
   bool logout(1: string token) throws (1: ex.PreconditionException validError, 2: ex.ServerException error);
 }
 
-service MrkUserService {
+struct MrkAggregateAccountInfo {
+  1: string id;
+  2: string name;
+  3: string code;
+  4: string accountId;
+  5: bool ogranisation;
+  6: bool confirmed;
+  7: bool contragent;
+  8: bool blocked;
+  9: bool signed;
+}
+
+struct MrkAggregateAccountInfoPage {
+  1: list<MrkAggregateAccountInfo> aggregateAccountData;
+  2: i32 count;
+}
+
+service MrkAdminService {
   MrkUserSession authMrkUser(1: string login; 2: string password, 3: string ip, 4: string langCode, 5: i32 cacheVersion) throws (1: ex.PreconditionException validError, 2: ex.ServerException error);
   MrkUserSession refreshMrkUserSession(1: common.AuthTokenBase64 token) throws (1: ex.PreconditionException validError, 2: ex.ServerException error);
 
@@ -318,14 +336,16 @@ service MrkUserService {
   list<MrkClient> getAllMrkClients(1: string token, 2: filter.KazFilter filter) throws (1: ex.PreconditionException validError, 2: ex.ServerException error);
   i32 getCountAllMrkClients(1: string token, 2: filter.KazFilter filter) throws (1: ex.PreconditionException validError, 2: ex.ServerException error);
 
-  list<MrkAccount> getAllMrkAccounts(1: string token, 2: filter.KazFilter filter) throws (1: ex.PreconditionException validError, 2: ex.ServerException error);
-  i32 getCountAllMrkAccounts(1: string token, 2: filter.KazFilter filter) throws (1: ex.PreconditionException validError, 2: ex.ServerException error);
+  MrkAggregateAccountInfoPage getMrkAggregateAccountInfoPage(1: string token, 2: filter.KazFilter filter) throws (1: ex.PreconditionException validError, 2: ex.ServerException error);
+  MrkAccount getDetailAccountInfo(1: string token, string agregateAccountInfoId) throws (1: ex.PreconditionException validError, 2: ex.ServerException error);
   MrkAccount changeMrkAccount(1: string token, 2:MrkAccount toChange) throws (1: ex.PreconditionException validError, 2: ex.ServerException error);
-
+  
+  MrkAlmexSysUserPage getMrkAlmexSysUserPage(1: string token, 2: filter.KazFilter filter) throws (1: ex.PreconditionException validError, 2: ex.ServerException error);
+  MrkAlmexSysUser changeMrkSysUser(1: string token, 2: MrkAlmexSysUser toUpdate, 3: string password, 4:string idToRemove) throws (1: ex.PreconditionException validError, 2: ex.ServerException error);
+ 
   bool logout(1: string token) throws (1: ex.PreconditionException validError, 2: ex.ServerException error);
 }
 
-service MrkAdminService {
-  MrkAlmexSysUserPage getMrkAlmexSysUserPage(1: string token, 2: filter.KazFilter filter) throws (1: ex.PreconditionException validError, 2: ex.ServerException error);
-  MrkAlmexSysUser changeMrkSysUser(1: string token, 2: MrkAlmexSysUser toUpdate, 3: string password, 4:string idToRemove) throws (1: ex.PreconditionException validError, 2: ex.ServerException error);
+service MrkUserService {
+ 
 }

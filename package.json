@@ -39,7 +39,8 @@
       "FilterFieldType": true,
       "FilterCondition": true,
       "FilterItem": true,
-      "MrkUserSession": true
+      "MrkUserSession": true,
+      "MrkAlmexSysUser": true
     },
     "rules": {
       "react-hooks/exhaustive-deps": "off",

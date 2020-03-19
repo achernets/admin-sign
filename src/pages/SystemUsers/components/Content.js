@@ -2,15 +2,16 @@ import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import Table from 'components/Table';
-import { Checkbox } from 'antd';
-import { getData, remove } from 'redux/actions/systemUsers';
+import { Checkbox, notification } from 'antd';
+import { getData, createOrUpdate, remove } from 'redux/actions/systemUsers';
 import { TABLE_SIZE } from 'constants/table';
 import moment from 'moment';
 import { uniqueId } from 'lodash';
-import { DeleteOutlined } from '@ant-design/icons';
+import { DeleteOutlined, UserAddOutlined } from '@ant-design/icons';
 import { I18n } from 'react-redux-i18n';
-
-const Content = ({ data, count, page = 1, loading, getData, remove }) => {
+import { showModal } from 'react-redux-modal-provider';
+import { MrkAlmexSysUserModal } from 'components/Modals';
+const Content = ({ data, count, page = 1, loading, getData, createOrUpdate, remove }) => {
 
   useEffect(() => {
     getData();
@@ -30,8 +31,17 @@ const Content = ({ data, count, page = 1, loading, getData, remove }) => {
       onChange: getData
     }}
     onRow={(record) => {
+      const key = uniqueId('notification_');
       return {
-        onClick: () => console.log(record)
+        onClick: () => record.deleteDate !== -1 ? notification.info({
+          key: key,
+          duration: 3,
+          message: I18n.t('notification.info'),
+          description: I18n.t('notification.MrkAlmexSysUser_removed', { name: record.login })
+        }) : showModal(MrkAlmexSysUserModal, {
+          entity: record,
+          onOk: createOrUpdate
+        })
       };
     }}
     columns={[
@@ -62,15 +72,27 @@ const Content = ({ data, count, page = 1, loading, getData, remove }) => {
         render: CellChecked
       },
       {
-        title: null,
+        title: () => <UserAddOutlined style={{ cursor: 'pointer' }} />,
         dataIndex: 'deleteDate',
         align: 'center',
         width: 40,
+        onHeaderCell: () => {
+          return {
+            onClick: () => showModal(MrkAlmexSysUserModal, {
+              entity: new MrkAlmexSysUser({
+                login: 'Broker_',
+                contragent: true,
+                confirmed: true
+              }),
+              onOk: createOrUpdate
+            })
+          };
+        },
         onCell: (record) => {
           return {
             onClick: e => {
               e.stopPropagation();
-              remove(record.id)
+              remove(record.id);
             }
           };
         },
@@ -90,6 +112,7 @@ const mapDispatchToProps = dispatch =>
   bindActionCreators(
     {
       getData,
+      createOrUpdate,
       remove
     },
     dispatch

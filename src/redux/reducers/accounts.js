@@ -21,7 +21,7 @@ export default (state = initialState, action) => {
     case GET_DATA_SUCCESS:
       return {
         ...state,
-        data: action.payload.data,
+        data: action.payload.aggregateAccountData,
         count: action.payload.count,
         page: action.payload.page,
         isFetching: false

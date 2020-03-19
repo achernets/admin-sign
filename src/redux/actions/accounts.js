@@ -20,18 +20,16 @@ export const getData = (page = 1) => {
         orders: [],
         items: []
       });
-      const result = await api.MrkUserServiceClient.getAllMrkAccounts(token, filter);
-      const count = await api.MrkUserServiceClient.getCountAllMrkAccounts(token, filter);
+      const result = await api.MrkAdminServiceClient.getMrkAggregateAccountInfoPage(token, filter);
       dispatch({
         type: GET_DATA_SUCCESS,
         payload: {
-          data: result,
-          count: count,
+          ...result,
           page: page
         }
       });
     } catch (error) {
-      notificationError(error, 'getMrkAlmexSysUserPage');
+      notificationError(error, 'getMrkAggregateAccountInfoPage');
       dispatch({ type: GET_DATA_FAILURE });
     }
   };

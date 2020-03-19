@@ -2,6 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { Switch, Route, Redirect } from 'react-router-dom';
 import { ConfigProvider } from 'antd';
+import ModalProvider from 'react-redux-modal-provider';
 import SignIn from 'pages/SignIn';
 import Loader from 'components/Loader';
 import { LayoutApp } from 'components/LayoutApp';
@@ -33,6 +34,7 @@ const App = ({ loading, translations, locale }) => {
           </LayoutApp>
           <Redirect to="/" />
         </Switch>
+        <ModalProvider />
       </ConfigProvider>}
   </>
   );

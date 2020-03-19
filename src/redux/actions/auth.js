@@ -11,7 +11,7 @@ export const login = values => {
         i18n: { locale },
         settings: { APP_VERSION }
       } = getState();
-      const authenticate = await api.MrkUserServiceClient.authMrkUser(
+      const authenticate = await api.MrkAdminServiceClient.authMrkUser(
         values.login,
         values.password,
         null,
@@ -42,7 +42,7 @@ export const logout = () => {
       const {
         auth: { token }
       } = getState();
-      await api.MrkUserServiceClient.logout(token);
+      await api.MrkAdminServiceClient.logout(token);
       localStorage.removeItem('token');
       dispatch({
         type: LOGOUT_SUCCESS

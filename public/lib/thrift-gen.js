@@ -42020,6 +42020,7 @@ MrkAccount = class {
     this.contragent = null;
     this.blocked = null;
     this.signed = null;
+    this.digitalSign = null;
     if (args) {
       if (args.id !== undefined && args.id !== null) {
         this.id = args.id;
@@ -42041,6 +42042,9 @@ MrkAccount = class {
       }
       if (args.signed !== undefined && args.signed !== null) {
         this.signed = args.signed;
+      }
+      if (args.digitalSign !== undefined && args.digitalSign !== null) {
+        this.digitalSign = new MrkDigitalSign(args.digitalSign);
       }
     }
   }
@@ -42114,6 +42118,14 @@ MrkAccount = class {
           input.skip(ftype);
         }
         break;
+        case 8:
+        if (ftype == Thrift.Type.STRUCT) {
+          this.digitalSign = new MrkDigitalSign();
+          this.digitalSign.read(input);
+        } else {
+          input.skip(ftype);
+        }
+        break;
         default:
           input.skip(ftype);
       }
@@ -42165,6 +42177,11 @@ MrkAccount = class {
     if (this.signed !== null && this.signed !== undefined) {
       output.writeFieldBegin('signed', Thrift.Type.BOOL, 7);
       output.writeBool(this.signed);
+      output.writeFieldEnd();
+    }
+    if (this.digitalSign !== null && this.digitalSign !== undefined) {
+      output.writeFieldBegin('digitalSign', Thrift.Type.STRUCT, 8);
+      this.digitalSign.write(output);
       output.writeFieldEnd();
     }
     output.writeFieldStop();
@@ -44402,6 +44419,264 @@ MrkAlmexSysUserPage = class {
   }
 
 };
+MrkAggregateAccountInfo = class {
+  constructor(args) {
+    this.id = null;
+    this.name = null;
+    this.code = null;
+    this.accountId = null;
+    this.ogranisation = null;
+    this.confirmed = null;
+    this.contragent = null;
+    this.blocked = null;
+    this.signed = null;
+    if (args) {
+      if (args.id !== undefined && args.id !== null) {
+        this.id = args.id;
+      }
+      if (args.name !== undefined && args.name !== null) {
+        this.name = args.name;
+      }
+      if (args.code !== undefined && args.code !== null) {
+        this.code = args.code;
+      }
+      if (args.accountId !== undefined && args.accountId !== null) {
+        this.accountId = args.accountId;
+      }
+      if (args.ogranisation !== undefined && args.ogranisation !== null) {
+        this.ogranisation = args.ogranisation;
+      }
+      if (args.confirmed !== undefined && args.confirmed !== null) {
+        this.confirmed = args.confirmed;
+      }
+      if (args.contragent !== undefined && args.contragent !== null) {
+        this.contragent = args.contragent;
+      }
+      if (args.blocked !== undefined && args.blocked !== null) {
+        this.blocked = args.blocked;
+      }
+      if (args.signed !== undefined && args.signed !== null) {
+        this.signed = args.signed;
+      }
+    }
+  }
+
+  read (input) {
+    input.readStructBegin();
+    while (true) {
+      const ret = input.readFieldBegin();
+      const ftype = ret.ftype;
+      const fid = ret.fid;
+      if (ftype == Thrift.Type.STOP) {
+        break;
+      }
+      switch (fid) {
+        case 1:
+        if (ftype == Thrift.Type.STRING) {
+          this.id = input.readString().value;
+        } else {
+          input.skip(ftype);
+        }
+        break;
+        case 2:
+        if (ftype == Thrift.Type.STRING) {
+          this.name = input.readString().value;
+        } else {
+          input.skip(ftype);
+        }
+        break;
+        case 3:
+        if (ftype == Thrift.Type.STRING) {
+          this.code = input.readString().value;
+        } else {
+          input.skip(ftype);
+        }
+        break;
+        case 4:
+        if (ftype == Thrift.Type.STRING) {
+          this.accountId = input.readString().value;
+        } else {
+          input.skip(ftype);
+        }
+        break;
+        case 5:
+        if (ftype == Thrift.Type.BOOL) {
+          this.ogranisation = input.readBool().value;
+        } else {
+          input.skip(ftype);
+        }
+        break;
+        case 6:
+        if (ftype == Thrift.Type.BOOL) {
+          this.confirmed = input.readBool().value;
+        } else {
+          input.skip(ftype);
+        }
+        break;
+        case 7:
+        if (ftype == Thrift.Type.BOOL) {
+          this.contragent = input.readBool().value;
+        } else {
+          input.skip(ftype);
+        }
+        break;
+        case 8:
+        if (ftype == Thrift.Type.BOOL) {
+          this.blocked = input.readBool().value;
+        } else {
+          input.skip(ftype);
+        }
+        break;
+        case 9:
+        if (ftype == Thrift.Type.BOOL) {
+          this.signed = input.readBool().value;
+        } else {
+          input.skip(ftype);
+        }
+        break;
+        default:
+          input.skip(ftype);
+      }
+      input.readFieldEnd();
+    }
+    input.readStructEnd();
+    return;
+  }
+
+  write (output) {
+    output.writeStructBegin('MrkAggregateAccountInfo');
+    if (this.id !== null && this.id !== undefined) {
+      output.writeFieldBegin('id', Thrift.Type.STRING, 1);
+      output.writeString(this.id);
+      output.writeFieldEnd();
+    }
+    if (this.name !== null && this.name !== undefined) {
+      output.writeFieldBegin('name', Thrift.Type.STRING, 2);
+      output.writeString(this.name);
+      output.writeFieldEnd();
+    }
+    if (this.code !== null && this.code !== undefined) {
+      output.writeFieldBegin('code', Thrift.Type.STRING, 3);
+      output.writeString(this.code);
+      output.writeFieldEnd();
+    }
+    if (this.accountId !== null && this.accountId !== undefined) {
+      output.writeFieldBegin('accountId', Thrift.Type.STRING, 4);
+      output.writeString(this.accountId);
+      output.writeFieldEnd();
+    }
+    if (this.ogranisation !== null && this.ogranisation !== undefined) {
+      output.writeFieldBegin('ogranisation', Thrift.Type.BOOL, 5);
+      output.writeBool(this.ogranisation);
+      output.writeFieldEnd();
+    }
+    if (this.confirmed !== null && this.confirmed !== undefined) {
+      output.writeFieldBegin('confirmed', Thrift.Type.BOOL, 6);
+      output.writeBool(this.confirmed);
+      output.writeFieldEnd();
+    }
+    if (this.contragent !== null && this.contragent !== undefined) {
+      output.writeFieldBegin('contragent', Thrift.Type.BOOL, 7);
+      output.writeBool(this.contragent);
+      output.writeFieldEnd();
+    }
+    if (this.blocked !== null && this.blocked !== undefined) {
+      output.writeFieldBegin('blocked', Thrift.Type.BOOL, 8);
+      output.writeBool(this.blocked);
+      output.writeFieldEnd();
+    }
+    if (this.signed !== null && this.signed !== undefined) {
+      output.writeFieldBegin('signed', Thrift.Type.BOOL, 9);
+      output.writeBool(this.signed);
+      output.writeFieldEnd();
+    }
+    output.writeFieldStop();
+    output.writeStructEnd();
+    return;
+  }
+
+};
+MrkAggregateAccountInfoPage = class {
+  constructor(args) {
+    this.aggregateAccountData = null;
+    this.count = null;
+    if (args) {
+      if (args.aggregateAccountData !== undefined && args.aggregateAccountData !== null) {
+        this.aggregateAccountData = Thrift.copyList(args.aggregateAccountData, [MrkAggregateAccountInfo]);
+      }
+      if (args.count !== undefined && args.count !== null) {
+        this.count = args.count;
+      }
+    }
+  }
+
+  read (input) {
+    input.readStructBegin();
+    while (true) {
+      const ret = input.readFieldBegin();
+      const ftype = ret.ftype;
+      const fid = ret.fid;
+      if (ftype == Thrift.Type.STOP) {
+        break;
+      }
+      switch (fid) {
+        case 1:
+        if (ftype == Thrift.Type.LIST) {
+          this.aggregateAccountData = [];
+          const _rtmp351 = input.readListBegin();
+          const _size50 = _rtmp351.size || 0;
+          for (let _i52 = 0; _i52 < _size50; ++_i52) {
+            let elem53 = null;
+            elem53 = new MrkAggregateAccountInfo();
+            elem53.read(input);
+            this.aggregateAccountData.push(elem53);
+          }
+          input.readListEnd();
+        } else {
+          input.skip(ftype);
+        }
+        break;
+        case 2:
+        if (ftype == Thrift.Type.I32) {
+          this.count = input.readI32().value;
+        } else {
+          input.skip(ftype);
+        }
+        break;
+        default:
+          input.skip(ftype);
+      }
+      input.readFieldEnd();
+    }
+    input.readStructEnd();
+    return;
+  }
+
+  write (output) {
+    output.writeStructBegin('MrkAggregateAccountInfoPage');
+    if (this.aggregateAccountData !== null && this.aggregateAccountData !== undefined) {
+      output.writeFieldBegin('aggregateAccountData', Thrift.Type.LIST, 1);
+      output.writeListBegin(Thrift.Type.STRUCT, this.aggregateAccountData.length);
+      for (let iter54 in this.aggregateAccountData) {
+        if (this.aggregateAccountData.hasOwnProperty(iter54)) {
+          iter54 = this.aggregateAccountData[iter54];
+          iter54.write(output);
+        }
+      }
+      output.writeListEnd();
+      output.writeFieldEnd();
+    }
+    if (this.count !== null && this.count !== undefined) {
+      output.writeFieldBegin('count', Thrift.Type.I32, 2);
+      output.writeI32(this.count);
+      output.writeFieldEnd();
+    }
+    output.writeFieldStop();
+    output.writeStructEnd();
+    return;
+  }
+
+};
 MRK_CURRENT_VERSION = 'mrk-1.0.1';
 //
 // Autogenerated by Thrift Compiler (0.13.0)
@@ -44415,6 +44690,1506 @@ if (typeof Int64 === 'undefined' && typeof require === 'function') {
 
 //HELPER FUNCTIONS AND STRUCTURES
 
+MrkAdminService_authMrkUser_args = class {
+  constructor(args) {
+    this.login = null;
+    this.password = null;
+    this.ip = null;
+    this.langCode = null;
+    this.cacheVersion = null;
+    if (args) {
+      if (args.login !== undefined && args.login !== null) {
+        this.login = args.login;
+      }
+      if (args.password !== undefined && args.password !== null) {
+        this.password = args.password;
+      }
+      if (args.ip !== undefined && args.ip !== null) {
+        this.ip = args.ip;
+      }
+      if (args.langCode !== undefined && args.langCode !== null) {
+        this.langCode = args.langCode;
+      }
+      if (args.cacheVersion !== undefined && args.cacheVersion !== null) {
+        this.cacheVersion = args.cacheVersion;
+      }
+    }
+  }
+
+  read (input) {
+    input.readStructBegin();
+    while (true) {
+      const ret = input.readFieldBegin();
+      const ftype = ret.ftype;
+      const fid = ret.fid;
+      if (ftype == Thrift.Type.STOP) {
+        break;
+      }
+      switch (fid) {
+        case 1:
+        if (ftype == Thrift.Type.STRING) {
+          this.login = input.readString().value;
+        } else {
+          input.skip(ftype);
+        }
+        break;
+        case 2:
+        if (ftype == Thrift.Type.STRING) {
+          this.password = input.readString().value;
+        } else {
+          input.skip(ftype);
+        }
+        break;
+        case 3:
+        if (ftype == Thrift.Type.STRING) {
+          this.ip = input.readString().value;
+        } else {
+          input.skip(ftype);
+        }
+        break;
+        case 4:
+        if (ftype == Thrift.Type.STRING) {
+          this.langCode = input.readString().value;
+        } else {
+          input.skip(ftype);
+        }
+        break;
+        case 5:
+        if (ftype == Thrift.Type.I32) {
+          this.cacheVersion = input.readI32().value;
+        } else {
+          input.skip(ftype);
+        }
+        break;
+        default:
+          input.skip(ftype);
+      }
+      input.readFieldEnd();
+    }
+    input.readStructEnd();
+    return;
+  }
+
+  write (output) {
+    output.writeStructBegin('MrkAdminService_authMrkUser_args');
+    if (this.login !== null && this.login !== undefined) {
+      output.writeFieldBegin('login', Thrift.Type.STRING, 1);
+      output.writeString(this.login);
+      output.writeFieldEnd();
+    }
+    if (this.password !== null && this.password !== undefined) {
+      output.writeFieldBegin('password', Thrift.Type.STRING, 2);
+      output.writeString(this.password);
+      output.writeFieldEnd();
+    }
+    if (this.ip !== null && this.ip !== undefined) {
+      output.writeFieldBegin('ip', Thrift.Type.STRING, 3);
+      output.writeString(this.ip);
+      output.writeFieldEnd();
+    }
+    if (this.langCode !== null && this.langCode !== undefined) {
+      output.writeFieldBegin('langCode', Thrift.Type.STRING, 4);
+      output.writeString(this.langCode);
+      output.writeFieldEnd();
+    }
+    if (this.cacheVersion !== null && this.cacheVersion !== undefined) {
+      output.writeFieldBegin('cacheVersion', Thrift.Type.I32, 5);
+      output.writeI32(this.cacheVersion);
+      output.writeFieldEnd();
+    }
+    output.writeFieldStop();
+    output.writeStructEnd();
+    return;
+  }
+
+};
+MrkAdminService_authMrkUser_result = class {
+  constructor(args) {
+    this.success = null;
+    this.validError = null;
+    this.error = null;
+    if (args instanceof PreconditionException) {
+        this.validError = args;
+        return;
+    }
+    if (args instanceof ServerException) {
+        this.error = args;
+        return;
+    }
+    if (args) {
+      if (args.success !== undefined && args.success !== null) {
+        this.success = new MrkUserSession(args.success);
+      }
+      if (args.validError !== undefined && args.validError !== null) {
+        this.validError = args.validError;
+      }
+      if (args.error !== undefined && args.error !== null) {
+        this.error = args.error;
+      }
+    }
+  }
+
+  read (input) {
+    input.readStructBegin();
+    while (true) {
+      const ret = input.readFieldBegin();
+      const ftype = ret.ftype;
+      const fid = ret.fid;
+      if (ftype == Thrift.Type.STOP) {
+        break;
+      }
+      switch (fid) {
+        case 0:
+        if (ftype == Thrift.Type.STRUCT) {
+          this.success = new MrkUserSession();
+          this.success.read(input);
+        } else {
+          input.skip(ftype);
+        }
+        break;
+        case 1:
+        if (ftype == Thrift.Type.STRUCT) {
+          this.validError = new PreconditionException();
+          this.validError.read(input);
+        } else {
+          input.skip(ftype);
+        }
+        break;
+        case 2:
+        if (ftype == Thrift.Type.STRUCT) {
+          this.error = new ServerException();
+          this.error.read(input);
+        } else {
+          input.skip(ftype);
+        }
+        break;
+        default:
+          input.skip(ftype);
+      }
+      input.readFieldEnd();
+    }
+    input.readStructEnd();
+    return;
+  }
+
+  write (output) {
+    output.writeStructBegin('MrkAdminService_authMrkUser_result');
+    if (this.success !== null && this.success !== undefined) {
+      output.writeFieldBegin('success', Thrift.Type.STRUCT, 0);
+      this.success.write(output);
+      output.writeFieldEnd();
+    }
+    if (this.validError !== null && this.validError !== undefined) {
+      output.writeFieldBegin('validError', Thrift.Type.STRUCT, 1);
+      this.validError.write(output);
+      output.writeFieldEnd();
+    }
+    if (this.error !== null && this.error !== undefined) {
+      output.writeFieldBegin('error', Thrift.Type.STRUCT, 2);
+      this.error.write(output);
+      output.writeFieldEnd();
+    }
+    output.writeFieldStop();
+    output.writeStructEnd();
+    return;
+  }
+
+};
+MrkAdminService_refreshMrkUserSession_args = class {
+  constructor(args) {
+    this.token = null;
+    if (args) {
+      if (args.token !== undefined && args.token !== null) {
+        this.token = args.token;
+      }
+    }
+  }
+
+  read (input) {
+    input.readStructBegin();
+    while (true) {
+      const ret = input.readFieldBegin();
+      const ftype = ret.ftype;
+      const fid = ret.fid;
+      if (ftype == Thrift.Type.STOP) {
+        break;
+      }
+      switch (fid) {
+        case 1:
+        if (ftype == Thrift.Type.STRING) {
+          this.token = input.readString().value;
+        } else {
+          input.skip(ftype);
+        }
+        break;
+        case 0:
+          input.skip(ftype);
+          break;
+        default:
+          input.skip(ftype);
+      }
+      input.readFieldEnd();
+    }
+    input.readStructEnd();
+    return;
+  }
+
+  write (output) {
+    output.writeStructBegin('MrkAdminService_refreshMrkUserSession_args');
+    if (this.token !== null && this.token !== undefined) {
+      output.writeFieldBegin('token', Thrift.Type.STRING, 1);
+      output.writeString(this.token);
+      output.writeFieldEnd();
+    }
+    output.writeFieldStop();
+    output.writeStructEnd();
+    return;
+  }
+
+};
+MrkAdminService_refreshMrkUserSession_result = class {
+  constructor(args) {
+    this.success = null;
+    this.validError = null;
+    this.error = null;
+    if (args instanceof PreconditionException) {
+        this.validError = args;
+        return;
+    }
+    if (args instanceof ServerException) {
+        this.error = args;
+        return;
+    }
+    if (args) {
+      if (args.success !== undefined && args.success !== null) {
+        this.success = new MrkUserSession(args.success);
+      }
+      if (args.validError !== undefined && args.validError !== null) {
+        this.validError = args.validError;
+      }
+      if (args.error !== undefined && args.error !== null) {
+        this.error = args.error;
+      }
+    }
+  }
+
+  read (input) {
+    input.readStructBegin();
+    while (true) {
+      const ret = input.readFieldBegin();
+      const ftype = ret.ftype;
+      const fid = ret.fid;
+      if (ftype == Thrift.Type.STOP) {
+        break;
+      }
+      switch (fid) {
+        case 0:
+        if (ftype == Thrift.Type.STRUCT) {
+          this.success = new MrkUserSession();
+          this.success.read(input);
+        } else {
+          input.skip(ftype);
+        }
+        break;
+        case 1:
+        if (ftype == Thrift.Type.STRUCT) {
+          this.validError = new PreconditionException();
+          this.validError.read(input);
+        } else {
+          input.skip(ftype);
+        }
+        break;
+        case 2:
+        if (ftype == Thrift.Type.STRUCT) {
+          this.error = new ServerException();
+          this.error.read(input);
+        } else {
+          input.skip(ftype);
+        }
+        break;
+        default:
+          input.skip(ftype);
+      }
+      input.readFieldEnd();
+    }
+    input.readStructEnd();
+    return;
+  }
+
+  write (output) {
+    output.writeStructBegin('MrkAdminService_refreshMrkUserSession_result');
+    if (this.success !== null && this.success !== undefined) {
+      output.writeFieldBegin('success', Thrift.Type.STRUCT, 0);
+      this.success.write(output);
+      output.writeFieldEnd();
+    }
+    if (this.validError !== null && this.validError !== undefined) {
+      output.writeFieldBegin('validError', Thrift.Type.STRUCT, 1);
+      this.validError.write(output);
+      output.writeFieldEnd();
+    }
+    if (this.error !== null && this.error !== undefined) {
+      output.writeFieldBegin('error', Thrift.Type.STRUCT, 2);
+      this.error.write(output);
+      output.writeFieldEnd();
+    }
+    output.writeFieldStop();
+    output.writeStructEnd();
+    return;
+  }
+
+};
+MrkAdminService_getMrkUserPage_args = class {
+  constructor(args) {
+    this.token = null;
+    this.filter = null;
+    if (args) {
+      if (args.token !== undefined && args.token !== null) {
+        this.token = args.token;
+      }
+      if (args.filter !== undefined && args.filter !== null) {
+        this.filter = new KazFilter(args.filter);
+      }
+    }
+  }
+
+  read (input) {
+    input.readStructBegin();
+    while (true) {
+      const ret = input.readFieldBegin();
+      const ftype = ret.ftype;
+      const fid = ret.fid;
+      if (ftype == Thrift.Type.STOP) {
+        break;
+      }
+      switch (fid) {
+        case 1:
+        if (ftype == Thrift.Type.STRING) {
+          this.token = input.readString().value;
+        } else {
+          input.skip(ftype);
+        }
+        break;
+        case 2:
+        if (ftype == Thrift.Type.STRUCT) {
+          this.filter = new KazFilter();
+          this.filter.read(input);
+        } else {
+          input.skip(ftype);
+        }
+        break;
+        default:
+          input.skip(ftype);
+      }
+      input.readFieldEnd();
+    }
+    input.readStructEnd();
+    return;
+  }
+
+  write (output) {
+    output.writeStructBegin('MrkAdminService_getMrkUserPage_args');
+    if (this.token !== null && this.token !== undefined) {
+      output.writeFieldBegin('token', Thrift.Type.STRING, 1);
+      output.writeString(this.token);
+      output.writeFieldEnd();
+    }
+    if (this.filter !== null && this.filter !== undefined) {
+      output.writeFieldBegin('filter', Thrift.Type.STRUCT, 2);
+      this.filter.write(output);
+      output.writeFieldEnd();
+    }
+    output.writeFieldStop();
+    output.writeStructEnd();
+    return;
+  }
+
+};
+MrkAdminService_getMrkUserPage_result = class {
+  constructor(args) {
+    this.success = null;
+    this.validError = null;
+    this.error = null;
+    if (args instanceof PreconditionException) {
+        this.validError = args;
+        return;
+    }
+    if (args instanceof ServerException) {
+        this.error = args;
+        return;
+    }
+    if (args) {
+      if (args.success !== undefined && args.success !== null) {
+        this.success = new MrkUserPage(args.success);
+      }
+      if (args.validError !== undefined && args.validError !== null) {
+        this.validError = args.validError;
+      }
+      if (args.error !== undefined && args.error !== null) {
+        this.error = args.error;
+      }
+    }
+  }
+
+  read (input) {
+    input.readStructBegin();
+    while (true) {
+      const ret = input.readFieldBegin();
+      const ftype = ret.ftype;
+      const fid = ret.fid;
+      if (ftype == Thrift.Type.STOP) {
+        break;
+      }
+      switch (fid) {
+        case 0:
+        if (ftype == Thrift.Type.STRUCT) {
+          this.success = new MrkUserPage();
+          this.success.read(input);
+        } else {
+          input.skip(ftype);
+        }
+        break;
+        case 1:
+        if (ftype == Thrift.Type.STRUCT) {
+          this.validError = new PreconditionException();
+          this.validError.read(input);
+        } else {
+          input.skip(ftype);
+        }
+        break;
+        case 2:
+        if (ftype == Thrift.Type.STRUCT) {
+          this.error = new ServerException();
+          this.error.read(input);
+        } else {
+          input.skip(ftype);
+        }
+        break;
+        default:
+          input.skip(ftype);
+      }
+      input.readFieldEnd();
+    }
+    input.readStructEnd();
+    return;
+  }
+
+  write (output) {
+    output.writeStructBegin('MrkAdminService_getMrkUserPage_result');
+    if (this.success !== null && this.success !== undefined) {
+      output.writeFieldBegin('success', Thrift.Type.STRUCT, 0);
+      this.success.write(output);
+      output.writeFieldEnd();
+    }
+    if (this.validError !== null && this.validError !== undefined) {
+      output.writeFieldBegin('validError', Thrift.Type.STRUCT, 1);
+      this.validError.write(output);
+      output.writeFieldEnd();
+    }
+    if (this.error !== null && this.error !== undefined) {
+      output.writeFieldBegin('error', Thrift.Type.STRUCT, 2);
+      this.error.write(output);
+      output.writeFieldEnd();
+    }
+    output.writeFieldStop();
+    output.writeStructEnd();
+    return;
+  }
+
+};
+MrkAdminService_changeMrkUser_args = class {
+  constructor(args) {
+    this.token = null;
+    this.toUpdate = null;
+    this.password = null;
+    this.idToRemove = null;
+    if (args) {
+      if (args.token !== undefined && args.token !== null) {
+        this.token = args.token;
+      }
+      if (args.toUpdate !== undefined && args.toUpdate !== null) {
+        this.toUpdate = new MrkUser(args.toUpdate);
+      }
+      if (args.password !== undefined && args.password !== null) {
+        this.password = args.password;
+      }
+      if (args.idToRemove !== undefined && args.idToRemove !== null) {
+        this.idToRemove = args.idToRemove;
+      }
+    }
+  }
+
+  read (input) {
+    input.readStructBegin();
+    while (true) {
+      const ret = input.readFieldBegin();
+      const ftype = ret.ftype;
+      const fid = ret.fid;
+      if (ftype == Thrift.Type.STOP) {
+        break;
+      }
+      switch (fid) {
+        case 1:
+        if (ftype == Thrift.Type.STRING) {
+          this.token = input.readString().value;
+        } else {
+          input.skip(ftype);
+        }
+        break;
+        case 2:
+        if (ftype == Thrift.Type.STRUCT) {
+          this.toUpdate = new MrkUser();
+          this.toUpdate.read(input);
+        } else {
+          input.skip(ftype);
+        }
+        break;
+        case 3:
+        if (ftype == Thrift.Type.STRING) {
+          this.password = input.readString().value;
+        } else {
+          input.skip(ftype);
+        }
+        break;
+        case 4:
+        if (ftype == Thrift.Type.STRING) {
+          this.idToRemove = input.readString().value;
+        } else {
+          input.skip(ftype);
+        }
+        break;
+        default:
+          input.skip(ftype);
+      }
+      input.readFieldEnd();
+    }
+    input.readStructEnd();
+    return;
+  }
+
+  write (output) {
+    output.writeStructBegin('MrkAdminService_changeMrkUser_args');
+    if (this.token !== null && this.token !== undefined) {
+      output.writeFieldBegin('token', Thrift.Type.STRING, 1);
+      output.writeString(this.token);
+      output.writeFieldEnd();
+    }
+    if (this.toUpdate !== null && this.toUpdate !== undefined) {
+      output.writeFieldBegin('toUpdate', Thrift.Type.STRUCT, 2);
+      this.toUpdate.write(output);
+      output.writeFieldEnd();
+    }
+    if (this.password !== null && this.password !== undefined) {
+      output.writeFieldBegin('password', Thrift.Type.STRING, 3);
+      output.writeString(this.password);
+      output.writeFieldEnd();
+    }
+    if (this.idToRemove !== null && this.idToRemove !== undefined) {
+      output.writeFieldBegin('idToRemove', Thrift.Type.STRING, 4);
+      output.writeString(this.idToRemove);
+      output.writeFieldEnd();
+    }
+    output.writeFieldStop();
+    output.writeStructEnd();
+    return;
+  }
+
+};
+MrkAdminService_changeMrkUser_result = class {
+  constructor(args) {
+    this.success = null;
+    this.validError = null;
+    this.error = null;
+    if (args instanceof PreconditionException) {
+        this.validError = args;
+        return;
+    }
+    if (args instanceof ServerException) {
+        this.error = args;
+        return;
+    }
+    if (args) {
+      if (args.success !== undefined && args.success !== null) {
+        this.success = new MrkUser(args.success);
+      }
+      if (args.validError !== undefined && args.validError !== null) {
+        this.validError = args.validError;
+      }
+      if (args.error !== undefined && args.error !== null) {
+        this.error = args.error;
+      }
+    }
+  }
+
+  read (input) {
+    input.readStructBegin();
+    while (true) {
+      const ret = input.readFieldBegin();
+      const ftype = ret.ftype;
+      const fid = ret.fid;
+      if (ftype == Thrift.Type.STOP) {
+        break;
+      }
+      switch (fid) {
+        case 0:
+        if (ftype == Thrift.Type.STRUCT) {
+          this.success = new MrkUser();
+          this.success.read(input);
+        } else {
+          input.skip(ftype);
+        }
+        break;
+        case 1:
+        if (ftype == Thrift.Type.STRUCT) {
+          this.validError = new PreconditionException();
+          this.validError.read(input);
+        } else {
+          input.skip(ftype);
+        }
+        break;
+        case 2:
+        if (ftype == Thrift.Type.STRUCT) {
+          this.error = new ServerException();
+          this.error.read(input);
+        } else {
+          input.skip(ftype);
+        }
+        break;
+        default:
+          input.skip(ftype);
+      }
+      input.readFieldEnd();
+    }
+    input.readStructEnd();
+    return;
+  }
+
+  write (output) {
+    output.writeStructBegin('MrkAdminService_changeMrkUser_result');
+    if (this.success !== null && this.success !== undefined) {
+      output.writeFieldBegin('success', Thrift.Type.STRUCT, 0);
+      this.success.write(output);
+      output.writeFieldEnd();
+    }
+    if (this.validError !== null && this.validError !== undefined) {
+      output.writeFieldBegin('validError', Thrift.Type.STRUCT, 1);
+      this.validError.write(output);
+      output.writeFieldEnd();
+    }
+    if (this.error !== null && this.error !== undefined) {
+      output.writeFieldBegin('error', Thrift.Type.STRUCT, 2);
+      this.error.write(output);
+      output.writeFieldEnd();
+    }
+    output.writeFieldStop();
+    output.writeStructEnd();
+    return;
+  }
+
+};
+MrkAdminService_getAllMrkClients_args = class {
+  constructor(args) {
+    this.token = null;
+    this.filter = null;
+    if (args) {
+      if (args.token !== undefined && args.token !== null) {
+        this.token = args.token;
+      }
+      if (args.filter !== undefined && args.filter !== null) {
+        this.filter = new KazFilter(args.filter);
+      }
+    }
+  }
+
+  read (input) {
+    input.readStructBegin();
+    while (true) {
+      const ret = input.readFieldBegin();
+      const ftype = ret.ftype;
+      const fid = ret.fid;
+      if (ftype == Thrift.Type.STOP) {
+        break;
+      }
+      switch (fid) {
+        case 1:
+        if (ftype == Thrift.Type.STRING) {
+          this.token = input.readString().value;
+        } else {
+          input.skip(ftype);
+        }
+        break;
+        case 2:
+        if (ftype == Thrift.Type.STRUCT) {
+          this.filter = new KazFilter();
+          this.filter.read(input);
+        } else {
+          input.skip(ftype);
+        }
+        break;
+        default:
+          input.skip(ftype);
+      }
+      input.readFieldEnd();
+    }
+    input.readStructEnd();
+    return;
+  }
+
+  write (output) {
+    output.writeStructBegin('MrkAdminService_getAllMrkClients_args');
+    if (this.token !== null && this.token !== undefined) {
+      output.writeFieldBegin('token', Thrift.Type.STRING, 1);
+      output.writeString(this.token);
+      output.writeFieldEnd();
+    }
+    if (this.filter !== null && this.filter !== undefined) {
+      output.writeFieldBegin('filter', Thrift.Type.STRUCT, 2);
+      this.filter.write(output);
+      output.writeFieldEnd();
+    }
+    output.writeFieldStop();
+    output.writeStructEnd();
+    return;
+  }
+
+};
+MrkAdminService_getAllMrkClients_result = class {
+  constructor(args) {
+    this.success = null;
+    this.validError = null;
+    this.error = null;
+    if (args instanceof PreconditionException) {
+        this.validError = args;
+        return;
+    }
+    if (args instanceof ServerException) {
+        this.error = args;
+        return;
+    }
+    if (args) {
+      if (args.success !== undefined && args.success !== null) {
+        this.success = Thrift.copyList(args.success, [MrkClient]);
+      }
+      if (args.validError !== undefined && args.validError !== null) {
+        this.validError = args.validError;
+      }
+      if (args.error !== undefined && args.error !== null) {
+        this.error = args.error;
+      }
+    }
+  }
+
+  read (input) {
+    input.readStructBegin();
+    while (true) {
+      const ret = input.readFieldBegin();
+      const ftype = ret.ftype;
+      const fid = ret.fid;
+      if (ftype == Thrift.Type.STOP) {
+        break;
+      }
+      switch (fid) {
+        case 0:
+        if (ftype == Thrift.Type.LIST) {
+          this.success = [];
+          const _rtmp397 = input.readListBegin();
+          const _size96 = _rtmp397.size || 0;
+          for (let _i98 = 0; _i98 < _size96; ++_i98) {
+            let elem99 = null;
+            elem99 = new MrkClient();
+            elem99.read(input);
+            this.success.push(elem99);
+          }
+          input.readListEnd();
+        } else {
+          input.skip(ftype);
+        }
+        break;
+        case 1:
+        if (ftype == Thrift.Type.STRUCT) {
+          this.validError = new PreconditionException();
+          this.validError.read(input);
+        } else {
+          input.skip(ftype);
+        }
+        break;
+        case 2:
+        if (ftype == Thrift.Type.STRUCT) {
+          this.error = new ServerException();
+          this.error.read(input);
+        } else {
+          input.skip(ftype);
+        }
+        break;
+        default:
+          input.skip(ftype);
+      }
+      input.readFieldEnd();
+    }
+    input.readStructEnd();
+    return;
+  }
+
+  write (output) {
+    output.writeStructBegin('MrkAdminService_getAllMrkClients_result');
+    if (this.success !== null && this.success !== undefined) {
+      output.writeFieldBegin('success', Thrift.Type.LIST, 0);
+      output.writeListBegin(Thrift.Type.STRUCT, this.success.length);
+      for (let iter100 in this.success) {
+        if (this.success.hasOwnProperty(iter100)) {
+          iter100 = this.success[iter100];
+          iter100.write(output);
+        }
+      }
+      output.writeListEnd();
+      output.writeFieldEnd();
+    }
+    if (this.validError !== null && this.validError !== undefined) {
+      output.writeFieldBegin('validError', Thrift.Type.STRUCT, 1);
+      this.validError.write(output);
+      output.writeFieldEnd();
+    }
+    if (this.error !== null && this.error !== undefined) {
+      output.writeFieldBegin('error', Thrift.Type.STRUCT, 2);
+      this.error.write(output);
+      output.writeFieldEnd();
+    }
+    output.writeFieldStop();
+    output.writeStructEnd();
+    return;
+  }
+
+};
+MrkAdminService_getCountAllMrkClients_args = class {
+  constructor(args) {
+    this.token = null;
+    this.filter = null;
+    if (args) {
+      if (args.token !== undefined && args.token !== null) {
+        this.token = args.token;
+      }
+      if (args.filter !== undefined && args.filter !== null) {
+        this.filter = new KazFilter(args.filter);
+      }
+    }
+  }
+
+  read (input) {
+    input.readStructBegin();
+    while (true) {
+      const ret = input.readFieldBegin();
+      const ftype = ret.ftype;
+      const fid = ret.fid;
+      if (ftype == Thrift.Type.STOP) {
+        break;
+      }
+      switch (fid) {
+        case 1:
+        if (ftype == Thrift.Type.STRING) {
+          this.token = input.readString().value;
+        } else {
+          input.skip(ftype);
+        }
+        break;
+        case 2:
+        if (ftype == Thrift.Type.STRUCT) {
+          this.filter = new KazFilter();
+          this.filter.read(input);
+        } else {
+          input.skip(ftype);
+        }
+        break;
+        default:
+          input.skip(ftype);
+      }
+      input.readFieldEnd();
+    }
+    input.readStructEnd();
+    return;
+  }
+
+  write (output) {
+    output.writeStructBegin('MrkAdminService_getCountAllMrkClients_args');
+    if (this.token !== null && this.token !== undefined) {
+      output.writeFieldBegin('token', Thrift.Type.STRING, 1);
+      output.writeString(this.token);
+      output.writeFieldEnd();
+    }
+    if (this.filter !== null && this.filter !== undefined) {
+      output.writeFieldBegin('filter', Thrift.Type.STRUCT, 2);
+      this.filter.write(output);
+      output.writeFieldEnd();
+    }
+    output.writeFieldStop();
+    output.writeStructEnd();
+    return;
+  }
+
+};
+MrkAdminService_getCountAllMrkClients_result = class {
+  constructor(args) {
+    this.success = null;
+    this.validError = null;
+    this.error = null;
+    if (args instanceof PreconditionException) {
+        this.validError = args;
+        return;
+    }
+    if (args instanceof ServerException) {
+        this.error = args;
+        return;
+    }
+    if (args) {
+      if (args.success !== undefined && args.success !== null) {
+        this.success = args.success;
+      }
+      if (args.validError !== undefined && args.validError !== null) {
+        this.validError = args.validError;
+      }
+      if (args.error !== undefined && args.error !== null) {
+        this.error = args.error;
+      }
+    }
+  }
+
+  read (input) {
+    input.readStructBegin();
+    while (true) {
+      const ret = input.readFieldBegin();
+      const ftype = ret.ftype;
+      const fid = ret.fid;
+      if (ftype == Thrift.Type.STOP) {
+        break;
+      }
+      switch (fid) {
+        case 0:
+        if (ftype == Thrift.Type.I32) {
+          this.success = input.readI32().value;
+        } else {
+          input.skip(ftype);
+        }
+        break;
+        case 1:
+        if (ftype == Thrift.Type.STRUCT) {
+          this.validError = new PreconditionException();
+          this.validError.read(input);
+        } else {
+          input.skip(ftype);
+        }
+        break;
+        case 2:
+        if (ftype == Thrift.Type.STRUCT) {
+          this.error = new ServerException();
+          this.error.read(input);
+        } else {
+          input.skip(ftype);
+        }
+        break;
+        default:
+          input.skip(ftype);
+      }
+      input.readFieldEnd();
+    }
+    input.readStructEnd();
+    return;
+  }
+
+  write (output) {
+    output.writeStructBegin('MrkAdminService_getCountAllMrkClients_result');
+    if (this.success !== null && this.success !== undefined) {
+      output.writeFieldBegin('success', Thrift.Type.I32, 0);
+      output.writeI32(this.success);
+      output.writeFieldEnd();
+    }
+    if (this.validError !== null && this.validError !== undefined) {
+      output.writeFieldBegin('validError', Thrift.Type.STRUCT, 1);
+      this.validError.write(output);
+      output.writeFieldEnd();
+    }
+    if (this.error !== null && this.error !== undefined) {
+      output.writeFieldBegin('error', Thrift.Type.STRUCT, 2);
+      this.error.write(output);
+      output.writeFieldEnd();
+    }
+    output.writeFieldStop();
+    output.writeStructEnd();
+    return;
+  }
+
+};
+MrkAdminService_getMrkAggregateAccountInfoPage_args = class {
+  constructor(args) {
+    this.token = null;
+    this.filter = null;
+    if (args) {
+      if (args.token !== undefined && args.token !== null) {
+        this.token = args.token;
+      }
+      if (args.filter !== undefined && args.filter !== null) {
+        this.filter = new KazFilter(args.filter);
+      }
+    }
+  }
+
+  read (input) {
+    input.readStructBegin();
+    while (true) {
+      const ret = input.readFieldBegin();
+      const ftype = ret.ftype;
+      const fid = ret.fid;
+      if (ftype == Thrift.Type.STOP) {
+        break;
+      }
+      switch (fid) {
+        case 1:
+        if (ftype == Thrift.Type.STRING) {
+          this.token = input.readString().value;
+        } else {
+          input.skip(ftype);
+        }
+        break;
+        case 2:
+        if (ftype == Thrift.Type.STRUCT) {
+          this.filter = new KazFilter();
+          this.filter.read(input);
+        } else {
+          input.skip(ftype);
+        }
+        break;
+        default:
+          input.skip(ftype);
+      }
+      input.readFieldEnd();
+    }
+    input.readStructEnd();
+    return;
+  }
+
+  write (output) {
+    output.writeStructBegin('MrkAdminService_getMrkAggregateAccountInfoPage_args');
+    if (this.token !== null && this.token !== undefined) {
+      output.writeFieldBegin('token', Thrift.Type.STRING, 1);
+      output.writeString(this.token);
+      output.writeFieldEnd();
+    }
+    if (this.filter !== null && this.filter !== undefined) {
+      output.writeFieldBegin('filter', Thrift.Type.STRUCT, 2);
+      this.filter.write(output);
+      output.writeFieldEnd();
+    }
+    output.writeFieldStop();
+    output.writeStructEnd();
+    return;
+  }
+
+};
+MrkAdminService_getMrkAggregateAccountInfoPage_result = class {
+  constructor(args) {
+    this.success = null;
+    this.validError = null;
+    this.error = null;
+    if (args instanceof PreconditionException) {
+        this.validError = args;
+        return;
+    }
+    if (args instanceof ServerException) {
+        this.error = args;
+        return;
+    }
+    if (args) {
+      if (args.success !== undefined && args.success !== null) {
+        this.success = new MrkAggregateAccountInfoPage(args.success);
+      }
+      if (args.validError !== undefined && args.validError !== null) {
+        this.validError = args.validError;
+      }
+      if (args.error !== undefined && args.error !== null) {
+        this.error = args.error;
+      }
+    }
+  }
+
+  read (input) {
+    input.readStructBegin();
+    while (true) {
+      const ret = input.readFieldBegin();
+      const ftype = ret.ftype;
+      const fid = ret.fid;
+      if (ftype == Thrift.Type.STOP) {
+        break;
+      }
+      switch (fid) {
+        case 0:
+        if (ftype == Thrift.Type.STRUCT) {
+          this.success = new MrkAggregateAccountInfoPage();
+          this.success.read(input);
+        } else {
+          input.skip(ftype);
+        }
+        break;
+        case 1:
+        if (ftype == Thrift.Type.STRUCT) {
+          this.validError = new PreconditionException();
+          this.validError.read(input);
+        } else {
+          input.skip(ftype);
+        }
+        break;
+        case 2:
+        if (ftype == Thrift.Type.STRUCT) {
+          this.error = new ServerException();
+          this.error.read(input);
+        } else {
+          input.skip(ftype);
+        }
+        break;
+        default:
+          input.skip(ftype);
+      }
+      input.readFieldEnd();
+    }
+    input.readStructEnd();
+    return;
+  }
+
+  write (output) {
+    output.writeStructBegin('MrkAdminService_getMrkAggregateAccountInfoPage_result');
+    if (this.success !== null && this.success !== undefined) {
+      output.writeFieldBegin('success', Thrift.Type.STRUCT, 0);
+      this.success.write(output);
+      output.writeFieldEnd();
+    }
+    if (this.validError !== null && this.validError !== undefined) {
+      output.writeFieldBegin('validError', Thrift.Type.STRUCT, 1);
+      this.validError.write(output);
+      output.writeFieldEnd();
+    }
+    if (this.error !== null && this.error !== undefined) {
+      output.writeFieldBegin('error', Thrift.Type.STRUCT, 2);
+      this.error.write(output);
+      output.writeFieldEnd();
+    }
+    output.writeFieldStop();
+    output.writeStructEnd();
+    return;
+  }
+
+};
+MrkAdminService_getDetailAccountInfo_args = class {
+  constructor(args) {
+    this.token = null;
+    this.agregateAccountInfoId = null;
+    if (args) {
+      if (args.token !== undefined && args.token !== null) {
+        this.token = args.token;
+      }
+      if (args.agregateAccountInfoId !== undefined && args.agregateAccountInfoId !== null) {
+        this.agregateAccountInfoId = args.agregateAccountInfoId;
+      }
+    }
+  }
+
+  read (input) {
+    input.readStructBegin();
+    while (true) {
+      const ret = input.readFieldBegin();
+      const ftype = ret.ftype;
+      const fid = ret.fid;
+      if (ftype == Thrift.Type.STOP) {
+        break;
+      }
+      switch (fid) {
+        case 1:
+        if (ftype == Thrift.Type.STRING) {
+          this.token = input.readString().value;
+        } else {
+          input.skip(ftype);
+        }
+        break;
+        case -1:
+        if (ftype == Thrift.Type.STRING) {
+          this.agregateAccountInfoId = input.readString().value;
+        } else {
+          input.skip(ftype);
+        }
+        break;
+        default:
+          input.skip(ftype);
+      }
+      input.readFieldEnd();
+    }
+    input.readStructEnd();
+    return;
+  }
+
+  write (output) {
+    output.writeStructBegin('MrkAdminService_getDetailAccountInfo_args');
+    if (this.token !== null && this.token !== undefined) {
+      output.writeFieldBegin('token', Thrift.Type.STRING, 1);
+      output.writeString(this.token);
+      output.writeFieldEnd();
+    }
+    if (this.agregateAccountInfoId !== null && this.agregateAccountInfoId !== undefined) {
+      output.writeFieldBegin('agregateAccountInfoId', Thrift.Type.STRING, -1);
+      output.writeString(this.agregateAccountInfoId);
+      output.writeFieldEnd();
+    }
+    output.writeFieldStop();
+    output.writeStructEnd();
+    return;
+  }
+
+};
+MrkAdminService_getDetailAccountInfo_result = class {
+  constructor(args) {
+    this.success = null;
+    this.validError = null;
+    this.error = null;
+    if (args instanceof PreconditionException) {
+        this.validError = args;
+        return;
+    }
+    if (args instanceof ServerException) {
+        this.error = args;
+        return;
+    }
+    if (args) {
+      if (args.success !== undefined && args.success !== null) {
+        this.success = new MrkAccount(args.success);
+      }
+      if (args.validError !== undefined && args.validError !== null) {
+        this.validError = args.validError;
+      }
+      if (args.error !== undefined && args.error !== null) {
+        this.error = args.error;
+      }
+    }
+  }
+
+  read (input) {
+    input.readStructBegin();
+    while (true) {
+      const ret = input.readFieldBegin();
+      const ftype = ret.ftype;
+      const fid = ret.fid;
+      if (ftype == Thrift.Type.STOP) {
+        break;
+      }
+      switch (fid) {
+        case 0:
+        if (ftype == Thrift.Type.STRUCT) {
+          this.success = new MrkAccount();
+          this.success.read(input);
+        } else {
+          input.skip(ftype);
+        }
+        break;
+        case 1:
+        if (ftype == Thrift.Type.STRUCT) {
+          this.validError = new PreconditionException();
+          this.validError.read(input);
+        } else {
+          input.skip(ftype);
+        }
+        break;
+        case 2:
+        if (ftype == Thrift.Type.STRUCT) {
+          this.error = new ServerException();
+          this.error.read(input);
+        } else {
+          input.skip(ftype);
+        }
+        break;
+        default:
+          input.skip(ftype);
+      }
+      input.readFieldEnd();
+    }
+    input.readStructEnd();
+    return;
+  }
+
+  write (output) {
+    output.writeStructBegin('MrkAdminService_getDetailAccountInfo_result');
+    if (this.success !== null && this.success !== undefined) {
+      output.writeFieldBegin('success', Thrift.Type.STRUCT, 0);
+      this.success.write(output);
+      output.writeFieldEnd();
+    }
+    if (this.validError !== null && this.validError !== undefined) {
+      output.writeFieldBegin('validError', Thrift.Type.STRUCT, 1);
+      this.validError.write(output);
+      output.writeFieldEnd();
+    }
+    if (this.error !== null && this.error !== undefined) {
+      output.writeFieldBegin('error', Thrift.Type.STRUCT, 2);
+      this.error.write(output);
+      output.writeFieldEnd();
+    }
+    output.writeFieldStop();
+    output.writeStructEnd();
+    return;
+  }
+
+};
+MrkAdminService_changeMrkAccount_args = class {
+  constructor(args) {
+    this.token = null;
+    this.toChange = null;
+    if (args) {
+      if (args.token !== undefined && args.token !== null) {
+        this.token = args.token;
+      }
+      if (args.toChange !== undefined && args.toChange !== null) {
+        this.toChange = new MrkAccount(args.toChange);
+      }
+    }
+  }
+
+  read (input) {
+    input.readStructBegin();
+    while (true) {
+      const ret = input.readFieldBegin();
+      const ftype = ret.ftype;
+      const fid = ret.fid;
+      if (ftype == Thrift.Type.STOP) {
+        break;
+      }
+      switch (fid) {
+        case 1:
+        if (ftype == Thrift.Type.STRING) {
+          this.token = input.readString().value;
+        } else {
+          input.skip(ftype);
+        }
+        break;
+        case 2:
+        if (ftype == Thrift.Type.STRUCT) {
+          this.toChange = new MrkAccount();
+          this.toChange.read(input);
+        } else {
+          input.skip(ftype);
+        }
+        break;
+        default:
+          input.skip(ftype);
+      }
+      input.readFieldEnd();
+    }
+    input.readStructEnd();
+    return;
+  }
+
+  write (output) {
+    output.writeStructBegin('MrkAdminService_changeMrkAccount_args');
+    if (this.token !== null && this.token !== undefined) {
+      output.writeFieldBegin('token', Thrift.Type.STRING, 1);
+      output.writeString(this.token);
+      output.writeFieldEnd();
+    }
+    if (this.toChange !== null && this.toChange !== undefined) {
+      output.writeFieldBegin('toChange', Thrift.Type.STRUCT, 2);
+      this.toChange.write(output);
+      output.writeFieldEnd();
+    }
+    output.writeFieldStop();
+    output.writeStructEnd();
+    return;
+  }
+
+};
+MrkAdminService_changeMrkAccount_result = class {
+  constructor(args) {
+    this.success = null;
+    this.validError = null;
+    this.error = null;
+    if (args instanceof PreconditionException) {
+        this.validError = args;
+        return;
+    }
+    if (args instanceof ServerException) {
+        this.error = args;
+        return;
+    }
+    if (args) {
+      if (args.success !== undefined && args.success !== null) {
+        this.success = new MrkAccount(args.success);
+      }
+      if (args.validError !== undefined && args.validError !== null) {
+        this.validError = args.validError;
+      }
+      if (args.error !== undefined && args.error !== null) {
+        this.error = args.error;
+      }
+    }
+  }
+
+  read (input) {
+    input.readStructBegin();
+    while (true) {
+      const ret = input.readFieldBegin();
+      const ftype = ret.ftype;
+      const fid = ret.fid;
+      if (ftype == Thrift.Type.STOP) {
+        break;
+      }
+      switch (fid) {
+        case 0:
+        if (ftype == Thrift.Type.STRUCT) {
+          this.success = new MrkAccount();
+          this.success.read(input);
+        } else {
+          input.skip(ftype);
+        }
+        break;
+        case 1:
+        if (ftype == Thrift.Type.STRUCT) {
+          this.validError = new PreconditionException();
+          this.validError.read(input);
+        } else {
+          input.skip(ftype);
+        }
+        break;
+        case 2:
+        if (ftype == Thrift.Type.STRUCT) {
+          this.error = new ServerException();
+          this.error.read(input);
+        } else {
+          input.skip(ftype);
+        }
+        break;
+        default:
+          input.skip(ftype);
+      }
+      input.readFieldEnd();
+    }
+    input.readStructEnd();
+    return;
+  }
+
+  write (output) {
+    output.writeStructBegin('MrkAdminService_changeMrkAccount_result');
+    if (this.success !== null && this.success !== undefined) {
+      output.writeFieldBegin('success', Thrift.Type.STRUCT, 0);
+      this.success.write(output);
+      output.writeFieldEnd();
+    }
+    if (this.validError !== null && this.validError !== undefined) {
+      output.writeFieldBegin('validError', Thrift.Type.STRUCT, 1);
+      this.validError.write(output);
+      output.writeFieldEnd();
+    }
+    if (this.error !== null && this.error !== undefined) {
+      output.writeFieldBegin('error', Thrift.Type.STRUCT, 2);
+      this.error.write(output);
+      output.writeFieldEnd();
+    }
+    output.writeFieldStop();
+    output.writeStructEnd();
+    return;
+  }
+
+};
 MrkAdminService_getMrkAlmexSysUserPage_args = class {
   constructor(args) {
     this.token = null;
@@ -44763,11 +46538,725 @@ MrkAdminService_changeMrkSysUser_result = class {
   }
 
 };
+MrkAdminService_logout_args = class {
+  constructor(args) {
+    this.token = null;
+    if (args) {
+      if (args.token !== undefined && args.token !== null) {
+        this.token = args.token;
+      }
+    }
+  }
+
+  read (input) {
+    input.readStructBegin();
+    while (true) {
+      const ret = input.readFieldBegin();
+      const ftype = ret.ftype;
+      const fid = ret.fid;
+      if (ftype == Thrift.Type.STOP) {
+        break;
+      }
+      switch (fid) {
+        case 1:
+        if (ftype == Thrift.Type.STRING) {
+          this.token = input.readString().value;
+        } else {
+          input.skip(ftype);
+        }
+        break;
+        case 0:
+          input.skip(ftype);
+          break;
+        default:
+          input.skip(ftype);
+      }
+      input.readFieldEnd();
+    }
+    input.readStructEnd();
+    return;
+  }
+
+  write (output) {
+    output.writeStructBegin('MrkAdminService_logout_args');
+    if (this.token !== null && this.token !== undefined) {
+      output.writeFieldBegin('token', Thrift.Type.STRING, 1);
+      output.writeString(this.token);
+      output.writeFieldEnd();
+    }
+    output.writeFieldStop();
+    output.writeStructEnd();
+    return;
+  }
+
+};
+MrkAdminService_logout_result = class {
+  constructor(args) {
+    this.success = null;
+    this.validError = null;
+    this.error = null;
+    if (args instanceof PreconditionException) {
+        this.validError = args;
+        return;
+    }
+    if (args instanceof ServerException) {
+        this.error = args;
+        return;
+    }
+    if (args) {
+      if (args.success !== undefined && args.success !== null) {
+        this.success = args.success;
+      }
+      if (args.validError !== undefined && args.validError !== null) {
+        this.validError = args.validError;
+      }
+      if (args.error !== undefined && args.error !== null) {
+        this.error = args.error;
+      }
+    }
+  }
+
+  read (input) {
+    input.readStructBegin();
+    while (true) {
+      const ret = input.readFieldBegin();
+      const ftype = ret.ftype;
+      const fid = ret.fid;
+      if (ftype == Thrift.Type.STOP) {
+        break;
+      }
+      switch (fid) {
+        case 0:
+        if (ftype == Thrift.Type.BOOL) {
+          this.success = input.readBool().value;
+        } else {
+          input.skip(ftype);
+        }
+        break;
+        case 1:
+        if (ftype == Thrift.Type.STRUCT) {
+          this.validError = new PreconditionException();
+          this.validError.read(input);
+        } else {
+          input.skip(ftype);
+        }
+        break;
+        case 2:
+        if (ftype == Thrift.Type.STRUCT) {
+          this.error = new ServerException();
+          this.error.read(input);
+        } else {
+          input.skip(ftype);
+        }
+        break;
+        default:
+          input.skip(ftype);
+      }
+      input.readFieldEnd();
+    }
+    input.readStructEnd();
+    return;
+  }
+
+  write (output) {
+    output.writeStructBegin('MrkAdminService_logout_result');
+    if (this.success !== null && this.success !== undefined) {
+      output.writeFieldBegin('success', Thrift.Type.BOOL, 0);
+      output.writeBool(this.success);
+      output.writeFieldEnd();
+    }
+    if (this.validError !== null && this.validError !== undefined) {
+      output.writeFieldBegin('validError', Thrift.Type.STRUCT, 1);
+      this.validError.write(output);
+      output.writeFieldEnd();
+    }
+    if (this.error !== null && this.error !== undefined) {
+      output.writeFieldBegin('error', Thrift.Type.STRUCT, 2);
+      this.error.write(output);
+      output.writeFieldEnd();
+    }
+    output.writeFieldStop();
+    output.writeStructEnd();
+    return;
+  }
+
+};
 MrkAdminServiceClient = class {
   constructor(input, output) {
     this.input = input;
     this.output = (!output) ? input : output;
     this.seqid = 0;
+  }
+
+  authMrkUser (login, password, ip, langCode, cacheVersion) {
+    const self = this;
+    return new Promise((resolve, reject) => {
+      self.send_authMrkUser(login, password, ip, langCode, cacheVersion, (error, result) => {
+        return error ? reject(error) : resolve(result);
+      });
+    });
+  }
+
+  send_authMrkUser (login, password, ip, langCode, cacheVersion, callback) {
+    const params = {
+      login: login,
+      password: password,
+      ip: ip,
+      langCode: langCode,
+      cacheVersion: cacheVersion
+    };
+    const args = new MrkAdminService_authMrkUser_args(params);
+    try {
+      this.output.writeMessageBegin('authMrkUser', Thrift.MessageType.CALL, this.seqid);
+      args.write(this.output);
+      this.output.writeMessageEnd();
+      const self = this;
+      this.output.getTransport().flush(true, () => {
+        let error = null, result = null;
+        try {
+          result = self.recv_authMrkUser();
+        } catch (e) {
+          error = e;
+        }
+        callback(error, result);
+      });
+    }
+    catch (e) {
+      if (typeof this.output.getTransport().reset === 'function') {
+        this.output.getTransport().reset();
+      }
+      throw e;
+    }
+  }
+
+  recv_authMrkUser () {
+    const ret = this.input.readMessageBegin();
+    const mtype = ret.mtype;
+    if (mtype == Thrift.MessageType.EXCEPTION) {
+      const x = new Thrift.TApplicationException();
+      x.read(this.input);
+      this.input.readMessageEnd();
+      throw x;
+    }
+    const result = new MrkAdminService_authMrkUser_result();
+    result.read(this.input);
+    this.input.readMessageEnd();
+
+    if (null !== result.validError) {
+      throw result.validError;
+    }
+    if (null !== result.error) {
+      throw result.error;
+    }
+    if (null !== result.success) {
+      return result.success;
+    }
+    throw 'authMrkUser failed: unknown result';
+  }
+
+  refreshMrkUserSession (token) {
+    const self = this;
+    return new Promise((resolve, reject) => {
+      self.send_refreshMrkUserSession(token, (error, result) => {
+        return error ? reject(error) : resolve(result);
+      });
+    });
+  }
+
+  send_refreshMrkUserSession (token, callback) {
+    const params = {
+      token: token
+    };
+    const args = new MrkAdminService_refreshMrkUserSession_args(params);
+    try {
+      this.output.writeMessageBegin('refreshMrkUserSession', Thrift.MessageType.CALL, this.seqid);
+      args.write(this.output);
+      this.output.writeMessageEnd();
+      const self = this;
+      this.output.getTransport().flush(true, () => {
+        let error = null, result = null;
+        try {
+          result = self.recv_refreshMrkUserSession();
+        } catch (e) {
+          error = e;
+        }
+        callback(error, result);
+      });
+    }
+    catch (e) {
+      if (typeof this.output.getTransport().reset === 'function') {
+        this.output.getTransport().reset();
+      }
+      throw e;
+    }
+  }
+
+  recv_refreshMrkUserSession () {
+    const ret = this.input.readMessageBegin();
+    const mtype = ret.mtype;
+    if (mtype == Thrift.MessageType.EXCEPTION) {
+      const x = new Thrift.TApplicationException();
+      x.read(this.input);
+      this.input.readMessageEnd();
+      throw x;
+    }
+    const result = new MrkAdminService_refreshMrkUserSession_result();
+    result.read(this.input);
+    this.input.readMessageEnd();
+
+    if (null !== result.validError) {
+      throw result.validError;
+    }
+    if (null !== result.error) {
+      throw result.error;
+    }
+    if (null !== result.success) {
+      return result.success;
+    }
+    throw 'refreshMrkUserSession failed: unknown result';
+  }
+
+  getMrkUserPage (token, filter) {
+    const self = this;
+    return new Promise((resolve, reject) => {
+      self.send_getMrkUserPage(token, filter, (error, result) => {
+        return error ? reject(error) : resolve(result);
+      });
+    });
+  }
+
+  send_getMrkUserPage (token, filter, callback) {
+    const params = {
+      token: token,
+      filter: filter
+    };
+    const args = new MrkAdminService_getMrkUserPage_args(params);
+    try {
+      this.output.writeMessageBegin('getMrkUserPage', Thrift.MessageType.CALL, this.seqid);
+      args.write(this.output);
+      this.output.writeMessageEnd();
+      const self = this;
+      this.output.getTransport().flush(true, () => {
+        let error = null, result = null;
+        try {
+          result = self.recv_getMrkUserPage();
+        } catch (e) {
+          error = e;
+        }
+        callback(error, result);
+      });
+    }
+    catch (e) {
+      if (typeof this.output.getTransport().reset === 'function') {
+        this.output.getTransport().reset();
+      }
+      throw e;
+    }
+  }
+
+  recv_getMrkUserPage () {
+    const ret = this.input.readMessageBegin();
+    const mtype = ret.mtype;
+    if (mtype == Thrift.MessageType.EXCEPTION) {
+      const x = new Thrift.TApplicationException();
+      x.read(this.input);
+      this.input.readMessageEnd();
+      throw x;
+    }
+    const result = new MrkAdminService_getMrkUserPage_result();
+    result.read(this.input);
+    this.input.readMessageEnd();
+
+    if (null !== result.validError) {
+      throw result.validError;
+    }
+    if (null !== result.error) {
+      throw result.error;
+    }
+    if (null !== result.success) {
+      return result.success;
+    }
+    throw 'getMrkUserPage failed: unknown result';
+  }
+
+  changeMrkUser (token, toUpdate, password, idToRemove) {
+    const self = this;
+    return new Promise((resolve, reject) => {
+      self.send_changeMrkUser(token, toUpdate, password, idToRemove, (error, result) => {
+        return error ? reject(error) : resolve(result);
+      });
+    });
+  }
+
+  send_changeMrkUser (token, toUpdate, password, idToRemove, callback) {
+    const params = {
+      token: token,
+      toUpdate: toUpdate,
+      password: password,
+      idToRemove: idToRemove
+    };
+    const args = new MrkAdminService_changeMrkUser_args(params);
+    try {
+      this.output.writeMessageBegin('changeMrkUser', Thrift.MessageType.CALL, this.seqid);
+      args.write(this.output);
+      this.output.writeMessageEnd();
+      const self = this;
+      this.output.getTransport().flush(true, () => {
+        let error = null, result = null;
+        try {
+          result = self.recv_changeMrkUser();
+        } catch (e) {
+          error = e;
+        }
+        callback(error, result);
+      });
+    }
+    catch (e) {
+      if (typeof this.output.getTransport().reset === 'function') {
+        this.output.getTransport().reset();
+      }
+      throw e;
+    }
+  }
+
+  recv_changeMrkUser () {
+    const ret = this.input.readMessageBegin();
+    const mtype = ret.mtype;
+    if (mtype == Thrift.MessageType.EXCEPTION) {
+      const x = new Thrift.TApplicationException();
+      x.read(this.input);
+      this.input.readMessageEnd();
+      throw x;
+    }
+    const result = new MrkAdminService_changeMrkUser_result();
+    result.read(this.input);
+    this.input.readMessageEnd();
+
+    if (null !== result.validError) {
+      throw result.validError;
+    }
+    if (null !== result.error) {
+      throw result.error;
+    }
+    if (null !== result.success) {
+      return result.success;
+    }
+    throw 'changeMrkUser failed: unknown result';
+  }
+
+  getAllMrkClients (token, filter) {
+    const self = this;
+    return new Promise((resolve, reject) => {
+      self.send_getAllMrkClients(token, filter, (error, result) => {
+        return error ? reject(error) : resolve(result);
+      });
+    });
+  }
+
+  send_getAllMrkClients (token, filter, callback) {
+    const params = {
+      token: token,
+      filter: filter
+    };
+    const args = new MrkAdminService_getAllMrkClients_args(params);
+    try {
+      this.output.writeMessageBegin('getAllMrkClients', Thrift.MessageType.CALL, this.seqid);
+      args.write(this.output);
+      this.output.writeMessageEnd();
+      const self = this;
+      this.output.getTransport().flush(true, () => {
+        let error = null, result = null;
+        try {
+          result = self.recv_getAllMrkClients();
+        } catch (e) {
+          error = e;
+        }
+        callback(error, result);
+      });
+    }
+    catch (e) {
+      if (typeof this.output.getTransport().reset === 'function') {
+        this.output.getTransport().reset();
+      }
+      throw e;
+    }
+  }
+
+  recv_getAllMrkClients () {
+    const ret = this.input.readMessageBegin();
+    const mtype = ret.mtype;
+    if (mtype == Thrift.MessageType.EXCEPTION) {
+      const x = new Thrift.TApplicationException();
+      x.read(this.input);
+      this.input.readMessageEnd();
+      throw x;
+    }
+    const result = new MrkAdminService_getAllMrkClients_result();
+    result.read(this.input);
+    this.input.readMessageEnd();
+
+    if (null !== result.validError) {
+      throw result.validError;
+    }
+    if (null !== result.error) {
+      throw result.error;
+    }
+    if (null !== result.success) {
+      return result.success;
+    }
+    throw 'getAllMrkClients failed: unknown result';
+  }
+
+  getCountAllMrkClients (token, filter) {
+    const self = this;
+    return new Promise((resolve, reject) => {
+      self.send_getCountAllMrkClients(token, filter, (error, result) => {
+        return error ? reject(error) : resolve(result);
+      });
+    });
+  }
+
+  send_getCountAllMrkClients (token, filter, callback) {
+    const params = {
+      token: token,
+      filter: filter
+    };
+    const args = new MrkAdminService_getCountAllMrkClients_args(params);
+    try {
+      this.output.writeMessageBegin('getCountAllMrkClients', Thrift.MessageType.CALL, this.seqid);
+      args.write(this.output);
+      this.output.writeMessageEnd();
+      const self = this;
+      this.output.getTransport().flush(true, () => {
+        let error = null, result = null;
+        try {
+          result = self.recv_getCountAllMrkClients();
+        } catch (e) {
+          error = e;
+        }
+        callback(error, result);
+      });
+    }
+    catch (e) {
+      if (typeof this.output.getTransport().reset === 'function') {
+        this.output.getTransport().reset();
+      }
+      throw e;
+    }
+  }
+
+  recv_getCountAllMrkClients () {
+    const ret = this.input.readMessageBegin();
+    const mtype = ret.mtype;
+    if (mtype == Thrift.MessageType.EXCEPTION) {
+      const x = new Thrift.TApplicationException();
+      x.read(this.input);
+      this.input.readMessageEnd();
+      throw x;
+    }
+    const result = new MrkAdminService_getCountAllMrkClients_result();
+    result.read(this.input);
+    this.input.readMessageEnd();
+
+    if (null !== result.validError) {
+      throw result.validError;
+    }
+    if (null !== result.error) {
+      throw result.error;
+    }
+    if (null !== result.success) {
+      return result.success;
+    }
+    throw 'getCountAllMrkClients failed: unknown result';
+  }
+
+  getMrkAggregateAccountInfoPage (token, filter) {
+    const self = this;
+    return new Promise((resolve, reject) => {
+      self.send_getMrkAggregateAccountInfoPage(token, filter, (error, result) => {
+        return error ? reject(error) : resolve(result);
+      });
+    });
+  }
+
+  send_getMrkAggregateAccountInfoPage (token, filter, callback) {
+    const params = {
+      token: token,
+      filter: filter
+    };
+    const args = new MrkAdminService_getMrkAggregateAccountInfoPage_args(params);
+    try {
+      this.output.writeMessageBegin('getMrkAggregateAccountInfoPage', Thrift.MessageType.CALL, this.seqid);
+      args.write(this.output);
+      this.output.writeMessageEnd();
+      const self = this;
+      this.output.getTransport().flush(true, () => {
+        let error = null, result = null;
+        try {
+          result = self.recv_getMrkAggregateAccountInfoPage();
+        } catch (e) {
+          error = e;
+        }
+        callback(error, result);
+      });
+    }
+    catch (e) {
+      if (typeof this.output.getTransport().reset === 'function') {
+        this.output.getTransport().reset();
+      }
+      throw e;
+    }
+  }
+
+  recv_getMrkAggregateAccountInfoPage () {
+    const ret = this.input.readMessageBegin();
+    const mtype = ret.mtype;
+    if (mtype == Thrift.MessageType.EXCEPTION) {
+      const x = new Thrift.TApplicationException();
+      x.read(this.input);
+      this.input.readMessageEnd();
+      throw x;
+    }
+    const result = new MrkAdminService_getMrkAggregateAccountInfoPage_result();
+    result.read(this.input);
+    this.input.readMessageEnd();
+
+    if (null !== result.validError) {
+      throw result.validError;
+    }
+    if (null !== result.error) {
+      throw result.error;
+    }
+    if (null !== result.success) {
+      return result.success;
+    }
+    throw 'getMrkAggregateAccountInfoPage failed: unknown result';
+  }
+
+  getDetailAccountInfo (token, agregateAccountInfoId) {
+    const self = this;
+    return new Promise((resolve, reject) => {
+      self.send_getDetailAccountInfo(token, agregateAccountInfoId, (error, result) => {
+        return error ? reject(error) : resolve(result);
+      });
+    });
+  }
+
+  send_getDetailAccountInfo (token, agregateAccountInfoId, callback) {
+    const params = {
+      token: token,
+      agregateAccountInfoId: agregateAccountInfoId
+    };
+    const args = new MrkAdminService_getDetailAccountInfo_args(params);
+    try {
+      this.output.writeMessageBegin('getDetailAccountInfo', Thrift.MessageType.CALL, this.seqid);
+      args.write(this.output);
+      this.output.writeMessageEnd();
+      const self = this;
+      this.output.getTransport().flush(true, () => {
+        let error = null, result = null;
+        try {
+          result = self.recv_getDetailAccountInfo();
+        } catch (e) {
+          error = e;
+        }
+        callback(error, result);
+      });
+    }
+    catch (e) {
+      if (typeof this.output.getTransport().reset === 'function') {
+        this.output.getTransport().reset();
+      }
+      throw e;
+    }
+  }
+
+  recv_getDetailAccountInfo () {
+    const ret = this.input.readMessageBegin();
+    const mtype = ret.mtype;
+    if (mtype == Thrift.MessageType.EXCEPTION) {
+      const x = new Thrift.TApplicationException();
+      x.read(this.input);
+      this.input.readMessageEnd();
+      throw x;
+    }
+    const result = new MrkAdminService_getDetailAccountInfo_result();
+    result.read(this.input);
+    this.input.readMessageEnd();
+
+    if (null !== result.validError) {
+      throw result.validError;
+    }
+    if (null !== result.error) {
+      throw result.error;
+    }
+    if (null !== result.success) {
+      return result.success;
+    }
+    throw 'getDetailAccountInfo failed: unknown result';
+  }
+
+  changeMrkAccount (token, toChange) {
+    const self = this;
+    return new Promise((resolve, reject) => {
+      self.send_changeMrkAccount(token, toChange, (error, result) => {
+        return error ? reject(error) : resolve(result);
+      });
+    });
+  }
+
+  send_changeMrkAccount (token, toChange, callback) {
+    const params = {
+      token: token,
+      toChange: toChange
+    };
+    const args = new MrkAdminService_changeMrkAccount_args(params);
+    try {
+      this.output.writeMessageBegin('changeMrkAccount', Thrift.MessageType.CALL, this.seqid);
+      args.write(this.output);
+      this.output.writeMessageEnd();
+      const self = this;
+      this.output.getTransport().flush(true, () => {
+        let error = null, result = null;
+        try {
+          result = self.recv_changeMrkAccount();
+        } catch (e) {
+          error = e;
+        }
+        callback(error, result);
+      });
+    }
+    catch (e) {
+      if (typeof this.output.getTransport().reset === 'function') {
+        this.output.getTransport().reset();
+      }
+      throw e;
+    }
+  }
+
+  recv_changeMrkAccount () {
+    const ret = this.input.readMessageBegin();
+    const mtype = ret.mtype;
+    if (mtype == Thrift.MessageType.EXCEPTION) {
+      const x = new Thrift.TApplicationException();
+      x.read(this.input);
+      this.input.readMessageEnd();
+      throw x;
+    }
+    const result = new MrkAdminService_changeMrkAccount_result();
+    result.read(this.input);
+    this.input.readMessageEnd();
+
+    if (null !== result.validError) {
+      throw result.validError;
+    }
+    if (null !== result.error) {
+      throw result.error;
+    }
+    if (null !== result.success) {
+      return result.success;
+    }
+    throw 'changeMrkAccount failed: unknown result';
   }
 
   getMrkAlmexSysUserPage (token, filter) {
@@ -44896,6 +47385,68 @@ MrkAdminServiceClient = class {
       return result.success;
     }
     throw 'changeMrkSysUser failed: unknown result';
+  }
+
+  logout (token) {
+    const self = this;
+    return new Promise((resolve, reject) => {
+      self.send_logout(token, (error, result) => {
+        return error ? reject(error) : resolve(result);
+      });
+    });
+  }
+
+  send_logout (token, callback) {
+    const params = {
+      token: token
+    };
+    const args = new MrkAdminService_logout_args(params);
+    try {
+      this.output.writeMessageBegin('logout', Thrift.MessageType.CALL, this.seqid);
+      args.write(this.output);
+      this.output.writeMessageEnd();
+      const self = this;
+      this.output.getTransport().flush(true, () => {
+        let error = null, result = null;
+        try {
+          result = self.recv_logout();
+        } catch (e) {
+          error = e;
+        }
+        callback(error, result);
+      });
+    }
+    catch (e) {
+      if (typeof this.output.getTransport().reset === 'function') {
+        this.output.getTransport().reset();
+      }
+      throw e;
+    }
+  }
+
+  recv_logout () {
+    const ret = this.input.readMessageBegin();
+    const mtype = ret.mtype;
+    if (mtype == Thrift.MessageType.EXCEPTION) {
+      const x = new Thrift.TApplicationException();
+      x.read(this.input);
+      this.input.readMessageEnd();
+      throw x;
+    }
+    const result = new MrkAdminService_logout_result();
+    result.read(this.input);
+    this.input.readMessageEnd();
+
+    if (null !== result.validError) {
+      throw result.validError;
+    }
+    if (null !== result.error) {
+      throw result.error;
+    }
+    if (null !== result.success) {
+      return result.success;
+    }
+    throw 'logout failed: unknown result';
   }
 };
 //
@@ -45116,19 +47667,19 @@ MrkClientService_getInfo_result = class {
         case 0:
         if (ftype == Thrift.Type.MAP) {
           this.success = {};
-          const _rtmp351 = input.readMapBegin();
-          const _size50 = _rtmp351.size || 0;
-          for (let _i52 = 0; _i52 < _size50; ++_i52) {
-            if (_i52 > 0 ) {
+          const _rtmp356 = input.readMapBegin();
+          const _size55 = _rtmp356.size || 0;
+          for (let _i57 = 0; _i57 < _size55; ++_i57) {
+            if (_i57 > 0 ) {
               if (input.rstack.length > input.rpos[input.rpos.length -1] + 1) {
                 input.rstack.pop();
               }
             }
-            let key53 = null;
-            let val54 = null;
-            key53 = input.readString().value;
-            val54 = input.readString().value;
-            this.success[key53] = val54;
+            let key58 = null;
+            let val59 = null;
+            key58 = input.readString().value;
+            val59 = input.readString().value;
+            this.success[key58] = val59;
           }
           input.readMapEnd();
         } else {
@@ -45152,11 +47703,11 @@ MrkClientService_getInfo_result = class {
     if (this.success !== null && this.success !== undefined) {
       output.writeFieldBegin('success', Thrift.Type.MAP, 0);
       output.writeMapBegin(Thrift.Type.STRING, Thrift.Type.STRING, Thrift.objectLength(this.success));
-      for (let kiter55 in this.success) {
-        if (this.success.hasOwnProperty(kiter55)) {
-          let viter56 = this.success[kiter55];
-          output.writeString(kiter55);
-          output.writeString(viter56);
+      for (let kiter60 in this.success) {
+        if (this.success.hasOwnProperty(kiter60)) {
+          let viter61 = this.success[kiter60];
+          output.writeString(kiter60);
+          output.writeString(viter61);
         }
       }
       output.writeMapEnd();
@@ -45234,19 +47785,19 @@ MrkClientService_getAllLanguages_result = class {
         case 0:
         if (ftype == Thrift.Type.MAP) {
           this.success = {};
-          const _rtmp358 = input.readMapBegin();
-          const _size57 = _rtmp358.size || 0;
-          for (let _i59 = 0; _i59 < _size57; ++_i59) {
-            if (_i59 > 0 ) {
+          const _rtmp363 = input.readMapBegin();
+          const _size62 = _rtmp363.size || 0;
+          for (let _i64 = 0; _i64 < _size62; ++_i64) {
+            if (_i64 > 0 ) {
               if (input.rstack.length > input.rpos[input.rpos.length -1] + 1) {
                 input.rstack.pop();
               }
             }
-            let key60 = null;
-            let val61 = null;
-            key60 = input.readString().value;
-            val61 = input.readString().value;
-            this.success[key60] = val61;
+            let key65 = null;
+            let val66 = null;
+            key65 = input.readString().value;
+            val66 = input.readString().value;
+            this.success[key65] = val66;
           }
           input.readMapEnd();
         } else {
@@ -45283,11 +47834,11 @@ MrkClientService_getAllLanguages_result = class {
     if (this.success !== null && this.success !== undefined) {
       output.writeFieldBegin('success', Thrift.Type.MAP, 0);
       output.writeMapBegin(Thrift.Type.STRING, Thrift.Type.STRING, Thrift.objectLength(this.success));
-      for (let kiter62 in this.success) {
-        if (this.success.hasOwnProperty(kiter62)) {
-          let viter63 = this.success[kiter62];
-          output.writeString(kiter62);
-          output.writeString(viter63);
+      for (let kiter67 in this.success) {
+        if (this.success.hasOwnProperty(kiter67)) {
+          let viter68 = this.success[kiter67];
+          output.writeString(kiter67);
+          output.writeString(viter68);
         }
       }
       output.writeMapEnd();
@@ -47656,19 +50207,19 @@ MrkClientService_sendDocument_args = class {
         case 4:
         if (ftype == Thrift.Type.MAP) {
           this.attachmentSignature = {};
-          const _rtmp365 = input.readMapBegin();
-          const _size64 = _rtmp365.size || 0;
-          for (let _i66 = 0; _i66 < _size64; ++_i66) {
-            if (_i66 > 0 ) {
+          const _rtmp370 = input.readMapBegin();
+          const _size69 = _rtmp370.size || 0;
+          for (let _i71 = 0; _i71 < _size69; ++_i71) {
+            if (_i71 > 0 ) {
               if (input.rstack.length > input.rpos[input.rpos.length -1] + 1) {
                 input.rstack.pop();
               }
             }
-            let key67 = null;
-            let val68 = null;
-            key67 = input.readString().value;
-            val68 = input.readString().value;
-            this.attachmentSignature[key67] = val68;
+            let key72 = null;
+            let val73 = null;
+            key72 = input.readString().value;
+            val73 = input.readString().value;
+            this.attachmentSignature[key72] = val73;
           }
           input.readMapEnd();
         } else {
@@ -47711,11 +50262,11 @@ MrkClientService_sendDocument_args = class {
     if (this.attachmentSignature !== null && this.attachmentSignature !== undefined) {
       output.writeFieldBegin('attachmentSignature', Thrift.Type.MAP, 4);
       output.writeMapBegin(Thrift.Type.STRING, Thrift.Type.STRING, Thrift.objectLength(this.attachmentSignature));
-      for (let kiter69 in this.attachmentSignature) {
-        if (this.attachmentSignature.hasOwnProperty(kiter69)) {
-          let viter70 = this.attachmentSignature[kiter69];
-          output.writeString(kiter69);
-          output.writeString(viter70);
+      for (let kiter74 in this.attachmentSignature) {
+        if (this.attachmentSignature.hasOwnProperty(kiter74)) {
+          let viter75 = this.attachmentSignature[kiter74];
+          output.writeString(kiter74);
+          output.writeString(viter75);
         }
       }
       output.writeMapEnd();
@@ -48242,13 +50793,13 @@ MrkClientService_getAllMrkAttachments_result = class {
         case 0:
         if (ftype == Thrift.Type.LIST) {
           this.success = [];
-          const _rtmp372 = input.readListBegin();
-          const _size71 = _rtmp372.size || 0;
-          for (let _i73 = 0; _i73 < _size71; ++_i73) {
-            let elem74 = null;
-            elem74 = new MrkAttachment();
-            elem74.read(input);
-            this.success.push(elem74);
+          const _rtmp377 = input.readListBegin();
+          const _size76 = _rtmp377.size || 0;
+          for (let _i78 = 0; _i78 < _size76; ++_i78) {
+            let elem79 = null;
+            elem79 = new MrkAttachment();
+            elem79.read(input);
+            this.success.push(elem79);
           }
           input.readListEnd();
         } else {
@@ -48285,10 +50836,10 @@ MrkClientService_getAllMrkAttachments_result = class {
     if (this.success !== null && this.success !== undefined) {
       output.writeFieldBegin('success', Thrift.Type.LIST, 0);
       output.writeListBegin(Thrift.Type.STRUCT, this.success.length);
-      for (let iter75 in this.success) {
-        if (this.success.hasOwnProperty(iter75)) {
-          iter75 = this.success[iter75];
-          iter75.write(output);
+      for (let iter80 in this.success) {
+        if (this.success.hasOwnProperty(iter80)) {
+          iter80 = this.success[iter80];
+          iter80.write(output);
         }
       }
       output.writeListEnd();
@@ -49139,13 +51690,13 @@ MrkClientService_getAllDocumentPatterns_result = class {
         case 0:
         if (ftype == Thrift.Type.LIST) {
           this.success = [];
-          const _rtmp377 = input.readListBegin();
-          const _size76 = _rtmp377.size || 0;
-          for (let _i78 = 0; _i78 < _size76; ++_i78) {
-            let elem79 = null;
-            elem79 = new DocumentPattern();
-            elem79.read(input);
-            this.success.push(elem79);
+          const _rtmp382 = input.readListBegin();
+          const _size81 = _rtmp382.size || 0;
+          for (let _i83 = 0; _i83 < _size81; ++_i83) {
+            let elem84 = null;
+            elem84 = new DocumentPattern();
+            elem84.read(input);
+            this.success.push(elem84);
           }
           input.readListEnd();
         } else {
@@ -49182,10 +51733,10 @@ MrkClientService_getAllDocumentPatterns_result = class {
     if (this.success !== null && this.success !== undefined) {
       output.writeFieldBegin('success', Thrift.Type.LIST, 0);
       output.writeListBegin(Thrift.Type.STRUCT, this.success.length);
-      for (let iter80 in this.success) {
-        if (this.success.hasOwnProperty(iter80)) {
-          iter80 = this.success[iter80];
-          iter80.write(output);
+      for (let iter85 in this.success) {
+        if (this.success.hasOwnProperty(iter85)) {
+          iter85 = this.success[iter85];
+          iter85.write(output);
         }
       }
       output.writeListEnd();
@@ -49485,13 +52036,13 @@ MrkClientService_getAllUsers_result = class {
         case 0:
         if (ftype == Thrift.Type.LIST) {
           this.success = [];
-          const _rtmp382 = input.readListBegin();
-          const _size81 = _rtmp382.size || 0;
-          for (let _i83 = 0; _i83 < _size81; ++_i83) {
-            let elem84 = null;
-            elem84 = new UserOrGroup();
-            elem84.read(input);
-            this.success.push(elem84);
+          const _rtmp387 = input.readListBegin();
+          const _size86 = _rtmp387.size || 0;
+          for (let _i88 = 0; _i88 < _size86; ++_i88) {
+            let elem89 = null;
+            elem89 = new UserOrGroup();
+            elem89.read(input);
+            this.success.push(elem89);
           }
           input.readListEnd();
         } else {
@@ -49528,10 +52079,10 @@ MrkClientService_getAllUsers_result = class {
     if (this.success !== null && this.success !== undefined) {
       output.writeFieldBegin('success', Thrift.Type.LIST, 0);
       output.writeListBegin(Thrift.Type.STRUCT, this.success.length);
-      for (let iter85 in this.success) {
-        if (this.success.hasOwnProperty(iter85)) {
-          iter85 = this.success[iter85];
-          iter85.write(output);
+      for (let iter90 in this.success) {
+        if (this.success.hasOwnProperty(iter90)) {
+          iter90 = this.success[iter90];
+          iter90.write(output);
         }
       }
       output.writeListEnd();
@@ -49831,13 +52382,13 @@ MrkClientService_getAllHandBookRows_result = class {
         case 0:
         if (ftype == Thrift.Type.LIST) {
           this.success = [];
-          const _rtmp387 = input.readListBegin();
-          const _size86 = _rtmp387.size || 0;
-          for (let _i88 = 0; _i88 < _size86; ++_i88) {
-            let elem89 = null;
-            elem89 = new HBRow();
-            elem89.read(input);
-            this.success.push(elem89);
+          const _rtmp392 = input.readListBegin();
+          const _size91 = _rtmp392.size || 0;
+          for (let _i93 = 0; _i93 < _size91; ++_i93) {
+            let elem94 = null;
+            elem94 = new HBRow();
+            elem94.read(input);
+            this.success.push(elem94);
           }
           input.readListEnd();
         } else {
@@ -49874,10 +52425,10 @@ MrkClientService_getAllHandBookRows_result = class {
     if (this.success !== null && this.success !== undefined) {
       output.writeFieldBegin('success', Thrift.Type.LIST, 0);
       output.writeListBegin(Thrift.Type.STRUCT, this.success.length);
-      for (let iter90 in this.success) {
-        if (this.success.hasOwnProperty(iter90)) {
-          iter90 = this.success[iter90];
-          iter90.write(output);
+      for (let iter95 in this.success) {
+        if (this.success.hasOwnProperty(iter95)) {
+          iter95 = this.success[iter95];
+          iter95.write(output);
         }
       }
       output.writeListEnd();
@@ -52015,2302 +54566,11 @@ if (typeof Int64 === 'undefined' && typeof require === 'function') {
 
 //HELPER FUNCTIONS AND STRUCTURES
 
-MrkUserService_authMrkUser_args = class {
-  constructor(args) {
-    this.login = null;
-    this.password = null;
-    this.ip = null;
-    this.langCode = null;
-    this.cacheVersion = null;
-    if (args) {
-      if (args.login !== undefined && args.login !== null) {
-        this.login = args.login;
-      }
-      if (args.password !== undefined && args.password !== null) {
-        this.password = args.password;
-      }
-      if (args.ip !== undefined && args.ip !== null) {
-        this.ip = args.ip;
-      }
-      if (args.langCode !== undefined && args.langCode !== null) {
-        this.langCode = args.langCode;
-      }
-      if (args.cacheVersion !== undefined && args.cacheVersion !== null) {
-        this.cacheVersion = args.cacheVersion;
-      }
-    }
-  }
-
-  read (input) {
-    input.readStructBegin();
-    while (true) {
-      const ret = input.readFieldBegin();
-      const ftype = ret.ftype;
-      const fid = ret.fid;
-      if (ftype == Thrift.Type.STOP) {
-        break;
-      }
-      switch (fid) {
-        case 1:
-        if (ftype == Thrift.Type.STRING) {
-          this.login = input.readString().value;
-        } else {
-          input.skip(ftype);
-        }
-        break;
-        case 2:
-        if (ftype == Thrift.Type.STRING) {
-          this.password = input.readString().value;
-        } else {
-          input.skip(ftype);
-        }
-        break;
-        case 3:
-        if (ftype == Thrift.Type.STRING) {
-          this.ip = input.readString().value;
-        } else {
-          input.skip(ftype);
-        }
-        break;
-        case 4:
-        if (ftype == Thrift.Type.STRING) {
-          this.langCode = input.readString().value;
-        } else {
-          input.skip(ftype);
-        }
-        break;
-        case 5:
-        if (ftype == Thrift.Type.I32) {
-          this.cacheVersion = input.readI32().value;
-        } else {
-          input.skip(ftype);
-        }
-        break;
-        default:
-          input.skip(ftype);
-      }
-      input.readFieldEnd();
-    }
-    input.readStructEnd();
-    return;
-  }
-
-  write (output) {
-    output.writeStructBegin('MrkUserService_authMrkUser_args');
-    if (this.login !== null && this.login !== undefined) {
-      output.writeFieldBegin('login', Thrift.Type.STRING, 1);
-      output.writeString(this.login);
-      output.writeFieldEnd();
-    }
-    if (this.password !== null && this.password !== undefined) {
-      output.writeFieldBegin('password', Thrift.Type.STRING, 2);
-      output.writeString(this.password);
-      output.writeFieldEnd();
-    }
-    if (this.ip !== null && this.ip !== undefined) {
-      output.writeFieldBegin('ip', Thrift.Type.STRING, 3);
-      output.writeString(this.ip);
-      output.writeFieldEnd();
-    }
-    if (this.langCode !== null && this.langCode !== undefined) {
-      output.writeFieldBegin('langCode', Thrift.Type.STRING, 4);
-      output.writeString(this.langCode);
-      output.writeFieldEnd();
-    }
-    if (this.cacheVersion !== null && this.cacheVersion !== undefined) {
-      output.writeFieldBegin('cacheVersion', Thrift.Type.I32, 5);
-      output.writeI32(this.cacheVersion);
-      output.writeFieldEnd();
-    }
-    output.writeFieldStop();
-    output.writeStructEnd();
-    return;
-  }
-
-};
-MrkUserService_authMrkUser_result = class {
-  constructor(args) {
-    this.success = null;
-    this.validError = null;
-    this.error = null;
-    if (args instanceof PreconditionException) {
-        this.validError = args;
-        return;
-    }
-    if (args instanceof ServerException) {
-        this.error = args;
-        return;
-    }
-    if (args) {
-      if (args.success !== undefined && args.success !== null) {
-        this.success = new MrkUserSession(args.success);
-      }
-      if (args.validError !== undefined && args.validError !== null) {
-        this.validError = args.validError;
-      }
-      if (args.error !== undefined && args.error !== null) {
-        this.error = args.error;
-      }
-    }
-  }
-
-  read (input) {
-    input.readStructBegin();
-    while (true) {
-      const ret = input.readFieldBegin();
-      const ftype = ret.ftype;
-      const fid = ret.fid;
-      if (ftype == Thrift.Type.STOP) {
-        break;
-      }
-      switch (fid) {
-        case 0:
-        if (ftype == Thrift.Type.STRUCT) {
-          this.success = new MrkUserSession();
-          this.success.read(input);
-        } else {
-          input.skip(ftype);
-        }
-        break;
-        case 1:
-        if (ftype == Thrift.Type.STRUCT) {
-          this.validError = new PreconditionException();
-          this.validError.read(input);
-        } else {
-          input.skip(ftype);
-        }
-        break;
-        case 2:
-        if (ftype == Thrift.Type.STRUCT) {
-          this.error = new ServerException();
-          this.error.read(input);
-        } else {
-          input.skip(ftype);
-        }
-        break;
-        default:
-          input.skip(ftype);
-      }
-      input.readFieldEnd();
-    }
-    input.readStructEnd();
-    return;
-  }
-
-  write (output) {
-    output.writeStructBegin('MrkUserService_authMrkUser_result');
-    if (this.success !== null && this.success !== undefined) {
-      output.writeFieldBegin('success', Thrift.Type.STRUCT, 0);
-      this.success.write(output);
-      output.writeFieldEnd();
-    }
-    if (this.validError !== null && this.validError !== undefined) {
-      output.writeFieldBegin('validError', Thrift.Type.STRUCT, 1);
-      this.validError.write(output);
-      output.writeFieldEnd();
-    }
-    if (this.error !== null && this.error !== undefined) {
-      output.writeFieldBegin('error', Thrift.Type.STRUCT, 2);
-      this.error.write(output);
-      output.writeFieldEnd();
-    }
-    output.writeFieldStop();
-    output.writeStructEnd();
-    return;
-  }
-
-};
-MrkUserService_refreshMrkUserSession_args = class {
-  constructor(args) {
-    this.token = null;
-    if (args) {
-      if (args.token !== undefined && args.token !== null) {
-        this.token = args.token;
-      }
-    }
-  }
-
-  read (input) {
-    input.readStructBegin();
-    while (true) {
-      const ret = input.readFieldBegin();
-      const ftype = ret.ftype;
-      const fid = ret.fid;
-      if (ftype == Thrift.Type.STOP) {
-        break;
-      }
-      switch (fid) {
-        case 1:
-        if (ftype == Thrift.Type.STRING) {
-          this.token = input.readString().value;
-        } else {
-          input.skip(ftype);
-        }
-        break;
-        case 0:
-          input.skip(ftype);
-          break;
-        default:
-          input.skip(ftype);
-      }
-      input.readFieldEnd();
-    }
-    input.readStructEnd();
-    return;
-  }
-
-  write (output) {
-    output.writeStructBegin('MrkUserService_refreshMrkUserSession_args');
-    if (this.token !== null && this.token !== undefined) {
-      output.writeFieldBegin('token', Thrift.Type.STRING, 1);
-      output.writeString(this.token);
-      output.writeFieldEnd();
-    }
-    output.writeFieldStop();
-    output.writeStructEnd();
-    return;
-  }
-
-};
-MrkUserService_refreshMrkUserSession_result = class {
-  constructor(args) {
-    this.success = null;
-    this.validError = null;
-    this.error = null;
-    if (args instanceof PreconditionException) {
-        this.validError = args;
-        return;
-    }
-    if (args instanceof ServerException) {
-        this.error = args;
-        return;
-    }
-    if (args) {
-      if (args.success !== undefined && args.success !== null) {
-        this.success = new MrkUserSession(args.success);
-      }
-      if (args.validError !== undefined && args.validError !== null) {
-        this.validError = args.validError;
-      }
-      if (args.error !== undefined && args.error !== null) {
-        this.error = args.error;
-      }
-    }
-  }
-
-  read (input) {
-    input.readStructBegin();
-    while (true) {
-      const ret = input.readFieldBegin();
-      const ftype = ret.ftype;
-      const fid = ret.fid;
-      if (ftype == Thrift.Type.STOP) {
-        break;
-      }
-      switch (fid) {
-        case 0:
-        if (ftype == Thrift.Type.STRUCT) {
-          this.success = new MrkUserSession();
-          this.success.read(input);
-        } else {
-          input.skip(ftype);
-        }
-        break;
-        case 1:
-        if (ftype == Thrift.Type.STRUCT) {
-          this.validError = new PreconditionException();
-          this.validError.read(input);
-        } else {
-          input.skip(ftype);
-        }
-        break;
-        case 2:
-        if (ftype == Thrift.Type.STRUCT) {
-          this.error = new ServerException();
-          this.error.read(input);
-        } else {
-          input.skip(ftype);
-        }
-        break;
-        default:
-          input.skip(ftype);
-      }
-      input.readFieldEnd();
-    }
-    input.readStructEnd();
-    return;
-  }
-
-  write (output) {
-    output.writeStructBegin('MrkUserService_refreshMrkUserSession_result');
-    if (this.success !== null && this.success !== undefined) {
-      output.writeFieldBegin('success', Thrift.Type.STRUCT, 0);
-      this.success.write(output);
-      output.writeFieldEnd();
-    }
-    if (this.validError !== null && this.validError !== undefined) {
-      output.writeFieldBegin('validError', Thrift.Type.STRUCT, 1);
-      this.validError.write(output);
-      output.writeFieldEnd();
-    }
-    if (this.error !== null && this.error !== undefined) {
-      output.writeFieldBegin('error', Thrift.Type.STRUCT, 2);
-      this.error.write(output);
-      output.writeFieldEnd();
-    }
-    output.writeFieldStop();
-    output.writeStructEnd();
-    return;
-  }
-
-};
-MrkUserService_getMrkUserPage_args = class {
-  constructor(args) {
-    this.token = null;
-    this.filter = null;
-    if (args) {
-      if (args.token !== undefined && args.token !== null) {
-        this.token = args.token;
-      }
-      if (args.filter !== undefined && args.filter !== null) {
-        this.filter = new KazFilter(args.filter);
-      }
-    }
-  }
-
-  read (input) {
-    input.readStructBegin();
-    while (true) {
-      const ret = input.readFieldBegin();
-      const ftype = ret.ftype;
-      const fid = ret.fid;
-      if (ftype == Thrift.Type.STOP) {
-        break;
-      }
-      switch (fid) {
-        case 1:
-        if (ftype == Thrift.Type.STRING) {
-          this.token = input.readString().value;
-        } else {
-          input.skip(ftype);
-        }
-        break;
-        case 2:
-        if (ftype == Thrift.Type.STRUCT) {
-          this.filter = new KazFilter();
-          this.filter.read(input);
-        } else {
-          input.skip(ftype);
-        }
-        break;
-        default:
-          input.skip(ftype);
-      }
-      input.readFieldEnd();
-    }
-    input.readStructEnd();
-    return;
-  }
-
-  write (output) {
-    output.writeStructBegin('MrkUserService_getMrkUserPage_args');
-    if (this.token !== null && this.token !== undefined) {
-      output.writeFieldBegin('token', Thrift.Type.STRING, 1);
-      output.writeString(this.token);
-      output.writeFieldEnd();
-    }
-    if (this.filter !== null && this.filter !== undefined) {
-      output.writeFieldBegin('filter', Thrift.Type.STRUCT, 2);
-      this.filter.write(output);
-      output.writeFieldEnd();
-    }
-    output.writeFieldStop();
-    output.writeStructEnd();
-    return;
-  }
-
-};
-MrkUserService_getMrkUserPage_result = class {
-  constructor(args) {
-    this.success = null;
-    this.validError = null;
-    this.error = null;
-    if (args instanceof PreconditionException) {
-        this.validError = args;
-        return;
-    }
-    if (args instanceof ServerException) {
-        this.error = args;
-        return;
-    }
-    if (args) {
-      if (args.success !== undefined && args.success !== null) {
-        this.success = new MrkUserPage(args.success);
-      }
-      if (args.validError !== undefined && args.validError !== null) {
-        this.validError = args.validError;
-      }
-      if (args.error !== undefined && args.error !== null) {
-        this.error = args.error;
-      }
-    }
-  }
-
-  read (input) {
-    input.readStructBegin();
-    while (true) {
-      const ret = input.readFieldBegin();
-      const ftype = ret.ftype;
-      const fid = ret.fid;
-      if (ftype == Thrift.Type.STOP) {
-        break;
-      }
-      switch (fid) {
-        case 0:
-        if (ftype == Thrift.Type.STRUCT) {
-          this.success = new MrkUserPage();
-          this.success.read(input);
-        } else {
-          input.skip(ftype);
-        }
-        break;
-        case 1:
-        if (ftype == Thrift.Type.STRUCT) {
-          this.validError = new PreconditionException();
-          this.validError.read(input);
-        } else {
-          input.skip(ftype);
-        }
-        break;
-        case 2:
-        if (ftype == Thrift.Type.STRUCT) {
-          this.error = new ServerException();
-          this.error.read(input);
-        } else {
-          input.skip(ftype);
-        }
-        break;
-        default:
-          input.skip(ftype);
-      }
-      input.readFieldEnd();
-    }
-    input.readStructEnd();
-    return;
-  }
-
-  write (output) {
-    output.writeStructBegin('MrkUserService_getMrkUserPage_result');
-    if (this.success !== null && this.success !== undefined) {
-      output.writeFieldBegin('success', Thrift.Type.STRUCT, 0);
-      this.success.write(output);
-      output.writeFieldEnd();
-    }
-    if (this.validError !== null && this.validError !== undefined) {
-      output.writeFieldBegin('validError', Thrift.Type.STRUCT, 1);
-      this.validError.write(output);
-      output.writeFieldEnd();
-    }
-    if (this.error !== null && this.error !== undefined) {
-      output.writeFieldBegin('error', Thrift.Type.STRUCT, 2);
-      this.error.write(output);
-      output.writeFieldEnd();
-    }
-    output.writeFieldStop();
-    output.writeStructEnd();
-    return;
-  }
-
-};
-MrkUserService_changeMrkUser_args = class {
-  constructor(args) {
-    this.token = null;
-    this.toUpdate = null;
-    this.password = null;
-    this.idToRemove = null;
-    if (args) {
-      if (args.token !== undefined && args.token !== null) {
-        this.token = args.token;
-      }
-      if (args.toUpdate !== undefined && args.toUpdate !== null) {
-        this.toUpdate = new MrkUser(args.toUpdate);
-      }
-      if (args.password !== undefined && args.password !== null) {
-        this.password = args.password;
-      }
-      if (args.idToRemove !== undefined && args.idToRemove !== null) {
-        this.idToRemove = args.idToRemove;
-      }
-    }
-  }
-
-  read (input) {
-    input.readStructBegin();
-    while (true) {
-      const ret = input.readFieldBegin();
-      const ftype = ret.ftype;
-      const fid = ret.fid;
-      if (ftype == Thrift.Type.STOP) {
-        break;
-      }
-      switch (fid) {
-        case 1:
-        if (ftype == Thrift.Type.STRING) {
-          this.token = input.readString().value;
-        } else {
-          input.skip(ftype);
-        }
-        break;
-        case 2:
-        if (ftype == Thrift.Type.STRUCT) {
-          this.toUpdate = new MrkUser();
-          this.toUpdate.read(input);
-        } else {
-          input.skip(ftype);
-        }
-        break;
-        case 3:
-        if (ftype == Thrift.Type.STRING) {
-          this.password = input.readString().value;
-        } else {
-          input.skip(ftype);
-        }
-        break;
-        case 4:
-        if (ftype == Thrift.Type.STRING) {
-          this.idToRemove = input.readString().value;
-        } else {
-          input.skip(ftype);
-        }
-        break;
-        default:
-          input.skip(ftype);
-      }
-      input.readFieldEnd();
-    }
-    input.readStructEnd();
-    return;
-  }
-
-  write (output) {
-    output.writeStructBegin('MrkUserService_changeMrkUser_args');
-    if (this.token !== null && this.token !== undefined) {
-      output.writeFieldBegin('token', Thrift.Type.STRING, 1);
-      output.writeString(this.token);
-      output.writeFieldEnd();
-    }
-    if (this.toUpdate !== null && this.toUpdate !== undefined) {
-      output.writeFieldBegin('toUpdate', Thrift.Type.STRUCT, 2);
-      this.toUpdate.write(output);
-      output.writeFieldEnd();
-    }
-    if (this.password !== null && this.password !== undefined) {
-      output.writeFieldBegin('password', Thrift.Type.STRING, 3);
-      output.writeString(this.password);
-      output.writeFieldEnd();
-    }
-    if (this.idToRemove !== null && this.idToRemove !== undefined) {
-      output.writeFieldBegin('idToRemove', Thrift.Type.STRING, 4);
-      output.writeString(this.idToRemove);
-      output.writeFieldEnd();
-    }
-    output.writeFieldStop();
-    output.writeStructEnd();
-    return;
-  }
-
-};
-MrkUserService_changeMrkUser_result = class {
-  constructor(args) {
-    this.success = null;
-    this.validError = null;
-    this.error = null;
-    if (args instanceof PreconditionException) {
-        this.validError = args;
-        return;
-    }
-    if (args instanceof ServerException) {
-        this.error = args;
-        return;
-    }
-    if (args) {
-      if (args.success !== undefined && args.success !== null) {
-        this.success = new MrkUser(args.success);
-      }
-      if (args.validError !== undefined && args.validError !== null) {
-        this.validError = args.validError;
-      }
-      if (args.error !== undefined && args.error !== null) {
-        this.error = args.error;
-      }
-    }
-  }
-
-  read (input) {
-    input.readStructBegin();
-    while (true) {
-      const ret = input.readFieldBegin();
-      const ftype = ret.ftype;
-      const fid = ret.fid;
-      if (ftype == Thrift.Type.STOP) {
-        break;
-      }
-      switch (fid) {
-        case 0:
-        if (ftype == Thrift.Type.STRUCT) {
-          this.success = new MrkUser();
-          this.success.read(input);
-        } else {
-          input.skip(ftype);
-        }
-        break;
-        case 1:
-        if (ftype == Thrift.Type.STRUCT) {
-          this.validError = new PreconditionException();
-          this.validError.read(input);
-        } else {
-          input.skip(ftype);
-        }
-        break;
-        case 2:
-        if (ftype == Thrift.Type.STRUCT) {
-          this.error = new ServerException();
-          this.error.read(input);
-        } else {
-          input.skip(ftype);
-        }
-        break;
-        default:
-          input.skip(ftype);
-      }
-      input.readFieldEnd();
-    }
-    input.readStructEnd();
-    return;
-  }
-
-  write (output) {
-    output.writeStructBegin('MrkUserService_changeMrkUser_result');
-    if (this.success !== null && this.success !== undefined) {
-      output.writeFieldBegin('success', Thrift.Type.STRUCT, 0);
-      this.success.write(output);
-      output.writeFieldEnd();
-    }
-    if (this.validError !== null && this.validError !== undefined) {
-      output.writeFieldBegin('validError', Thrift.Type.STRUCT, 1);
-      this.validError.write(output);
-      output.writeFieldEnd();
-    }
-    if (this.error !== null && this.error !== undefined) {
-      output.writeFieldBegin('error', Thrift.Type.STRUCT, 2);
-      this.error.write(output);
-      output.writeFieldEnd();
-    }
-    output.writeFieldStop();
-    output.writeStructEnd();
-    return;
-  }
-
-};
-MrkUserService_getAllMrkClients_args = class {
-  constructor(args) {
-    this.token = null;
-    this.filter = null;
-    if (args) {
-      if (args.token !== undefined && args.token !== null) {
-        this.token = args.token;
-      }
-      if (args.filter !== undefined && args.filter !== null) {
-        this.filter = new KazFilter(args.filter);
-      }
-    }
-  }
-
-  read (input) {
-    input.readStructBegin();
-    while (true) {
-      const ret = input.readFieldBegin();
-      const ftype = ret.ftype;
-      const fid = ret.fid;
-      if (ftype == Thrift.Type.STOP) {
-        break;
-      }
-      switch (fid) {
-        case 1:
-        if (ftype == Thrift.Type.STRING) {
-          this.token = input.readString().value;
-        } else {
-          input.skip(ftype);
-        }
-        break;
-        case 2:
-        if (ftype == Thrift.Type.STRUCT) {
-          this.filter = new KazFilter();
-          this.filter.read(input);
-        } else {
-          input.skip(ftype);
-        }
-        break;
-        default:
-          input.skip(ftype);
-      }
-      input.readFieldEnd();
-    }
-    input.readStructEnd();
-    return;
-  }
-
-  write (output) {
-    output.writeStructBegin('MrkUserService_getAllMrkClients_args');
-    if (this.token !== null && this.token !== undefined) {
-      output.writeFieldBegin('token', Thrift.Type.STRING, 1);
-      output.writeString(this.token);
-      output.writeFieldEnd();
-    }
-    if (this.filter !== null && this.filter !== undefined) {
-      output.writeFieldBegin('filter', Thrift.Type.STRUCT, 2);
-      this.filter.write(output);
-      output.writeFieldEnd();
-    }
-    output.writeFieldStop();
-    output.writeStructEnd();
-    return;
-  }
-
-};
-MrkUserService_getAllMrkClients_result = class {
-  constructor(args) {
-    this.success = null;
-    this.validError = null;
-    this.error = null;
-    if (args instanceof PreconditionException) {
-        this.validError = args;
-        return;
-    }
-    if (args instanceof ServerException) {
-        this.error = args;
-        return;
-    }
-    if (args) {
-      if (args.success !== undefined && args.success !== null) {
-        this.success = Thrift.copyList(args.success, [MrkClient]);
-      }
-      if (args.validError !== undefined && args.validError !== null) {
-        this.validError = args.validError;
-      }
-      if (args.error !== undefined && args.error !== null) {
-        this.error = args.error;
-      }
-    }
-  }
-
-  read (input) {
-    input.readStructBegin();
-    while (true) {
-      const ret = input.readFieldBegin();
-      const ftype = ret.ftype;
-      const fid = ret.fid;
-      if (ftype == Thrift.Type.STOP) {
-        break;
-      }
-      switch (fid) {
-        case 0:
-        if (ftype == Thrift.Type.LIST) {
-          this.success = [];
-          const _rtmp392 = input.readListBegin();
-          const _size91 = _rtmp392.size || 0;
-          for (let _i93 = 0; _i93 < _size91; ++_i93) {
-            let elem94 = null;
-            elem94 = new MrkClient();
-            elem94.read(input);
-            this.success.push(elem94);
-          }
-          input.readListEnd();
-        } else {
-          input.skip(ftype);
-        }
-        break;
-        case 1:
-        if (ftype == Thrift.Type.STRUCT) {
-          this.validError = new PreconditionException();
-          this.validError.read(input);
-        } else {
-          input.skip(ftype);
-        }
-        break;
-        case 2:
-        if (ftype == Thrift.Type.STRUCT) {
-          this.error = new ServerException();
-          this.error.read(input);
-        } else {
-          input.skip(ftype);
-        }
-        break;
-        default:
-          input.skip(ftype);
-      }
-      input.readFieldEnd();
-    }
-    input.readStructEnd();
-    return;
-  }
-
-  write (output) {
-    output.writeStructBegin('MrkUserService_getAllMrkClients_result');
-    if (this.success !== null && this.success !== undefined) {
-      output.writeFieldBegin('success', Thrift.Type.LIST, 0);
-      output.writeListBegin(Thrift.Type.STRUCT, this.success.length);
-      for (let iter95 in this.success) {
-        if (this.success.hasOwnProperty(iter95)) {
-          iter95 = this.success[iter95];
-          iter95.write(output);
-        }
-      }
-      output.writeListEnd();
-      output.writeFieldEnd();
-    }
-    if (this.validError !== null && this.validError !== undefined) {
-      output.writeFieldBegin('validError', Thrift.Type.STRUCT, 1);
-      this.validError.write(output);
-      output.writeFieldEnd();
-    }
-    if (this.error !== null && this.error !== undefined) {
-      output.writeFieldBegin('error', Thrift.Type.STRUCT, 2);
-      this.error.write(output);
-      output.writeFieldEnd();
-    }
-    output.writeFieldStop();
-    output.writeStructEnd();
-    return;
-  }
-
-};
-MrkUserService_getCountAllMrkClients_args = class {
-  constructor(args) {
-    this.token = null;
-    this.filter = null;
-    if (args) {
-      if (args.token !== undefined && args.token !== null) {
-        this.token = args.token;
-      }
-      if (args.filter !== undefined && args.filter !== null) {
-        this.filter = new KazFilter(args.filter);
-      }
-    }
-  }
-
-  read (input) {
-    input.readStructBegin();
-    while (true) {
-      const ret = input.readFieldBegin();
-      const ftype = ret.ftype;
-      const fid = ret.fid;
-      if (ftype == Thrift.Type.STOP) {
-        break;
-      }
-      switch (fid) {
-        case 1:
-        if (ftype == Thrift.Type.STRING) {
-          this.token = input.readString().value;
-        } else {
-          input.skip(ftype);
-        }
-        break;
-        case 2:
-        if (ftype == Thrift.Type.STRUCT) {
-          this.filter = new KazFilter();
-          this.filter.read(input);
-        } else {
-          input.skip(ftype);
-        }
-        break;
-        default:
-          input.skip(ftype);
-      }
-      input.readFieldEnd();
-    }
-    input.readStructEnd();
-    return;
-  }
-
-  write (output) {
-    output.writeStructBegin('MrkUserService_getCountAllMrkClients_args');
-    if (this.token !== null && this.token !== undefined) {
-      output.writeFieldBegin('token', Thrift.Type.STRING, 1);
-      output.writeString(this.token);
-      output.writeFieldEnd();
-    }
-    if (this.filter !== null && this.filter !== undefined) {
-      output.writeFieldBegin('filter', Thrift.Type.STRUCT, 2);
-      this.filter.write(output);
-      output.writeFieldEnd();
-    }
-    output.writeFieldStop();
-    output.writeStructEnd();
-    return;
-  }
-
-};
-MrkUserService_getCountAllMrkClients_result = class {
-  constructor(args) {
-    this.success = null;
-    this.validError = null;
-    this.error = null;
-    if (args instanceof PreconditionException) {
-        this.validError = args;
-        return;
-    }
-    if (args instanceof ServerException) {
-        this.error = args;
-        return;
-    }
-    if (args) {
-      if (args.success !== undefined && args.success !== null) {
-        this.success = args.success;
-      }
-      if (args.validError !== undefined && args.validError !== null) {
-        this.validError = args.validError;
-      }
-      if (args.error !== undefined && args.error !== null) {
-        this.error = args.error;
-      }
-    }
-  }
-
-  read (input) {
-    input.readStructBegin();
-    while (true) {
-      const ret = input.readFieldBegin();
-      const ftype = ret.ftype;
-      const fid = ret.fid;
-      if (ftype == Thrift.Type.STOP) {
-        break;
-      }
-      switch (fid) {
-        case 0:
-        if (ftype == Thrift.Type.I32) {
-          this.success = input.readI32().value;
-        } else {
-          input.skip(ftype);
-        }
-        break;
-        case 1:
-        if (ftype == Thrift.Type.STRUCT) {
-          this.validError = new PreconditionException();
-          this.validError.read(input);
-        } else {
-          input.skip(ftype);
-        }
-        break;
-        case 2:
-        if (ftype == Thrift.Type.STRUCT) {
-          this.error = new ServerException();
-          this.error.read(input);
-        } else {
-          input.skip(ftype);
-        }
-        break;
-        default:
-          input.skip(ftype);
-      }
-      input.readFieldEnd();
-    }
-    input.readStructEnd();
-    return;
-  }
-
-  write (output) {
-    output.writeStructBegin('MrkUserService_getCountAllMrkClients_result');
-    if (this.success !== null && this.success !== undefined) {
-      output.writeFieldBegin('success', Thrift.Type.I32, 0);
-      output.writeI32(this.success);
-      output.writeFieldEnd();
-    }
-    if (this.validError !== null && this.validError !== undefined) {
-      output.writeFieldBegin('validError', Thrift.Type.STRUCT, 1);
-      this.validError.write(output);
-      output.writeFieldEnd();
-    }
-    if (this.error !== null && this.error !== undefined) {
-      output.writeFieldBegin('error', Thrift.Type.STRUCT, 2);
-      this.error.write(output);
-      output.writeFieldEnd();
-    }
-    output.writeFieldStop();
-    output.writeStructEnd();
-    return;
-  }
-
-};
-MrkUserService_getAllMrkAccounts_args = class {
-  constructor(args) {
-    this.token = null;
-    this.filter = null;
-    if (args) {
-      if (args.token !== undefined && args.token !== null) {
-        this.token = args.token;
-      }
-      if (args.filter !== undefined && args.filter !== null) {
-        this.filter = new KazFilter(args.filter);
-      }
-    }
-  }
-
-  read (input) {
-    input.readStructBegin();
-    while (true) {
-      const ret = input.readFieldBegin();
-      const ftype = ret.ftype;
-      const fid = ret.fid;
-      if (ftype == Thrift.Type.STOP) {
-        break;
-      }
-      switch (fid) {
-        case 1:
-        if (ftype == Thrift.Type.STRING) {
-          this.token = input.readString().value;
-        } else {
-          input.skip(ftype);
-        }
-        break;
-        case 2:
-        if (ftype == Thrift.Type.STRUCT) {
-          this.filter = new KazFilter();
-          this.filter.read(input);
-        } else {
-          input.skip(ftype);
-        }
-        break;
-        default:
-          input.skip(ftype);
-      }
-      input.readFieldEnd();
-    }
-    input.readStructEnd();
-    return;
-  }
-
-  write (output) {
-    output.writeStructBegin('MrkUserService_getAllMrkAccounts_args');
-    if (this.token !== null && this.token !== undefined) {
-      output.writeFieldBegin('token', Thrift.Type.STRING, 1);
-      output.writeString(this.token);
-      output.writeFieldEnd();
-    }
-    if (this.filter !== null && this.filter !== undefined) {
-      output.writeFieldBegin('filter', Thrift.Type.STRUCT, 2);
-      this.filter.write(output);
-      output.writeFieldEnd();
-    }
-    output.writeFieldStop();
-    output.writeStructEnd();
-    return;
-  }
-
-};
-MrkUserService_getAllMrkAccounts_result = class {
-  constructor(args) {
-    this.success = null;
-    this.validError = null;
-    this.error = null;
-    if (args instanceof PreconditionException) {
-        this.validError = args;
-        return;
-    }
-    if (args instanceof ServerException) {
-        this.error = args;
-        return;
-    }
-    if (args) {
-      if (args.success !== undefined && args.success !== null) {
-        this.success = Thrift.copyList(args.success, [MrkAccount]);
-      }
-      if (args.validError !== undefined && args.validError !== null) {
-        this.validError = args.validError;
-      }
-      if (args.error !== undefined && args.error !== null) {
-        this.error = args.error;
-      }
-    }
-  }
-
-  read (input) {
-    input.readStructBegin();
-    while (true) {
-      const ret = input.readFieldBegin();
-      const ftype = ret.ftype;
-      const fid = ret.fid;
-      if (ftype == Thrift.Type.STOP) {
-        break;
-      }
-      switch (fid) {
-        case 0:
-        if (ftype == Thrift.Type.LIST) {
-          this.success = [];
-          const _rtmp397 = input.readListBegin();
-          const _size96 = _rtmp397.size || 0;
-          for (let _i98 = 0; _i98 < _size96; ++_i98) {
-            let elem99 = null;
-            elem99 = new MrkAccount();
-            elem99.read(input);
-            this.success.push(elem99);
-          }
-          input.readListEnd();
-        } else {
-          input.skip(ftype);
-        }
-        break;
-        case 1:
-        if (ftype == Thrift.Type.STRUCT) {
-          this.validError = new PreconditionException();
-          this.validError.read(input);
-        } else {
-          input.skip(ftype);
-        }
-        break;
-        case 2:
-        if (ftype == Thrift.Type.STRUCT) {
-          this.error = new ServerException();
-          this.error.read(input);
-        } else {
-          input.skip(ftype);
-        }
-        break;
-        default:
-          input.skip(ftype);
-      }
-      input.readFieldEnd();
-    }
-    input.readStructEnd();
-    return;
-  }
-
-  write (output) {
-    output.writeStructBegin('MrkUserService_getAllMrkAccounts_result');
-    if (this.success !== null && this.success !== undefined) {
-      output.writeFieldBegin('success', Thrift.Type.LIST, 0);
-      output.writeListBegin(Thrift.Type.STRUCT, this.success.length);
-      for (let iter100 in this.success) {
-        if (this.success.hasOwnProperty(iter100)) {
-          iter100 = this.success[iter100];
-          iter100.write(output);
-        }
-      }
-      output.writeListEnd();
-      output.writeFieldEnd();
-    }
-    if (this.validError !== null && this.validError !== undefined) {
-      output.writeFieldBegin('validError', Thrift.Type.STRUCT, 1);
-      this.validError.write(output);
-      output.writeFieldEnd();
-    }
-    if (this.error !== null && this.error !== undefined) {
-      output.writeFieldBegin('error', Thrift.Type.STRUCT, 2);
-      this.error.write(output);
-      output.writeFieldEnd();
-    }
-    output.writeFieldStop();
-    output.writeStructEnd();
-    return;
-  }
-
-};
-MrkUserService_getCountAllMrkAccounts_args = class {
-  constructor(args) {
-    this.token = null;
-    this.filter = null;
-    if (args) {
-      if (args.token !== undefined && args.token !== null) {
-        this.token = args.token;
-      }
-      if (args.filter !== undefined && args.filter !== null) {
-        this.filter = new KazFilter(args.filter);
-      }
-    }
-  }
-
-  read (input) {
-    input.readStructBegin();
-    while (true) {
-      const ret = input.readFieldBegin();
-      const ftype = ret.ftype;
-      const fid = ret.fid;
-      if (ftype == Thrift.Type.STOP) {
-        break;
-      }
-      switch (fid) {
-        case 1:
-        if (ftype == Thrift.Type.STRING) {
-          this.token = input.readString().value;
-        } else {
-          input.skip(ftype);
-        }
-        break;
-        case 2:
-        if (ftype == Thrift.Type.STRUCT) {
-          this.filter = new KazFilter();
-          this.filter.read(input);
-        } else {
-          input.skip(ftype);
-        }
-        break;
-        default:
-          input.skip(ftype);
-      }
-      input.readFieldEnd();
-    }
-    input.readStructEnd();
-    return;
-  }
-
-  write (output) {
-    output.writeStructBegin('MrkUserService_getCountAllMrkAccounts_args');
-    if (this.token !== null && this.token !== undefined) {
-      output.writeFieldBegin('token', Thrift.Type.STRING, 1);
-      output.writeString(this.token);
-      output.writeFieldEnd();
-    }
-    if (this.filter !== null && this.filter !== undefined) {
-      output.writeFieldBegin('filter', Thrift.Type.STRUCT, 2);
-      this.filter.write(output);
-      output.writeFieldEnd();
-    }
-    output.writeFieldStop();
-    output.writeStructEnd();
-    return;
-  }
-
-};
-MrkUserService_getCountAllMrkAccounts_result = class {
-  constructor(args) {
-    this.success = null;
-    this.validError = null;
-    this.error = null;
-    if (args instanceof PreconditionException) {
-        this.validError = args;
-        return;
-    }
-    if (args instanceof ServerException) {
-        this.error = args;
-        return;
-    }
-    if (args) {
-      if (args.success !== undefined && args.success !== null) {
-        this.success = args.success;
-      }
-      if (args.validError !== undefined && args.validError !== null) {
-        this.validError = args.validError;
-      }
-      if (args.error !== undefined && args.error !== null) {
-        this.error = args.error;
-      }
-    }
-  }
-
-  read (input) {
-    input.readStructBegin();
-    while (true) {
-      const ret = input.readFieldBegin();
-      const ftype = ret.ftype;
-      const fid = ret.fid;
-      if (ftype == Thrift.Type.STOP) {
-        break;
-      }
-      switch (fid) {
-        case 0:
-        if (ftype == Thrift.Type.I32) {
-          this.success = input.readI32().value;
-        } else {
-          input.skip(ftype);
-        }
-        break;
-        case 1:
-        if (ftype == Thrift.Type.STRUCT) {
-          this.validError = new PreconditionException();
-          this.validError.read(input);
-        } else {
-          input.skip(ftype);
-        }
-        break;
-        case 2:
-        if (ftype == Thrift.Type.STRUCT) {
-          this.error = new ServerException();
-          this.error.read(input);
-        } else {
-          input.skip(ftype);
-        }
-        break;
-        default:
-          input.skip(ftype);
-      }
-      input.readFieldEnd();
-    }
-    input.readStructEnd();
-    return;
-  }
-
-  write (output) {
-    output.writeStructBegin('MrkUserService_getCountAllMrkAccounts_result');
-    if (this.success !== null && this.success !== undefined) {
-      output.writeFieldBegin('success', Thrift.Type.I32, 0);
-      output.writeI32(this.success);
-      output.writeFieldEnd();
-    }
-    if (this.validError !== null && this.validError !== undefined) {
-      output.writeFieldBegin('validError', Thrift.Type.STRUCT, 1);
-      this.validError.write(output);
-      output.writeFieldEnd();
-    }
-    if (this.error !== null && this.error !== undefined) {
-      output.writeFieldBegin('error', Thrift.Type.STRUCT, 2);
-      this.error.write(output);
-      output.writeFieldEnd();
-    }
-    output.writeFieldStop();
-    output.writeStructEnd();
-    return;
-  }
-
-};
-MrkUserService_changeMrkAccount_args = class {
-  constructor(args) {
-    this.token = null;
-    this.toChange = null;
-    if (args) {
-      if (args.token !== undefined && args.token !== null) {
-        this.token = args.token;
-      }
-      if (args.toChange !== undefined && args.toChange !== null) {
-        this.toChange = new MrkAccount(args.toChange);
-      }
-    }
-  }
-
-  read (input) {
-    input.readStructBegin();
-    while (true) {
-      const ret = input.readFieldBegin();
-      const ftype = ret.ftype;
-      const fid = ret.fid;
-      if (ftype == Thrift.Type.STOP) {
-        break;
-      }
-      switch (fid) {
-        case 1:
-        if (ftype == Thrift.Type.STRING) {
-          this.token = input.readString().value;
-        } else {
-          input.skip(ftype);
-        }
-        break;
-        case 2:
-        if (ftype == Thrift.Type.STRUCT) {
-          this.toChange = new MrkAccount();
-          this.toChange.read(input);
-        } else {
-          input.skip(ftype);
-        }
-        break;
-        default:
-          input.skip(ftype);
-      }
-      input.readFieldEnd();
-    }
-    input.readStructEnd();
-    return;
-  }
-
-  write (output) {
-    output.writeStructBegin('MrkUserService_changeMrkAccount_args');
-    if (this.token !== null && this.token !== undefined) {
-      output.writeFieldBegin('token', Thrift.Type.STRING, 1);
-      output.writeString(this.token);
-      output.writeFieldEnd();
-    }
-    if (this.toChange !== null && this.toChange !== undefined) {
-      output.writeFieldBegin('toChange', Thrift.Type.STRUCT, 2);
-      this.toChange.write(output);
-      output.writeFieldEnd();
-    }
-    output.writeFieldStop();
-    output.writeStructEnd();
-    return;
-  }
-
-};
-MrkUserService_changeMrkAccount_result = class {
-  constructor(args) {
-    this.success = null;
-    this.validError = null;
-    this.error = null;
-    if (args instanceof PreconditionException) {
-        this.validError = args;
-        return;
-    }
-    if (args instanceof ServerException) {
-        this.error = args;
-        return;
-    }
-    if (args) {
-      if (args.success !== undefined && args.success !== null) {
-        this.success = new MrkAccount(args.success);
-      }
-      if (args.validError !== undefined && args.validError !== null) {
-        this.validError = args.validError;
-      }
-      if (args.error !== undefined && args.error !== null) {
-        this.error = args.error;
-      }
-    }
-  }
-
-  read (input) {
-    input.readStructBegin();
-    while (true) {
-      const ret = input.readFieldBegin();
-      const ftype = ret.ftype;
-      const fid = ret.fid;
-      if (ftype == Thrift.Type.STOP) {
-        break;
-      }
-      switch (fid) {
-        case 0:
-        if (ftype == Thrift.Type.STRUCT) {
-          this.success = new MrkAccount();
-          this.success.read(input);
-        } else {
-          input.skip(ftype);
-        }
-        break;
-        case 1:
-        if (ftype == Thrift.Type.STRUCT) {
-          this.validError = new PreconditionException();
-          this.validError.read(input);
-        } else {
-          input.skip(ftype);
-        }
-        break;
-        case 2:
-        if (ftype == Thrift.Type.STRUCT) {
-          this.error = new ServerException();
-          this.error.read(input);
-        } else {
-          input.skip(ftype);
-        }
-        break;
-        default:
-          input.skip(ftype);
-      }
-      input.readFieldEnd();
-    }
-    input.readStructEnd();
-    return;
-  }
-
-  write (output) {
-    output.writeStructBegin('MrkUserService_changeMrkAccount_result');
-    if (this.success !== null && this.success !== undefined) {
-      output.writeFieldBegin('success', Thrift.Type.STRUCT, 0);
-      this.success.write(output);
-      output.writeFieldEnd();
-    }
-    if (this.validError !== null && this.validError !== undefined) {
-      output.writeFieldBegin('validError', Thrift.Type.STRUCT, 1);
-      this.validError.write(output);
-      output.writeFieldEnd();
-    }
-    if (this.error !== null && this.error !== undefined) {
-      output.writeFieldBegin('error', Thrift.Type.STRUCT, 2);
-      this.error.write(output);
-      output.writeFieldEnd();
-    }
-    output.writeFieldStop();
-    output.writeStructEnd();
-    return;
-  }
-
-};
-MrkUserService_logout_args = class {
-  constructor(args) {
-    this.token = null;
-    if (args) {
-      if (args.token !== undefined && args.token !== null) {
-        this.token = args.token;
-      }
-    }
-  }
-
-  read (input) {
-    input.readStructBegin();
-    while (true) {
-      const ret = input.readFieldBegin();
-      const ftype = ret.ftype;
-      const fid = ret.fid;
-      if (ftype == Thrift.Type.STOP) {
-        break;
-      }
-      switch (fid) {
-        case 1:
-        if (ftype == Thrift.Type.STRING) {
-          this.token = input.readString().value;
-        } else {
-          input.skip(ftype);
-        }
-        break;
-        case 0:
-          input.skip(ftype);
-          break;
-        default:
-          input.skip(ftype);
-      }
-      input.readFieldEnd();
-    }
-    input.readStructEnd();
-    return;
-  }
-
-  write (output) {
-    output.writeStructBegin('MrkUserService_logout_args');
-    if (this.token !== null && this.token !== undefined) {
-      output.writeFieldBegin('token', Thrift.Type.STRING, 1);
-      output.writeString(this.token);
-      output.writeFieldEnd();
-    }
-    output.writeFieldStop();
-    output.writeStructEnd();
-    return;
-  }
-
-};
-MrkUserService_logout_result = class {
-  constructor(args) {
-    this.success = null;
-    this.validError = null;
-    this.error = null;
-    if (args instanceof PreconditionException) {
-        this.validError = args;
-        return;
-    }
-    if (args instanceof ServerException) {
-        this.error = args;
-        return;
-    }
-    if (args) {
-      if (args.success !== undefined && args.success !== null) {
-        this.success = args.success;
-      }
-      if (args.validError !== undefined && args.validError !== null) {
-        this.validError = args.validError;
-      }
-      if (args.error !== undefined && args.error !== null) {
-        this.error = args.error;
-      }
-    }
-  }
-
-  read (input) {
-    input.readStructBegin();
-    while (true) {
-      const ret = input.readFieldBegin();
-      const ftype = ret.ftype;
-      const fid = ret.fid;
-      if (ftype == Thrift.Type.STOP) {
-        break;
-      }
-      switch (fid) {
-        case 0:
-        if (ftype == Thrift.Type.BOOL) {
-          this.success = input.readBool().value;
-        } else {
-          input.skip(ftype);
-        }
-        break;
-        case 1:
-        if (ftype == Thrift.Type.STRUCT) {
-          this.validError = new PreconditionException();
-          this.validError.read(input);
-        } else {
-          input.skip(ftype);
-        }
-        break;
-        case 2:
-        if (ftype == Thrift.Type.STRUCT) {
-          this.error = new ServerException();
-          this.error.read(input);
-        } else {
-          input.skip(ftype);
-        }
-        break;
-        default:
-          input.skip(ftype);
-      }
-      input.readFieldEnd();
-    }
-    input.readStructEnd();
-    return;
-  }
-
-  write (output) {
-    output.writeStructBegin('MrkUserService_logout_result');
-    if (this.success !== null && this.success !== undefined) {
-      output.writeFieldBegin('success', Thrift.Type.BOOL, 0);
-      output.writeBool(this.success);
-      output.writeFieldEnd();
-    }
-    if (this.validError !== null && this.validError !== undefined) {
-      output.writeFieldBegin('validError', Thrift.Type.STRUCT, 1);
-      this.validError.write(output);
-      output.writeFieldEnd();
-    }
-    if (this.error !== null && this.error !== undefined) {
-      output.writeFieldBegin('error', Thrift.Type.STRUCT, 2);
-      this.error.write(output);
-      output.writeFieldEnd();
-    }
-    output.writeFieldStop();
-    output.writeStructEnd();
-    return;
-  }
-
-};
 MrkUserServiceClient = class {
   constructor(input, output) {
     this.input = input;
     this.output = (!output) ? input : output;
     this.seqid = 0;
-  }
-
-  authMrkUser (login, password, ip, langCode, cacheVersion) {
-    const self = this;
-    return new Promise((resolve, reject) => {
-      self.send_authMrkUser(login, password, ip, langCode, cacheVersion, (error, result) => {
-        return error ? reject(error) : resolve(result);
-      });
-    });
-  }
-
-  send_authMrkUser (login, password, ip, langCode, cacheVersion, callback) {
-    const params = {
-      login: login,
-      password: password,
-      ip: ip,
-      langCode: langCode,
-      cacheVersion: cacheVersion
-    };
-    const args = new MrkUserService_authMrkUser_args(params);
-    try {
-      this.output.writeMessageBegin('authMrkUser', Thrift.MessageType.CALL, this.seqid);
-      args.write(this.output);
-      this.output.writeMessageEnd();
-      const self = this;
-      this.output.getTransport().flush(true, () => {
-        let error = null, result = null;
-        try {
-          result = self.recv_authMrkUser();
-        } catch (e) {
-          error = e;
-        }
-        callback(error, result);
-      });
-    }
-    catch (e) {
-      if (typeof this.output.getTransport().reset === 'function') {
-        this.output.getTransport().reset();
-      }
-      throw e;
-    }
-  }
-
-  recv_authMrkUser () {
-    const ret = this.input.readMessageBegin();
-    const mtype = ret.mtype;
-    if (mtype == Thrift.MessageType.EXCEPTION) {
-      const x = new Thrift.TApplicationException();
-      x.read(this.input);
-      this.input.readMessageEnd();
-      throw x;
-    }
-    const result = new MrkUserService_authMrkUser_result();
-    result.read(this.input);
-    this.input.readMessageEnd();
-
-    if (null !== result.validError) {
-      throw result.validError;
-    }
-    if (null !== result.error) {
-      throw result.error;
-    }
-    if (null !== result.success) {
-      return result.success;
-    }
-    throw 'authMrkUser failed: unknown result';
-  }
-
-  refreshMrkUserSession (token) {
-    const self = this;
-    return new Promise((resolve, reject) => {
-      self.send_refreshMrkUserSession(token, (error, result) => {
-        return error ? reject(error) : resolve(result);
-      });
-    });
-  }
-
-  send_refreshMrkUserSession (token, callback) {
-    const params = {
-      token: token
-    };
-    const args = new MrkUserService_refreshMrkUserSession_args(params);
-    try {
-      this.output.writeMessageBegin('refreshMrkUserSession', Thrift.MessageType.CALL, this.seqid);
-      args.write(this.output);
-      this.output.writeMessageEnd();
-      const self = this;
-      this.output.getTransport().flush(true, () => {
-        let error = null, result = null;
-        try {
-          result = self.recv_refreshMrkUserSession();
-        } catch (e) {
-          error = e;
-        }
-        callback(error, result);
-      });
-    }
-    catch (e) {
-      if (typeof this.output.getTransport().reset === 'function') {
-        this.output.getTransport().reset();
-      }
-      throw e;
-    }
-  }
-
-  recv_refreshMrkUserSession () {
-    const ret = this.input.readMessageBegin();
-    const mtype = ret.mtype;
-    if (mtype == Thrift.MessageType.EXCEPTION) {
-      const x = new Thrift.TApplicationException();
-      x.read(this.input);
-      this.input.readMessageEnd();
-      throw x;
-    }
-    const result = new MrkUserService_refreshMrkUserSession_result();
-    result.read(this.input);
-    this.input.readMessageEnd();
-
-    if (null !== result.validError) {
-      throw result.validError;
-    }
-    if (null !== result.error) {
-      throw result.error;
-    }
-    if (null !== result.success) {
-      return result.success;
-    }
-    throw 'refreshMrkUserSession failed: unknown result';
-  }
-
-  getMrkUserPage (token, filter) {
-    const self = this;
-    return new Promise((resolve, reject) => {
-      self.send_getMrkUserPage(token, filter, (error, result) => {
-        return error ? reject(error) : resolve(result);
-      });
-    });
-  }
-
-  send_getMrkUserPage (token, filter, callback) {
-    const params = {
-      token: token,
-      filter: filter
-    };
-    const args = new MrkUserService_getMrkUserPage_args(params);
-    try {
-      this.output.writeMessageBegin('getMrkUserPage', Thrift.MessageType.CALL, this.seqid);
-      args.write(this.output);
-      this.output.writeMessageEnd();
-      const self = this;
-      this.output.getTransport().flush(true, () => {
-        let error = null, result = null;
-        try {
-          result = self.recv_getMrkUserPage();
-        } catch (e) {
-          error = e;
-        }
-        callback(error, result);
-      });
-    }
-    catch (e) {
-      if (typeof this.output.getTransport().reset === 'function') {
-        this.output.getTransport().reset();
-      }
-      throw e;
-    }
-  }
-
-  recv_getMrkUserPage () {
-    const ret = this.input.readMessageBegin();
-    const mtype = ret.mtype;
-    if (mtype == Thrift.MessageType.EXCEPTION) {
-      const x = new Thrift.TApplicationException();
-      x.read(this.input);
-      this.input.readMessageEnd();
-      throw x;
-    }
-    const result = new MrkUserService_getMrkUserPage_result();
-    result.read(this.input);
-    this.input.readMessageEnd();
-
-    if (null !== result.validError) {
-      throw result.validError;
-    }
-    if (null !== result.error) {
-      throw result.error;
-    }
-    if (null !== result.success) {
-      return result.success;
-    }
-    throw 'getMrkUserPage failed: unknown result';
-  }
-
-  changeMrkUser (token, toUpdate, password, idToRemove) {
-    const self = this;
-    return new Promise((resolve, reject) => {
-      self.send_changeMrkUser(token, toUpdate, password, idToRemove, (error, result) => {
-        return error ? reject(error) : resolve(result);
-      });
-    });
-  }
-
-  send_changeMrkUser (token, toUpdate, password, idToRemove, callback) {
-    const params = {
-      token: token,
-      toUpdate: toUpdate,
-      password: password,
-      idToRemove: idToRemove
-    };
-    const args = new MrkUserService_changeMrkUser_args(params);
-    try {
-      this.output.writeMessageBegin('changeMrkUser', Thrift.MessageType.CALL, this.seqid);
-      args.write(this.output);
-      this.output.writeMessageEnd();
-      const self = this;
-      this.output.getTransport().flush(true, () => {
-        let error = null, result = null;
-        try {
-          result = self.recv_changeMrkUser();
-        } catch (e) {
-          error = e;
-        }
-        callback(error, result);
-      });
-    }
-    catch (e) {
-      if (typeof this.output.getTransport().reset === 'function') {
-        this.output.getTransport().reset();
-      }
-      throw e;
-    }
-  }
-
-  recv_changeMrkUser () {
-    const ret = this.input.readMessageBegin();
-    const mtype = ret.mtype;
-    if (mtype == Thrift.MessageType.EXCEPTION) {
-      const x = new Thrift.TApplicationException();
-      x.read(this.input);
-      this.input.readMessageEnd();
-      throw x;
-    }
-    const result = new MrkUserService_changeMrkUser_result();
-    result.read(this.input);
-    this.input.readMessageEnd();
-
-    if (null !== result.validError) {
-      throw result.validError;
-    }
-    if (null !== result.error) {
-      throw result.error;
-    }
-    if (null !== result.success) {
-      return result.success;
-    }
-    throw 'changeMrkUser failed: unknown result';
-  }
-
-  getAllMrkClients (token, filter) {
-    const self = this;
-    return new Promise((resolve, reject) => {
-      self.send_getAllMrkClients(token, filter, (error, result) => {
-        return error ? reject(error) : resolve(result);
-      });
-    });
-  }
-
-  send_getAllMrkClients (token, filter, callback) {
-    const params = {
-      token: token,
-      filter: filter
-    };
-    const args = new MrkUserService_getAllMrkClients_args(params);
-    try {
-      this.output.writeMessageBegin('getAllMrkClients', Thrift.MessageType.CALL, this.seqid);
-      args.write(this.output);
-      this.output.writeMessageEnd();
-      const self = this;
-      this.output.getTransport().flush(true, () => {
-        let error = null, result = null;
-        try {
-          result = self.recv_getAllMrkClients();
-        } catch (e) {
-          error = e;
-        }
-        callback(error, result);
-      });
-    }
-    catch (e) {
-      if (typeof this.output.getTransport().reset === 'function') {
-        this.output.getTransport().reset();
-      }
-      throw e;
-    }
-  }
-
-  recv_getAllMrkClients () {
-    const ret = this.input.readMessageBegin();
-    const mtype = ret.mtype;
-    if (mtype == Thrift.MessageType.EXCEPTION) {
-      const x = new Thrift.TApplicationException();
-      x.read(this.input);
-      this.input.readMessageEnd();
-      throw x;
-    }
-    const result = new MrkUserService_getAllMrkClients_result();
-    result.read(this.input);
-    this.input.readMessageEnd();
-
-    if (null !== result.validError) {
-      throw result.validError;
-    }
-    if (null !== result.error) {
-      throw result.error;
-    }
-    if (null !== result.success) {
-      return result.success;
-    }
-    throw 'getAllMrkClients failed: unknown result';
-  }
-
-  getCountAllMrkClients (token, filter) {
-    const self = this;
-    return new Promise((resolve, reject) => {
-      self.send_getCountAllMrkClients(token, filter, (error, result) => {
-        return error ? reject(error) : resolve(result);
-      });
-    });
-  }
-
-  send_getCountAllMrkClients (token, filter, callback) {
-    const params = {
-      token: token,
-      filter: filter
-    };
-    const args = new MrkUserService_getCountAllMrkClients_args(params);
-    try {
-      this.output.writeMessageBegin('getCountAllMrkClients', Thrift.MessageType.CALL, this.seqid);
-      args.write(this.output);
-      this.output.writeMessageEnd();
-      const self = this;
-      this.output.getTransport().flush(true, () => {
-        let error = null, result = null;
-        try {
-          result = self.recv_getCountAllMrkClients();
-        } catch (e) {
-          error = e;
-        }
-        callback(error, result);
-      });
-    }
-    catch (e) {
-      if (typeof this.output.getTransport().reset === 'function') {
-        this.output.getTransport().reset();
-      }
-      throw e;
-    }
-  }
-
-  recv_getCountAllMrkClients () {
-    const ret = this.input.readMessageBegin();
-    const mtype = ret.mtype;
-    if (mtype == Thrift.MessageType.EXCEPTION) {
-      const x = new Thrift.TApplicationException();
-      x.read(this.input);
-      this.input.readMessageEnd();
-      throw x;
-    }
-    const result = new MrkUserService_getCountAllMrkClients_result();
-    result.read(this.input);
-    this.input.readMessageEnd();
-
-    if (null !== result.validError) {
-      throw result.validError;
-    }
-    if (null !== result.error) {
-      throw result.error;
-    }
-    if (null !== result.success) {
-      return result.success;
-    }
-    throw 'getCountAllMrkClients failed: unknown result';
-  }
-
-  getAllMrkAccounts (token, filter) {
-    const self = this;
-    return new Promise((resolve, reject) => {
-      self.send_getAllMrkAccounts(token, filter, (error, result) => {
-        return error ? reject(error) : resolve(result);
-      });
-    });
-  }
-
-  send_getAllMrkAccounts (token, filter, callback) {
-    const params = {
-      token: token,
-      filter: filter
-    };
-    const args = new MrkUserService_getAllMrkAccounts_args(params);
-    try {
-      this.output.writeMessageBegin('getAllMrkAccounts', Thrift.MessageType.CALL, this.seqid);
-      args.write(this.output);
-      this.output.writeMessageEnd();
-      const self = this;
-      this.output.getTransport().flush(true, () => {
-        let error = null, result = null;
-        try {
-          result = self.recv_getAllMrkAccounts();
-        } catch (e) {
-          error = e;
-        }
-        callback(error, result);
-      });
-    }
-    catch (e) {
-      if (typeof this.output.getTransport().reset === 'function') {
-        this.output.getTransport().reset();
-      }
-      throw e;
-    }
-  }
-
-  recv_getAllMrkAccounts () {
-    const ret = this.input.readMessageBegin();
-    const mtype = ret.mtype;
-    if (mtype == Thrift.MessageType.EXCEPTION) {
-      const x = new Thrift.TApplicationException();
-      x.read(this.input);
-      this.input.readMessageEnd();
-      throw x;
-    }
-    const result = new MrkUserService_getAllMrkAccounts_result();
-    result.read(this.input);
-    this.input.readMessageEnd();
-
-    if (null !== result.validError) {
-      throw result.validError;
-    }
-    if (null !== result.error) {
-      throw result.error;
-    }
-    if (null !== result.success) {
-      return result.success;
-    }
-    throw 'getAllMrkAccounts failed: unknown result';
-  }
-
-  getCountAllMrkAccounts (token, filter) {
-    const self = this;
-    return new Promise((resolve, reject) => {
-      self.send_getCountAllMrkAccounts(token, filter, (error, result) => {
-        return error ? reject(error) : resolve(result);
-      });
-    });
-  }
-
-  send_getCountAllMrkAccounts (token, filter, callback) {
-    const params = {
-      token: token,
-      filter: filter
-    };
-    const args = new MrkUserService_getCountAllMrkAccounts_args(params);
-    try {
-      this.output.writeMessageBegin('getCountAllMrkAccounts', Thrift.MessageType.CALL, this.seqid);
-      args.write(this.output);
-      this.output.writeMessageEnd();
-      const self = this;
-      this.output.getTransport().flush(true, () => {
-        let error = null, result = null;
-        try {
-          result = self.recv_getCountAllMrkAccounts();
-        } catch (e) {
-          error = e;
-        }
-        callback(error, result);
-      });
-    }
-    catch (e) {
-      if (typeof this.output.getTransport().reset === 'function') {
-        this.output.getTransport().reset();
-      }
-      throw e;
-    }
-  }
-
-  recv_getCountAllMrkAccounts () {
-    const ret = this.input.readMessageBegin();
-    const mtype = ret.mtype;
-    if (mtype == Thrift.MessageType.EXCEPTION) {
-      const x = new Thrift.TApplicationException();
-      x.read(this.input);
-      this.input.readMessageEnd();
-      throw x;
-    }
-    const result = new MrkUserService_getCountAllMrkAccounts_result();
-    result.read(this.input);
-    this.input.readMessageEnd();
-
-    if (null !== result.validError) {
-      throw result.validError;
-    }
-    if (null !== result.error) {
-      throw result.error;
-    }
-    if (null !== result.success) {
-      return result.success;
-    }
-    throw 'getCountAllMrkAccounts failed: unknown result';
-  }
-
-  changeMrkAccount (token, toChange) {
-    const self = this;
-    return new Promise((resolve, reject) => {
-      self.send_changeMrkAccount(token, toChange, (error, result) => {
-        return error ? reject(error) : resolve(result);
-      });
-    });
-  }
-
-  send_changeMrkAccount (token, toChange, callback) {
-    const params = {
-      token: token,
-      toChange: toChange
-    };
-    const args = new MrkUserService_changeMrkAccount_args(params);
-    try {
-      this.output.writeMessageBegin('changeMrkAccount', Thrift.MessageType.CALL, this.seqid);
-      args.write(this.output);
-      this.output.writeMessageEnd();
-      const self = this;
-      this.output.getTransport().flush(true, () => {
-        let error = null, result = null;
-        try {
-          result = self.recv_changeMrkAccount();
-        } catch (e) {
-          error = e;
-        }
-        callback(error, result);
-      });
-    }
-    catch (e) {
-      if (typeof this.output.getTransport().reset === 'function') {
-        this.output.getTransport().reset();
-      }
-      throw e;
-    }
-  }
-
-  recv_changeMrkAccount () {
-    const ret = this.input.readMessageBegin();
-    const mtype = ret.mtype;
-    if (mtype == Thrift.MessageType.EXCEPTION) {
-      const x = new Thrift.TApplicationException();
-      x.read(this.input);
-      this.input.readMessageEnd();
-      throw x;
-    }
-    const result = new MrkUserService_changeMrkAccount_result();
-    result.read(this.input);
-    this.input.readMessageEnd();
-
-    if (null !== result.validError) {
-      throw result.validError;
-    }
-    if (null !== result.error) {
-      throw result.error;
-    }
-    if (null !== result.success) {
-      return result.success;
-    }
-    throw 'changeMrkAccount failed: unknown result';
-  }
-
-  logout (token) {
-    const self = this;
-    return new Promise((resolve, reject) => {
-      self.send_logout(token, (error, result) => {
-        return error ? reject(error) : resolve(result);
-      });
-    });
-  }
-
-  send_logout (token, callback) {
-    const params = {
-      token: token
-    };
-    const args = new MrkUserService_logout_args(params);
-    try {
-      this.output.writeMessageBegin('logout', Thrift.MessageType.CALL, this.seqid);
-      args.write(this.output);
-      this.output.writeMessageEnd();
-      const self = this;
-      this.output.getTransport().flush(true, () => {
-        let error = null, result = null;
-        try {
-          result = self.recv_logout();
-        } catch (e) {
-          error = e;
-        }
-        callback(error, result);
-      });
-    }
-    catch (e) {
-      if (typeof this.output.getTransport().reset === 'function') {
-        this.output.getTransport().reset();
-      }
-      throw e;
-    }
-  }
-
-  recv_logout () {
-    const ret = this.input.readMessageBegin();
-    const mtype = ret.mtype;
-    if (mtype == Thrift.MessageType.EXCEPTION) {
-      const x = new Thrift.TApplicationException();
-      x.read(this.input);
-      this.input.readMessageEnd();
-      throw x;
-    }
-    const result = new MrkUserService_logout_result();
-    result.read(this.input);
-    this.input.readMessageEnd();
-
-    if (null !== result.validError) {
-      throw result.validError;
-    }
-    if (null !== result.error) {
-      throw result.error;
-    }
-    if (null !== result.success) {
-      return result.success;
-    }
-    throw 'logout failed: unknown result';
   }
 };
 //

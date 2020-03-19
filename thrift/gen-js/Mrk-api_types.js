@@ -538,6 +538,7 @@ MrkAccount = class {
     this.contragent = null;
     this.blocked = null;
     this.signed = null;
+    this.digitalSign = null;
     if (args) {
       if (args.id !== undefined && args.id !== null) {
         this.id = args.id;
@@ -559,6 +560,9 @@ MrkAccount = class {
       }
       if (args.signed !== undefined && args.signed !== null) {
         this.signed = args.signed;
+      }
+      if (args.digitalSign !== undefined && args.digitalSign !== null) {
+        this.digitalSign = new MrkDigitalSign(args.digitalSign);
       }
     }
   }
@@ -632,6 +636,14 @@ MrkAccount = class {
           input.skip(ftype);
         }
         break;
+        case 8:
+        if (ftype == Thrift.Type.STRUCT) {
+          this.digitalSign = new MrkDigitalSign();
+          this.digitalSign.read(input);
+        } else {
+          input.skip(ftype);
+        }
+        break;
         default:
           input.skip(ftype);
       }
@@ -683,6 +695,11 @@ MrkAccount = class {
     if (this.signed !== null && this.signed !== undefined) {
       output.writeFieldBegin('signed', Thrift.Type.BOOL, 7);
       output.writeBool(this.signed);
+      output.writeFieldEnd();
+    }
+    if (this.digitalSign !== null && this.digitalSign !== undefined) {
+      output.writeFieldBegin('digitalSign', Thrift.Type.STRUCT, 8);
+      this.digitalSign.write(output);
       output.writeFieldEnd();
     }
     output.writeFieldStop();
@@ -2904,6 +2921,264 @@ MrkAlmexSysUserPage = class {
         if (this.almexUsersData.hasOwnProperty(iter49)) {
           iter49 = this.almexUsersData[iter49];
           iter49.write(output);
+        }
+      }
+      output.writeListEnd();
+      output.writeFieldEnd();
+    }
+    if (this.count !== null && this.count !== undefined) {
+      output.writeFieldBegin('count', Thrift.Type.I32, 2);
+      output.writeI32(this.count);
+      output.writeFieldEnd();
+    }
+    output.writeFieldStop();
+    output.writeStructEnd();
+    return;
+  }
+
+};
+MrkAggregateAccountInfo = class {
+  constructor(args) {
+    this.id = null;
+    this.name = null;
+    this.code = null;
+    this.accountId = null;
+    this.ogranisation = null;
+    this.confirmed = null;
+    this.contragent = null;
+    this.blocked = null;
+    this.signed = null;
+    if (args) {
+      if (args.id !== undefined && args.id !== null) {
+        this.id = args.id;
+      }
+      if (args.name !== undefined && args.name !== null) {
+        this.name = args.name;
+      }
+      if (args.code !== undefined && args.code !== null) {
+        this.code = args.code;
+      }
+      if (args.accountId !== undefined && args.accountId !== null) {
+        this.accountId = args.accountId;
+      }
+      if (args.ogranisation !== undefined && args.ogranisation !== null) {
+        this.ogranisation = args.ogranisation;
+      }
+      if (args.confirmed !== undefined && args.confirmed !== null) {
+        this.confirmed = args.confirmed;
+      }
+      if (args.contragent !== undefined && args.contragent !== null) {
+        this.contragent = args.contragent;
+      }
+      if (args.blocked !== undefined && args.blocked !== null) {
+        this.blocked = args.blocked;
+      }
+      if (args.signed !== undefined && args.signed !== null) {
+        this.signed = args.signed;
+      }
+    }
+  }
+
+  read (input) {
+    input.readStructBegin();
+    while (true) {
+      const ret = input.readFieldBegin();
+      const ftype = ret.ftype;
+      const fid = ret.fid;
+      if (ftype == Thrift.Type.STOP) {
+        break;
+      }
+      switch (fid) {
+        case 1:
+        if (ftype == Thrift.Type.STRING) {
+          this.id = input.readString().value;
+        } else {
+          input.skip(ftype);
+        }
+        break;
+        case 2:
+        if (ftype == Thrift.Type.STRING) {
+          this.name = input.readString().value;
+        } else {
+          input.skip(ftype);
+        }
+        break;
+        case 3:
+        if (ftype == Thrift.Type.STRING) {
+          this.code = input.readString().value;
+        } else {
+          input.skip(ftype);
+        }
+        break;
+        case 4:
+        if (ftype == Thrift.Type.STRING) {
+          this.accountId = input.readString().value;
+        } else {
+          input.skip(ftype);
+        }
+        break;
+        case 5:
+        if (ftype == Thrift.Type.BOOL) {
+          this.ogranisation = input.readBool().value;
+        } else {
+          input.skip(ftype);
+        }
+        break;
+        case 6:
+        if (ftype == Thrift.Type.BOOL) {
+          this.confirmed = input.readBool().value;
+        } else {
+          input.skip(ftype);
+        }
+        break;
+        case 7:
+        if (ftype == Thrift.Type.BOOL) {
+          this.contragent = input.readBool().value;
+        } else {
+          input.skip(ftype);
+        }
+        break;
+        case 8:
+        if (ftype == Thrift.Type.BOOL) {
+          this.blocked = input.readBool().value;
+        } else {
+          input.skip(ftype);
+        }
+        break;
+        case 9:
+        if (ftype == Thrift.Type.BOOL) {
+          this.signed = input.readBool().value;
+        } else {
+          input.skip(ftype);
+        }
+        break;
+        default:
+          input.skip(ftype);
+      }
+      input.readFieldEnd();
+    }
+    input.readStructEnd();
+    return;
+  }
+
+  write (output) {
+    output.writeStructBegin('MrkAggregateAccountInfo');
+    if (this.id !== null && this.id !== undefined) {
+      output.writeFieldBegin('id', Thrift.Type.STRING, 1);
+      output.writeString(this.id);
+      output.writeFieldEnd();
+    }
+    if (this.name !== null && this.name !== undefined) {
+      output.writeFieldBegin('name', Thrift.Type.STRING, 2);
+      output.writeString(this.name);
+      output.writeFieldEnd();
+    }
+    if (this.code !== null && this.code !== undefined) {
+      output.writeFieldBegin('code', Thrift.Type.STRING, 3);
+      output.writeString(this.code);
+      output.writeFieldEnd();
+    }
+    if (this.accountId !== null && this.accountId !== undefined) {
+      output.writeFieldBegin('accountId', Thrift.Type.STRING, 4);
+      output.writeString(this.accountId);
+      output.writeFieldEnd();
+    }
+    if (this.ogranisation !== null && this.ogranisation !== undefined) {
+      output.writeFieldBegin('ogranisation', Thrift.Type.BOOL, 5);
+      output.writeBool(this.ogranisation);
+      output.writeFieldEnd();
+    }
+    if (this.confirmed !== null && this.confirmed !== undefined) {
+      output.writeFieldBegin('confirmed', Thrift.Type.BOOL, 6);
+      output.writeBool(this.confirmed);
+      output.writeFieldEnd();
+    }
+    if (this.contragent !== null && this.contragent !== undefined) {
+      output.writeFieldBegin('contragent', Thrift.Type.BOOL, 7);
+      output.writeBool(this.contragent);
+      output.writeFieldEnd();
+    }
+    if (this.blocked !== null && this.blocked !== undefined) {
+      output.writeFieldBegin('blocked', Thrift.Type.BOOL, 8);
+      output.writeBool(this.blocked);
+      output.writeFieldEnd();
+    }
+    if (this.signed !== null && this.signed !== undefined) {
+      output.writeFieldBegin('signed', Thrift.Type.BOOL, 9);
+      output.writeBool(this.signed);
+      output.writeFieldEnd();
+    }
+    output.writeFieldStop();
+    output.writeStructEnd();
+    return;
+  }
+
+};
+MrkAggregateAccountInfoPage = class {
+  constructor(args) {
+    this.aggregateAccountData = null;
+    this.count = null;
+    if (args) {
+      if (args.aggregateAccountData !== undefined && args.aggregateAccountData !== null) {
+        this.aggregateAccountData = Thrift.copyList(args.aggregateAccountData, [MrkAggregateAccountInfo]);
+      }
+      if (args.count !== undefined && args.count !== null) {
+        this.count = args.count;
+      }
+    }
+  }
+
+  read (input) {
+    input.readStructBegin();
+    while (true) {
+      const ret = input.readFieldBegin();
+      const ftype = ret.ftype;
+      const fid = ret.fid;
+      if (ftype == Thrift.Type.STOP) {
+        break;
+      }
+      switch (fid) {
+        case 1:
+        if (ftype == Thrift.Type.LIST) {
+          this.aggregateAccountData = [];
+          const _rtmp351 = input.readListBegin();
+          const _size50 = _rtmp351.size || 0;
+          for (let _i52 = 0; _i52 < _size50; ++_i52) {
+            let elem53 = null;
+            elem53 = new MrkAggregateAccountInfo();
+            elem53.read(input);
+            this.aggregateAccountData.push(elem53);
+          }
+          input.readListEnd();
+        } else {
+          input.skip(ftype);
+        }
+        break;
+        case 2:
+        if (ftype == Thrift.Type.I32) {
+          this.count = input.readI32().value;
+        } else {
+          input.skip(ftype);
+        }
+        break;
+        default:
+          input.skip(ftype);
+      }
+      input.readFieldEnd();
+    }
+    input.readStructEnd();
+    return;
+  }
+
+  write (output) {
+    output.writeStructBegin('MrkAggregateAccountInfoPage');
+    if (this.aggregateAccountData !== null && this.aggregateAccountData !== undefined) {
+      output.writeFieldBegin('aggregateAccountData', Thrift.Type.LIST, 1);
+      output.writeListBegin(Thrift.Type.STRUCT, this.aggregateAccountData.length);
+      for (let iter54 in this.aggregateAccountData) {
+        if (this.aggregateAccountData.hasOwnProperty(iter54)) {
+          iter54 = this.aggregateAccountData[iter54];
+          iter54.write(output);
         }
       }
       output.writeListEnd();

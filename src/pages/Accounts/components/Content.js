@@ -5,6 +5,7 @@ import Table from 'components/Table';
 import { Checkbox } from 'antd';
 import { getData } from 'redux/actions/accounts';
 import { TABLE_SIZE } from 'constants/table';
+import { I18n } from 'react-redux-i18n';
 import { uniqueId } from 'lodash';
 
 const Content = ({ data, count, page = 1, loading, getData }) => {
@@ -28,24 +29,51 @@ const Content = ({ data, count, page = 1, loading, getData }) => {
     }}
     columns={[
       {
-        title: 'login',
-        dataIndex: 'login',
-        key: 'login'
+        title: I18n.t('MrkAggregateAccountInfo.name'),
+        dataIndex: 'name',
+        key: 'name'
       },
       {
-        title: 'confirmed',
-        dataIndex: 'confirmed',
+        title: I18n.t('MrkAggregateAccountInfo.code'),
+        dataIndex: 'code',
+        key: 'code',
+        width: 150,
+      },
+      {
+        title: I18n.t('MrkAggregateAccountInfo.ogranisation'),
+        dataIndex: 'ogranisation',
         align: 'center',
         width: 120,
         render: CellChecked
       },
       {
-        title: 'contragent',
+        title: I18n.t('MrkAggregateAccountInfo.contragent'),
         dataIndex: 'contragent',
         align: 'center',
         width: 120,
         render: CellChecked
-      }
+      },
+      {
+        title: I18n.t('MrkAggregateAccountInfo.signed'),
+        dataIndex: 'signed',
+        align: 'center',
+        width: 120,
+        render: CellChecked
+      },
+      {
+        title: I18n.t('MrkAggregateAccountInfo.blocked'),
+        dataIndex: 'blocked',
+        align: 'center',
+        width: 130,
+        render: CellChecked
+      },
+      {
+        title: I18n.t('MrkAggregateAccountInfo.confirmed'),
+        dataIndex: 'confirmed',
+        align: 'center',
+        width: 140,
+        render: CellChecked
+      },
     ]}
   />;
 };

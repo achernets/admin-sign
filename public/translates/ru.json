@@ -10,16 +10,19 @@
     "close": "Закрыть",
     "add_more": "Добавить еще",
     "reset": "Сбросить",
-    "save_changes": "Сохранить изменения"
+    "save_changes": "Сохранить изменения",
+    "find_total": "Найдено"
   },
   "confirmation": {
     "title": "Подтвердите действие",
     "okText": "Подтвердить"
   },
   "form": {
-    "required": "'${name}' oбязательное"
+    "required": "Обязательное"
   },
   "notification": {
+    "info": "Информация",
+    "MrkAlmexSysUser_removed": "Пользователь \"%{name}\" удалён",
     "sendDocument_title": "Ваше письмо отправлено",
     "registration_message": "Вы успешно зарегистрировались",
     "registration_description": "Необходимо подтвердить ваш электронный ящик",
@@ -37,5 +40,17 @@
     "createDate": "Дата создания",
     "confirmed": "Подтвержденный",
     "contragent": "Контрагент"
+  },
+  "MrkAggregateAccountInfo": {
+    "name": "Название",
+    "code": "Код",
+    "ogranisation": "Организация",
+    "confirmed": "Подтвержденный",
+    "contragent": "Контрагент",
+    "blocked": "Заблокировать",
+    "signed": "Подписанный"
+  },
+  "Modals": {
+    "MrkAlmexSysUser": "MrkAlmexSysUser"
   }
 }

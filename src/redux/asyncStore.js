@@ -1,4 +1,4 @@
-import { setThrift, MrkClientServiceClient, MrkUserServiceClient } from 'api';
+import { setThrift, MrkClientServiceClient, MrkAdminServiceClient } from 'api';
 import { reduce } from 'lodash';
 import { log, PUBLIC_URL, getLocaleCode } from 'utils/helpers';
 import moment from 'moment';
@@ -13,7 +13,7 @@ const getInitialState = currentState => {
       await setThrift(frontSettings);
       if (auth.token !== null) {
         try {
-          let authenticate = await MrkUserServiceClient.refreshMrkUserSession(
+          let authenticate = await MrkAdminServiceClient.refreshMrkUserSession(
             auth.token
           );
           if (authenticate) auth = {

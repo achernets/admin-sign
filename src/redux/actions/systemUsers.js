@@ -1,6 +1,5 @@
 import { confirmationAction, notificationError } from 'utils/helpers';
 import { TABLE_SIZE } from 'constants/table';
-
 const PREFIX = 'SystemUsers';
 
 export const GET_DATA_REQUEST = `${PREFIX}/GET_DATA_REQUEST`;
@@ -35,6 +34,31 @@ export const getData = (page = 1) => {
   };
 };
 
+export const CREATE_OR_UPDATE_REQUEST = `${PREFIX}/CREATE_OR_UPDATE_REQUEST`;
+export const CREATE_OR_UPDATE_SUCCESS = `${PREFIX}/CREATE_OR_UPDATE_SUCCESS`;
+export const CREATE_OR_UPDATE_FAILURE = `${PREFIX}/CREATE_OR_UPDATE_FAILURE`;
+
+export const createOrUpdate = values => {
+  return async (dispatch, getState, api) => {
+    dispatch({ type: CREATE_OR_UPDATE_REQUEST });
+    try {
+      const {
+        auth: { token },
+        systemUsers: { page }
+      } = getState();
+      await api.MrkAdminServiceClient.changeMrkSysUser(token, new MrkAlmexSysUser(values), values.password, null);
+      dispatch({
+        type: CREATE_OR_UPDATE_SUCCESS
+      });
+      dispatch(getData(page));
+      return true;
+    } catch (error) {
+      notificationError(error, 'changeMrkSysUser');
+      dispatch({ type: CREATE_OR_UPDATE_FAILURE });
+      return false;
+    }
+  };
+};
 
 export const REMOVE_REQUEST = `${PREFIX}/REMOVE_REQUEST`;
 export const REMOVE_SUCCESS = `${PREFIX}/REMOVE_SUCCESS`;
