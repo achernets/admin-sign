@@ -9,6 +9,12 @@ export const log = (...props) => {
   if (process.env.NODE_ENV === 'development' || window.showLogs) console.log(...props);
 };
 
+export const getToken = () => {
+  const state = store.getState();
+  const { token } = state.auth;
+  return token;
+};
+
 export const PUBLIC_URL = process.env.PUBLIC_URL;
 
 export const getLocaleCode = (locale) => {

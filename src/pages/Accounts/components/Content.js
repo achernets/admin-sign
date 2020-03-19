@@ -3,10 +3,12 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import Table from 'components/Table';
 import { Checkbox } from 'antd';
-import { getData } from 'redux/actions/accounts';
+import { getData, createOrUpdate } from 'redux/actions/accounts';
 import { TABLE_SIZE } from 'constants/table';
 import { I18n } from 'react-redux-i18n';
 import { uniqueId } from 'lodash';
+import { showModal } from 'react-redux-modal-provider';
+import { MrkAccountModal } from 'components/Modals';
 
 const Content = ({ data, count, page = 1, loading, getData }) => {
 
@@ -26,6 +28,14 @@ const Content = ({ data, count, page = 1, loading, getData }) => {
       total: count,
       current: page,
       onChange: getData
+    }}
+    onRow={(record) => {
+      return {
+        onClick: () => showModal(MrkAccountModal, {
+          id: record.id,
+          createOrUpdate: createOrUpdate
+        })
+      };
     }}
     columns={[
       {
@@ -87,7 +97,8 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = dispatch =>
   bindActionCreators(
     {
-      getData
+      getData,
+      createOrUpdate
     },
     dispatch
   );

@@ -1,7 +1,8 @@
 import {
   GET_DATA_REQUEST,
   GET_DATA_SUCCESS,
-  GET_DATA_FAILURE
+  GET_DATA_FAILURE,
+  CREATE_OR_UPDATE_SUCCESS
 } from 'redux/actions/systemUsers';
 
 const initialState = {
@@ -30,6 +31,11 @@ export default (state = initialState, action) => {
       return {
         ...state,
         isFetching: false
+      };
+    case CREATE_OR_UPDATE_SUCCESS:
+      return {
+        ...state,
+        data: action.payload
       };
     default:
       return state;

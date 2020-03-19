@@ -4,7 +4,7 @@ import { I18n } from 'react-redux-i18n';
 import { get, merge } from 'lodash';
 import { UserOutlined, LockOutlined } from '@ant-design/icons';
 
-const MrkAlmexSysUserModal = ({ show, hideModal, entity, onOk }) => {
+const MrkAccountModal = ({ show, hideModal, entity, onOk }) => {
   const [loading, setLoading] = useState(false);
   const [form] = Form.useForm();
 
@@ -98,4 +98,4 @@ const MrkAlmexSysUserModal = ({ show, hideModal, entity, onOk }) => {
   </Modal>;
 };
 
-export default MrkAlmexSysUserModal;
+export default MrkAccountModal;

@@ -337,7 +337,7 @@ service MrkAdminService {
   i32 getCountAllMrkClients(1: string token, 2: filter.KazFilter filter) throws (1: ex.PreconditionException validError, 2: ex.ServerException error);
 
   MrkAggregateAccountInfoPage getMrkAggregateAccountInfoPage(1: string token, 2: filter.KazFilter filter) throws (1: ex.PreconditionException validError, 2: ex.ServerException error);
-  MrkAccount getDetailAccountInfo(1: string token, string agregateAccountInfoId) throws (1: ex.PreconditionException validError, 2: ex.ServerException error);
+  MrkAccount getDetailAccountInfo(1: string token, 2: string aggregateAccountInfoId) throws (1: ex.PreconditionException validError, 2: ex.ServerException error);
   MrkAccount changeMrkAccount(1: string token, 2:MrkAccount toChange) throws (1: ex.PreconditionException validError, 2: ex.ServerException error);
   
   MrkAlmexSysUserPage getMrkAlmexSysUserPage(1: string token, 2: filter.KazFilter filter) throws (1: ex.PreconditionException validError, 2: ex.ServerException error);

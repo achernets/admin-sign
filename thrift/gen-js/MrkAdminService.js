@@ -1198,13 +1198,13 @@ MrkAdminService_getMrkAggregateAccountInfoPage_result = class {
 MrkAdminService_getDetailAccountInfo_args = class {
   constructor(args) {
     this.token = null;
-    this.agregateAccountInfoId = null;
+    this.aggregateAccountInfoId = null;
     if (args) {
       if (args.token !== undefined && args.token !== null) {
         this.token = args.token;
       }
-      if (args.agregateAccountInfoId !== undefined && args.agregateAccountInfoId !== null) {
-        this.agregateAccountInfoId = args.agregateAccountInfoId;
+      if (args.aggregateAccountInfoId !== undefined && args.aggregateAccountInfoId !== null) {
+        this.aggregateAccountInfoId = args.aggregateAccountInfoId;
       }
     }
   }
@@ -1226,9 +1226,9 @@ MrkAdminService_getDetailAccountInfo_args = class {
           input.skip(ftype);
         }
         break;
-        case -1:
+        case 2:
         if (ftype == Thrift.Type.STRING) {
-          this.agregateAccountInfoId = input.readString().value;
+          this.aggregateAccountInfoId = input.readString().value;
         } else {
           input.skip(ftype);
         }
@@ -1249,9 +1249,9 @@ MrkAdminService_getDetailAccountInfo_args = class {
       output.writeString(this.token);
       output.writeFieldEnd();
     }
-    if (this.agregateAccountInfoId !== null && this.agregateAccountInfoId !== undefined) {
-      output.writeFieldBegin('agregateAccountInfoId', Thrift.Type.STRING, -1);
-      output.writeString(this.agregateAccountInfoId);
+    if (this.aggregateAccountInfoId !== null && this.aggregateAccountInfoId !== undefined) {
+      output.writeFieldBegin('aggregateAccountInfoId', Thrift.Type.STRING, 2);
+      output.writeString(this.aggregateAccountInfoId);
       output.writeFieldEnd();
     }
     output.writeFieldStop();
@@ -2453,19 +2453,19 @@ MrkAdminServiceClient = class {
     throw 'getMrkAggregateAccountInfoPage failed: unknown result';
   }
 
-  getDetailAccountInfo (token, agregateAccountInfoId) {
+  getDetailAccountInfo (token, aggregateAccountInfoId) {
     const self = this;
     return new Promise((resolve, reject) => {
-      self.send_getDetailAccountInfo(token, agregateAccountInfoId, (error, result) => {
+      self.send_getDetailAccountInfo(token, aggregateAccountInfoId, (error, result) => {
         return error ? reject(error) : resolve(result);
       });
     });
   }
 
-  send_getDetailAccountInfo (token, agregateAccountInfoId, callback) {
+  send_getDetailAccountInfo (token, aggregateAccountInfoId, callback) {
     const params = {
       token: token,
-      agregateAccountInfoId: agregateAccountInfoId
+      aggregateAccountInfoId: aggregateAccountInfoId
     };
     const args = new MrkAdminService_getDetailAccountInfo_args(params);
     try {

@@ -34,3 +34,29 @@ export const getData = (page = 1) => {
     }
   };
 };
+
+export const CREATE_OR_UPDATE_REQUEST = `${PREFIX}/CREATE_OR_UPDATE_REQUEST`;
+export const CREATE_OR_UPDATE_SUCCESS = `${PREFIX}/CREATE_OR_UPDATE_SUCCESS`;
+export const CREATE_OR_UPDATE_FAILURE = `${PREFIX}/CREATE_OR_UPDATE_FAILURE`;
+
+export const createOrUpdate = values => {
+  return async (dispatch, getState, api) => {
+    dispatch({ type: CREATE_OR_UPDATE_REQUEST });
+    try {
+      const {
+        auth: { token },
+        systemUsers: { page }
+      } = getState();
+      await api.MrkAdminServiceClient.changeMrkAccount(token, new MrkAccount(values));
+      dispatch({
+        type: CREATE_OR_UPDATE_SUCCESS
+      });
+      dispatch(getData(page));
+      return true;
+    } catch (error) {
+      notificationError(error, 'changeMrkAccount');
+      dispatch({ type: CREATE_OR_UPDATE_FAILURE });
+      return false;
+    }
+  };
+};

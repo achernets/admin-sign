@@ -1,5 +1,6 @@
 import { confirmationAction, notificationError } from 'utils/helpers';
 import { TABLE_SIZE } from 'constants/table';
+import { get } from 'lodash';
 const PREFIX = 'SystemUsers';
 
 export const GET_DATA_REQUEST = `${PREFIX}/GET_DATA_REQUEST`;
@@ -44,13 +45,18 @@ export const createOrUpdate = values => {
     try {
       const {
         auth: { token },
-        systemUsers: { page }
+        systemUsers: { page, data }
       } = getState();
-      await api.MrkAdminServiceClient.changeMrkSysUser(token, new MrkAlmexSysUser(values), values.password, null);
+      const result = await api.MrkAdminServiceClient.changeMrkSysUser(token, new MrkAlmexSysUser(values), values.password, null);
+      const id = get(values, 'id', null);
       dispatch({
-        type: CREATE_OR_UPDATE_SUCCESS
+        type: CREATE_OR_UPDATE_SUCCESS,
+        payload: id !== null ? [...data.map(item => {
+          if (id === item.id) return result;
+          return item;
+        })] : data
       });
-      dispatch(getData(page));
+      if (id === null) dispatch(getData(page));
       return true;
     } catch (error) {
       notificationError(error, 'changeMrkSysUser');
