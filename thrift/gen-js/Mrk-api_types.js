@@ -42,7 +42,9 @@ MrkHistoryKey = {
   'DOCUMENT_VIEW' : 7,
   'ATTACHMENT_CREATED' : 8,
   'USER_REMOVED' : 9,
-  'USER_CHANGED' : 10
+  'USER_CHANGED' : 10,
+  'SYS_USER_REMOVED' : 11,
+  'SYS_USER_CHANGED' : 12
 };
 MrkContactInfo = class {
   constructor(args) {
@@ -2135,12 +2137,11 @@ MrkDigitalSignDetails = class {
     this.subjectDN = null;
     this.signDate = null;
     this.signInSystem = null;
-    this.subjectSerialNumber = null;
-    this.subjectSerialNumberIndividual = null;
+    this.legalNumber = null;
+    this.individualNumber = null;
     this.email = null;
     this.organization = null;
     this.fullName = null;
-    this.bin = null;
     if (args) {
       if (args.id !== undefined && args.id !== null) {
         this.id = args.id;
@@ -2163,11 +2164,11 @@ MrkDigitalSignDetails = class {
       if (args.signInSystem !== undefined && args.signInSystem !== null) {
         this.signInSystem = args.signInSystem;
       }
-      if (args.subjectSerialNumber !== undefined && args.subjectSerialNumber !== null) {
-        this.subjectSerialNumber = args.subjectSerialNumber;
+      if (args.legalNumber !== undefined && args.legalNumber !== null) {
+        this.legalNumber = args.legalNumber;
       }
-      if (args.subjectSerialNumberIndividual !== undefined && args.subjectSerialNumberIndividual !== null) {
-        this.subjectSerialNumberIndividual = args.subjectSerialNumberIndividual;
+      if (args.individualNumber !== undefined && args.individualNumber !== null) {
+        this.individualNumber = args.individualNumber;
       }
       if (args.email !== undefined && args.email !== null) {
         this.email = args.email;
@@ -2177,9 +2178,6 @@ MrkDigitalSignDetails = class {
       }
       if (args.fullName !== undefined && args.fullName !== null) {
         this.fullName = args.fullName;
-      }
-      if (args.bin !== undefined && args.bin !== null) {
-        this.bin = args.bin;
       }
     }
   }
@@ -2245,14 +2243,14 @@ MrkDigitalSignDetails = class {
         break;
         case 8:
         if (ftype == Thrift.Type.STRING) {
-          this.subjectSerialNumber = input.readString().value;
+          this.legalNumber = input.readString().value;
         } else {
           input.skip(ftype);
         }
         break;
         case 9:
         if (ftype == Thrift.Type.STRING) {
-          this.subjectSerialNumberIndividual = input.readString().value;
+          this.individualNumber = input.readString().value;
         } else {
           input.skip(ftype);
         }
@@ -2274,13 +2272,6 @@ MrkDigitalSignDetails = class {
         case 12:
         if (ftype == Thrift.Type.STRING) {
           this.fullName = input.readString().value;
-        } else {
-          input.skip(ftype);
-        }
-        break;
-        case 13:
-        if (ftype == Thrift.Type.STRING) {
-          this.bin = input.readString().value;
         } else {
           input.skip(ftype);
         }
@@ -2331,14 +2322,14 @@ MrkDigitalSignDetails = class {
       output.writeString(this.signInSystem);
       output.writeFieldEnd();
     }
-    if (this.subjectSerialNumber !== null && this.subjectSerialNumber !== undefined) {
-      output.writeFieldBegin('subjectSerialNumber', Thrift.Type.STRING, 8);
-      output.writeString(this.subjectSerialNumber);
+    if (this.legalNumber !== null && this.legalNumber !== undefined) {
+      output.writeFieldBegin('legalNumber', Thrift.Type.STRING, 8);
+      output.writeString(this.legalNumber);
       output.writeFieldEnd();
     }
-    if (this.subjectSerialNumberIndividual !== null && this.subjectSerialNumberIndividual !== undefined) {
-      output.writeFieldBegin('subjectSerialNumberIndividual', Thrift.Type.STRING, 9);
-      output.writeString(this.subjectSerialNumberIndividual);
+    if (this.individualNumber !== null && this.individualNumber !== undefined) {
+      output.writeFieldBegin('individualNumber', Thrift.Type.STRING, 9);
+      output.writeString(this.individualNumber);
       output.writeFieldEnd();
     }
     if (this.email !== null && this.email !== undefined) {
@@ -2354,11 +2345,6 @@ MrkDigitalSignDetails = class {
     if (this.fullName !== null && this.fullName !== undefined) {
       output.writeFieldBegin('fullName', Thrift.Type.STRING, 12);
       output.writeString(this.fullName);
-      output.writeFieldEnd();
-    }
-    if (this.bin !== null && this.bin !== undefined) {
-      output.writeFieldBegin('bin', Thrift.Type.STRING, 13);
-      output.writeString(this.bin);
       output.writeFieldEnd();
     }
     output.writeFieldStop();
@@ -2645,10 +2631,16 @@ MrkHistory = class {
 };
 MrkAlmexSysUser = class {
   constructor(args) {
+    this.id = null;
     this.login = null;
     this.confirmed = null;
     this.contragent = null;
+    this.createDate = null;
+    this.deleteDate = null;
     if (args) {
+      if (args.id !== undefined && args.id !== null) {
+        this.id = args.id;
+      }
       if (args.login !== undefined && args.login !== null) {
         this.login = args.login;
       }
@@ -2657,6 +2649,12 @@ MrkAlmexSysUser = class {
       }
       if (args.contragent !== undefined && args.contragent !== null) {
         this.contragent = args.contragent;
+      }
+      if (args.createDate !== undefined && args.createDate !== null) {
+        this.createDate = args.createDate;
+      }
+      if (args.deleteDate !== undefined && args.deleteDate !== null) {
+        this.deleteDate = args.deleteDate;
       }
     }
   }
@@ -2673,21 +2671,42 @@ MrkAlmexSysUser = class {
       switch (fid) {
         case 1:
         if (ftype == Thrift.Type.STRING) {
-          this.login = input.readString().value;
+          this.id = input.readString().value;
         } else {
           input.skip(ftype);
         }
         break;
         case 2:
-        if (ftype == Thrift.Type.BOOL) {
-          this.confirmed = input.readBool().value;
+        if (ftype == Thrift.Type.STRING) {
+          this.login = input.readString().value;
         } else {
           input.skip(ftype);
         }
         break;
         case 3:
         if (ftype == Thrift.Type.BOOL) {
+          this.confirmed = input.readBool().value;
+        } else {
+          input.skip(ftype);
+        }
+        break;
+        case 4:
+        if (ftype == Thrift.Type.BOOL) {
           this.contragent = input.readBool().value;
+        } else {
+          input.skip(ftype);
+        }
+        break;
+        case 5:
+        if (ftype == Thrift.Type.I64) {
+          this.createDate = input.readI64().value;
+        } else {
+          input.skip(ftype);
+        }
+        break;
+        case 6:
+        if (ftype == Thrift.Type.I64) {
+          this.deleteDate = input.readI64().value;
         } else {
           input.skip(ftype);
         }
@@ -2703,19 +2722,34 @@ MrkAlmexSysUser = class {
 
   write (output) {
     output.writeStructBegin('MrkAlmexSysUser');
+    if (this.id !== null && this.id !== undefined) {
+      output.writeFieldBegin('id', Thrift.Type.STRING, 1);
+      output.writeString(this.id);
+      output.writeFieldEnd();
+    }
     if (this.login !== null && this.login !== undefined) {
-      output.writeFieldBegin('login', Thrift.Type.STRING, 1);
+      output.writeFieldBegin('login', Thrift.Type.STRING, 2);
       output.writeString(this.login);
       output.writeFieldEnd();
     }
     if (this.confirmed !== null && this.confirmed !== undefined) {
-      output.writeFieldBegin('confirmed', Thrift.Type.BOOL, 2);
+      output.writeFieldBegin('confirmed', Thrift.Type.BOOL, 3);
       output.writeBool(this.confirmed);
       output.writeFieldEnd();
     }
     if (this.contragent !== null && this.contragent !== undefined) {
-      output.writeFieldBegin('contragent', Thrift.Type.BOOL, 3);
+      output.writeFieldBegin('contragent', Thrift.Type.BOOL, 4);
       output.writeBool(this.contragent);
+      output.writeFieldEnd();
+    }
+    if (this.createDate !== null && this.createDate !== undefined) {
+      output.writeFieldBegin('createDate', Thrift.Type.I64, 5);
+      output.writeI64(this.createDate);
+      output.writeFieldEnd();
+    }
+    if (this.deleteDate !== null && this.deleteDate !== undefined) {
+      output.writeFieldBegin('deleteDate', Thrift.Type.I64, 6);
+      output.writeI64(this.deleteDate);
       output.writeFieldEnd();
     }
     output.writeFieldStop();

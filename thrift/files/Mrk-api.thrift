@@ -197,12 +197,11 @@ struct MrkDigitalSignDetails {
    5: optional string subjectDN;
    6: optional i64 signDate;
    7: optional string signInSystem;
-   8: optional string subjectSerialNumber;
-   9: optional string subjectSerialNumberIndividual;
+   8: optional string legalNumber;
+   9: optional string individualNumber;
   10: optional string email;
   11: optional string organization;
   12: optional string fullName;
-  13: optional string bin;
 }
 
 struct MrkDocumentData {
@@ -223,7 +222,9 @@ enum MrkHistoryKey {
   DOCUMENT_VIEW,
   ATTACHMENT_CREATED,
   USER_REMOVED,
-  USER_CHANGED
+  USER_CHANGED,
+  SYS_USER_REMOVED,
+  SYS_USER_CHANGED  
 }
 
 struct MrkHistory {
@@ -237,9 +238,12 @@ struct MrkHistory {
 }
 
 struct MrkAlmexSysUser {
-  1: string login;
-  2: bool confirmed;
-  3: bool contragent;
+  1: string id;
+  2: string login;
+  3: bool confirmed;
+  4: bool contragent;
+  5: optional i64 createDate;
+  6: optional i64 deleteDate;
 }
 
 struct MrkHistoryPage {
@@ -318,6 +322,10 @@ service MrkUserService {
   i32 getCountAllMrkAccounts(1: string token, 2: filter.KazFilter filter) throws (1: ex.PreconditionException validError, 2: ex.ServerException error);
   MrkAccount changeMrkAccount(1: string token, 2:MrkAccount toChange) throws (1: ex.PreconditionException validError, 2: ex.ServerException error);
 
-  MrkAlmexSysUserPage getMrkAlmexSysUserPage(1: string token, 2: filter.KazFilter filter) throws (1: ex.PreconditionException validError, 2: ex.ServerException error);
   bool logout(1: string token) throws (1: ex.PreconditionException validError, 2: ex.ServerException error);
+}
+
+service MrkAdminService {
+  MrkAlmexSysUserPage getMrkAlmexSysUserPage(1: string token, 2: filter.KazFilter filter) throws (1: ex.PreconditionException validError, 2: ex.ServerException error);
+  MrkAlmexSysUser changeMrkSysUser(1: string token, 2: MrkAlmexSysUser toUpdate, 3: string password, 4:string idToRemove) throws (1: ex.PreconditionException validError, 2: ex.ServerException error);
 }

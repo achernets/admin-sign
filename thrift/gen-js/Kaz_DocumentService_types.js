@@ -1649,6 +1649,7 @@ ContentItemHBValue = class {
     this.row = null;
     this.column = null;
     this.originalColumn = null;
+    this.keyColumn = null;
     if (args) {
       if (args.row !== undefined && args.row !== null) {
         this.row = new HBRow(args.row);
@@ -1658,6 +1659,9 @@ ContentItemHBValue = class {
       }
       if (args.originalColumn !== undefined && args.originalColumn !== null) {
         this.originalColumn = new HBColumn(args.originalColumn);
+      }
+      if (args.keyColumn !== undefined && args.keyColumn !== null) {
+        this.keyColumn = new HBColumn(args.keyColumn);
       }
     }
   }
@@ -1696,6 +1700,14 @@ ContentItemHBValue = class {
           input.skip(ftype);
         }
         break;
+        case 4:
+        if (ftype == Thrift.Type.STRUCT) {
+          this.keyColumn = new HBColumn();
+          this.keyColumn.read(input);
+        } else {
+          input.skip(ftype);
+        }
+        break;
         default:
           input.skip(ftype);
       }
@@ -1720,6 +1732,11 @@ ContentItemHBValue = class {
     if (this.originalColumn !== null && this.originalColumn !== undefined) {
       output.writeFieldBegin('originalColumn', Thrift.Type.STRUCT, 3);
       this.originalColumn.write(output);
+      output.writeFieldEnd();
+    }
+    if (this.keyColumn !== null && this.keyColumn !== undefined) {
+      output.writeFieldBegin('keyColumn', Thrift.Type.STRUCT, 4);
+      this.keyColumn.write(output);
       output.writeFieldEnd();
     }
     output.writeFieldStop();

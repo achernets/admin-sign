@@ -1,7 +1,8 @@
 import React from 'react';
-import { notification } from 'antd';
+import { notification, Modal } from 'antd';
 import { uniqueId } from 'lodash';
 import store from 'redux/store';
+import { I18n } from 'react-redux-i18n';
 
 export const log = (...props) => {
   /* eslint-disable-next-line */
@@ -27,6 +28,17 @@ export const getAntdLocale = () => {
   const state = store.getState();
   const { locale, translations } = state.i18n;
   return translations[locale].antd;
+};
+
+export const confirmationAction = (fn, title, desc) => {
+  Modal.confirm({
+    title: title || I18n.t('confirmation.title'),
+    content: desc || null,
+    okText: I18n.t('confirmation.okText'),
+    okType: 'danger',
+    cancelText: I18n.t('common.cancel'),
+    onOk: () => fn()
+  });
 };
 
 export const notificationError = (error, key = uniqueId('notification_')) => {

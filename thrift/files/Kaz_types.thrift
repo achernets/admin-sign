@@ -285,8 +285,8 @@ enum KeyState {
 struct CertificateInfo
 {
   1: optional string serialNumber;
-  2: optional string subjectSerialNumber;
-  3: optional string subjectSerialNumberIndividual;
+  2: optional string legalNumber;
+  3: optional string individualNumber;
   4: optional string issuerDN;
   5: optional string subjectDN;
   6: optional common.kazDate signDate;
@@ -296,7 +296,6 @@ struct CertificateInfo
   10: optional string email;
   11: optional string organization;
   12: optional string fullName;
-  13: optional string bin;
 }
 
 /** Функции для поиска по содержимому документа */

@@ -4,6 +4,7 @@ import './index.scss';
 import App from './pages/App';
 import { Provider } from 'react-redux';
 import { ConnectedRouter } from 'connected-react-router';
+import ModalProvider from 'react-redux-modal-provider';
 import store, { history } from 'redux/store';
 
 const render = Component => {
@@ -12,6 +13,7 @@ const render = Component => {
       <ConnectedRouter history={history}>
         <Component />
       </ConnectedRouter>
+      <ModalProvider />
     </Provider>,
     document.getElementById('root')
   );

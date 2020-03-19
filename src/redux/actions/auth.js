@@ -24,7 +24,7 @@ export const login = values => {
         payload: authenticate
       });
     } catch (error) {
-      notificationError(error, 'authMrkClient');
+      notificationError(error, 'authMrkUser');
       dispatch({ type: SIGN_IN_FAILURE });
     }
   };

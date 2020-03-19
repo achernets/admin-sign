@@ -1,10 +1,10 @@
 import React from 'react';
 import { SubLayout } from 'components/LayoutApp';
-
+import { Content } from './components';
 const SystemUsers = () => {
   return (<>
     <SubLayout>
-      <div>systemUsers</div>
+      <Content />
     </SubLayout>
   </>);
 };

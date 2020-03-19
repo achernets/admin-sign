@@ -1430,8 +1430,8 @@ FileStorage = class {
 CertificateInfo = class {
   constructor(args) {
     this.serialNumber = null;
-    this.subjectSerialNumber = null;
-    this.subjectSerialNumberIndividual = null;
+    this.legalNumber = null;
+    this.individualNumber = null;
     this.issuerDN = null;
     this.subjectDN = null;
     this.signDate = null;
@@ -1441,16 +1441,15 @@ CertificateInfo = class {
     this.email = null;
     this.organization = null;
     this.fullName = null;
-    this.bin = null;
     if (args) {
       if (args.serialNumber !== undefined && args.serialNumber !== null) {
         this.serialNumber = args.serialNumber;
       }
-      if (args.subjectSerialNumber !== undefined && args.subjectSerialNumber !== null) {
-        this.subjectSerialNumber = args.subjectSerialNumber;
+      if (args.legalNumber !== undefined && args.legalNumber !== null) {
+        this.legalNumber = args.legalNumber;
       }
-      if (args.subjectSerialNumberIndividual !== undefined && args.subjectSerialNumberIndividual !== null) {
-        this.subjectSerialNumberIndividual = args.subjectSerialNumberIndividual;
+      if (args.individualNumber !== undefined && args.individualNumber !== null) {
+        this.individualNumber = args.individualNumber;
       }
       if (args.issuerDN !== undefined && args.issuerDN !== null) {
         this.issuerDN = args.issuerDN;
@@ -1479,9 +1478,6 @@ CertificateInfo = class {
       if (args.fullName !== undefined && args.fullName !== null) {
         this.fullName = args.fullName;
       }
-      if (args.bin !== undefined && args.bin !== null) {
-        this.bin = args.bin;
-      }
     }
   }
 
@@ -1504,14 +1500,14 @@ CertificateInfo = class {
         break;
         case 2:
         if (ftype == Thrift.Type.STRING) {
-          this.subjectSerialNumber = input.readString().value;
+          this.legalNumber = input.readString().value;
         } else {
           input.skip(ftype);
         }
         break;
         case 3:
         if (ftype == Thrift.Type.STRING) {
-          this.subjectSerialNumberIndividual = input.readString().value;
+          this.individualNumber = input.readString().value;
         } else {
           input.skip(ftype);
         }
@@ -1579,13 +1575,6 @@ CertificateInfo = class {
           input.skip(ftype);
         }
         break;
-        case 13:
-        if (ftype == Thrift.Type.STRING) {
-          this.bin = input.readString().value;
-        } else {
-          input.skip(ftype);
-        }
-        break;
         default:
           input.skip(ftype);
       }
@@ -1602,14 +1591,14 @@ CertificateInfo = class {
       output.writeString(this.serialNumber);
       output.writeFieldEnd();
     }
-    if (this.subjectSerialNumber !== null && this.subjectSerialNumber !== undefined) {
-      output.writeFieldBegin('subjectSerialNumber', Thrift.Type.STRING, 2);
-      output.writeString(this.subjectSerialNumber);
+    if (this.legalNumber !== null && this.legalNumber !== undefined) {
+      output.writeFieldBegin('legalNumber', Thrift.Type.STRING, 2);
+      output.writeString(this.legalNumber);
       output.writeFieldEnd();
     }
-    if (this.subjectSerialNumberIndividual !== null && this.subjectSerialNumberIndividual !== undefined) {
-      output.writeFieldBegin('subjectSerialNumberIndividual', Thrift.Type.STRING, 3);
-      output.writeString(this.subjectSerialNumberIndividual);
+    if (this.individualNumber !== null && this.individualNumber !== undefined) {
+      output.writeFieldBegin('individualNumber', Thrift.Type.STRING, 3);
+      output.writeString(this.individualNumber);
       output.writeFieldEnd();
     }
     if (this.issuerDN !== null && this.issuerDN !== undefined) {
@@ -1655,11 +1644,6 @@ CertificateInfo = class {
     if (this.fullName !== null && this.fullName !== undefined) {
       output.writeFieldBegin('fullName', Thrift.Type.STRING, 12);
       output.writeString(this.fullName);
-      output.writeFieldEnd();
-    }
-    if (this.bin !== null && this.bin !== undefined) {
-      output.writeFieldBegin('bin', Thrift.Type.STRING, 13);
-      output.writeString(this.bin);
       output.writeFieldEnd();
     }
     output.writeFieldStop();

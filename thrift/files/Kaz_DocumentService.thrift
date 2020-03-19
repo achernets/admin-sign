@@ -254,12 +254,14 @@ enum PatternType {
 
 /** Строка из справочника */
 struct ContentItemHBValue {
-  /** Строка */
+    /** Строка */
     1: optional HB.HBRow row;
     /** Колонка */
     2: optional HB.HBColumn column;
-    /**Оригинальная колонка */
+    /** Оригинальная колонка */
     3: optional HB.HBColumn originalColumn;
+    /** Колонка ключа */
+    4: optional HB.HBColumn keyColumn;
 }
 
 /** Значение контента */

@@ -1,10 +1,10 @@
 import React from 'react';
 import { SubLayout } from 'components/LayoutApp';
-
+import { Content } from './components';
 const Accounts = () => {
   return (<>
     <SubLayout>
-      <div>Accounts</div>
+      <Content />
     </SubLayout>
   </>);
 };

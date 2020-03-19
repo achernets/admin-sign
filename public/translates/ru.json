@@ -31,5 +31,11 @@
     "login": "Логин",
     "password": "Пароль",
     "sign_in": "Войти"
+  },
+  "MrkAlmexSysUser": {
+    "login": "Логин",
+    "createDate": "Дата создания",
+    "confirmed": "Подтвержденный",
+    "contragent": "Контрагент"
   }
 }

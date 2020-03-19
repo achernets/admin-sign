@@ -29295,6 +29295,7 @@ ContentItemHBValue = class {
     this.row = null;
     this.column = null;
     this.originalColumn = null;
+    this.keyColumn = null;
     if (args) {
       if (args.row !== undefined && args.row !== null) {
         this.row = new HBRow(args.row);
@@ -29304,6 +29305,9 @@ ContentItemHBValue = class {
       }
       if (args.originalColumn !== undefined && args.originalColumn !== null) {
         this.originalColumn = new HBColumn(args.originalColumn);
+      }
+      if (args.keyColumn !== undefined && args.keyColumn !== null) {
+        this.keyColumn = new HBColumn(args.keyColumn);
       }
     }
   }
@@ -29342,6 +29346,14 @@ ContentItemHBValue = class {
           input.skip(ftype);
         }
         break;
+        case 4:
+        if (ftype == Thrift.Type.STRUCT) {
+          this.keyColumn = new HBColumn();
+          this.keyColumn.read(input);
+        } else {
+          input.skip(ftype);
+        }
+        break;
         default:
           input.skip(ftype);
       }
@@ -29366,6 +29378,11 @@ ContentItemHBValue = class {
     if (this.originalColumn !== null && this.originalColumn !== undefined) {
       output.writeFieldBegin('originalColumn', Thrift.Type.STRUCT, 3);
       this.originalColumn.write(output);
+      output.writeFieldEnd();
+    }
+    if (this.keyColumn !== null && this.keyColumn !== undefined) {
+      output.writeFieldBegin('keyColumn', Thrift.Type.STRUCT, 4);
+      this.keyColumn.write(output);
       output.writeFieldEnd();
     }
     output.writeFieldStop();
@@ -41241,8 +41258,8 @@ FileStorage = class {
 CertificateInfo = class {
   constructor(args) {
     this.serialNumber = null;
-    this.subjectSerialNumber = null;
-    this.subjectSerialNumberIndividual = null;
+    this.legalNumber = null;
+    this.individualNumber = null;
     this.issuerDN = null;
     this.subjectDN = null;
     this.signDate = null;
@@ -41252,16 +41269,15 @@ CertificateInfo = class {
     this.email = null;
     this.organization = null;
     this.fullName = null;
-    this.bin = null;
     if (args) {
       if (args.serialNumber !== undefined && args.serialNumber !== null) {
         this.serialNumber = args.serialNumber;
       }
-      if (args.subjectSerialNumber !== undefined && args.subjectSerialNumber !== null) {
-        this.subjectSerialNumber = args.subjectSerialNumber;
+      if (args.legalNumber !== undefined && args.legalNumber !== null) {
+        this.legalNumber = args.legalNumber;
       }
-      if (args.subjectSerialNumberIndividual !== undefined && args.subjectSerialNumberIndividual !== null) {
-        this.subjectSerialNumberIndividual = args.subjectSerialNumberIndividual;
+      if (args.individualNumber !== undefined && args.individualNumber !== null) {
+        this.individualNumber = args.individualNumber;
       }
       if (args.issuerDN !== undefined && args.issuerDN !== null) {
         this.issuerDN = args.issuerDN;
@@ -41290,9 +41306,6 @@ CertificateInfo = class {
       if (args.fullName !== undefined && args.fullName !== null) {
         this.fullName = args.fullName;
       }
-      if (args.bin !== undefined && args.bin !== null) {
-        this.bin = args.bin;
-      }
     }
   }
 
@@ -41315,14 +41328,14 @@ CertificateInfo = class {
         break;
         case 2:
         if (ftype == Thrift.Type.STRING) {
-          this.subjectSerialNumber = input.readString().value;
+          this.legalNumber = input.readString().value;
         } else {
           input.skip(ftype);
         }
         break;
         case 3:
         if (ftype == Thrift.Type.STRING) {
-          this.subjectSerialNumberIndividual = input.readString().value;
+          this.individualNumber = input.readString().value;
         } else {
           input.skip(ftype);
         }
@@ -41390,13 +41403,6 @@ CertificateInfo = class {
           input.skip(ftype);
         }
         break;
-        case 13:
-        if (ftype == Thrift.Type.STRING) {
-          this.bin = input.readString().value;
-        } else {
-          input.skip(ftype);
-        }
-        break;
         default:
           input.skip(ftype);
       }
@@ -41413,14 +41419,14 @@ CertificateInfo = class {
       output.writeString(this.serialNumber);
       output.writeFieldEnd();
     }
-    if (this.subjectSerialNumber !== null && this.subjectSerialNumber !== undefined) {
-      output.writeFieldBegin('subjectSerialNumber', Thrift.Type.STRING, 2);
-      output.writeString(this.subjectSerialNumber);
+    if (this.legalNumber !== null && this.legalNumber !== undefined) {
+      output.writeFieldBegin('legalNumber', Thrift.Type.STRING, 2);
+      output.writeString(this.legalNumber);
       output.writeFieldEnd();
     }
-    if (this.subjectSerialNumberIndividual !== null && this.subjectSerialNumberIndividual !== undefined) {
-      output.writeFieldBegin('subjectSerialNumberIndividual', Thrift.Type.STRING, 3);
-      output.writeString(this.subjectSerialNumberIndividual);
+    if (this.individualNumber !== null && this.individualNumber !== undefined) {
+      output.writeFieldBegin('individualNumber', Thrift.Type.STRING, 3);
+      output.writeString(this.individualNumber);
       output.writeFieldEnd();
     }
     if (this.issuerDN !== null && this.issuerDN !== undefined) {
@@ -41466,11 +41472,6 @@ CertificateInfo = class {
     if (this.fullName !== null && this.fullName !== undefined) {
       output.writeFieldBegin('fullName', Thrift.Type.STRING, 12);
       output.writeString(this.fullName);
-      output.writeFieldEnd();
-    }
-    if (this.bin !== null && this.bin !== undefined) {
-      output.writeFieldBegin('bin', Thrift.Type.STRING, 13);
-      output.writeString(this.bin);
       output.writeFieldEnd();
     }
     output.writeFieldStop();
@@ -41523,7 +41524,9 @@ MrkHistoryKey = {
   'DOCUMENT_VIEW' : 7,
   'ATTACHMENT_CREATED' : 8,
   'USER_REMOVED' : 9,
-  'USER_CHANGED' : 10
+  'USER_CHANGED' : 10,
+  'SYS_USER_REMOVED' : 11,
+  'SYS_USER_CHANGED' : 12
 };
 MrkContactInfo = class {
   constructor(args) {
@@ -43616,12 +43619,11 @@ MrkDigitalSignDetails = class {
     this.subjectDN = null;
     this.signDate = null;
     this.signInSystem = null;
-    this.subjectSerialNumber = null;
-    this.subjectSerialNumberIndividual = null;
+    this.legalNumber = null;
+    this.individualNumber = null;
     this.email = null;
     this.organization = null;
     this.fullName = null;
-    this.bin = null;
     if (args) {
       if (args.id !== undefined && args.id !== null) {
         this.id = args.id;
@@ -43644,11 +43646,11 @@ MrkDigitalSignDetails = class {
       if (args.signInSystem !== undefined && args.signInSystem !== null) {
         this.signInSystem = args.signInSystem;
       }
-      if (args.subjectSerialNumber !== undefined && args.subjectSerialNumber !== null) {
-        this.subjectSerialNumber = args.subjectSerialNumber;
+      if (args.legalNumber !== undefined && args.legalNumber !== null) {
+        this.legalNumber = args.legalNumber;
       }
-      if (args.subjectSerialNumberIndividual !== undefined && args.subjectSerialNumberIndividual !== null) {
-        this.subjectSerialNumberIndividual = args.subjectSerialNumberIndividual;
+      if (args.individualNumber !== undefined && args.individualNumber !== null) {
+        this.individualNumber = args.individualNumber;
       }
       if (args.email !== undefined && args.email !== null) {
         this.email = args.email;
@@ -43658,9 +43660,6 @@ MrkDigitalSignDetails = class {
       }
       if (args.fullName !== undefined && args.fullName !== null) {
         this.fullName = args.fullName;
-      }
-      if (args.bin !== undefined && args.bin !== null) {
-        this.bin = args.bin;
       }
     }
   }
@@ -43726,14 +43725,14 @@ MrkDigitalSignDetails = class {
         break;
         case 8:
         if (ftype == Thrift.Type.STRING) {
-          this.subjectSerialNumber = input.readString().value;
+          this.legalNumber = input.readString().value;
         } else {
           input.skip(ftype);
         }
         break;
         case 9:
         if (ftype == Thrift.Type.STRING) {
-          this.subjectSerialNumberIndividual = input.readString().value;
+          this.individualNumber = input.readString().value;
         } else {
           input.skip(ftype);
         }
@@ -43755,13 +43754,6 @@ MrkDigitalSignDetails = class {
         case 12:
         if (ftype == Thrift.Type.STRING) {
           this.fullName = input.readString().value;
-        } else {
-          input.skip(ftype);
-        }
-        break;
-        case 13:
-        if (ftype == Thrift.Type.STRING) {
-          this.bin = input.readString().value;
         } else {
           input.skip(ftype);
         }
@@ -43812,14 +43804,14 @@ MrkDigitalSignDetails = class {
       output.writeString(this.signInSystem);
       output.writeFieldEnd();
     }
-    if (this.subjectSerialNumber !== null && this.subjectSerialNumber !== undefined) {
-      output.writeFieldBegin('subjectSerialNumber', Thrift.Type.STRING, 8);
-      output.writeString(this.subjectSerialNumber);
+    if (this.legalNumber !== null && this.legalNumber !== undefined) {
+      output.writeFieldBegin('legalNumber', Thrift.Type.STRING, 8);
+      output.writeString(this.legalNumber);
       output.writeFieldEnd();
     }
-    if (this.subjectSerialNumberIndividual !== null && this.subjectSerialNumberIndividual !== undefined) {
-      output.writeFieldBegin('subjectSerialNumberIndividual', Thrift.Type.STRING, 9);
-      output.writeString(this.subjectSerialNumberIndividual);
+    if (this.individualNumber !== null && this.individualNumber !== undefined) {
+      output.writeFieldBegin('individualNumber', Thrift.Type.STRING, 9);
+      output.writeString(this.individualNumber);
       output.writeFieldEnd();
     }
     if (this.email !== null && this.email !== undefined) {
@@ -43835,11 +43827,6 @@ MrkDigitalSignDetails = class {
     if (this.fullName !== null && this.fullName !== undefined) {
       output.writeFieldBegin('fullName', Thrift.Type.STRING, 12);
       output.writeString(this.fullName);
-      output.writeFieldEnd();
-    }
-    if (this.bin !== null && this.bin !== undefined) {
-      output.writeFieldBegin('bin', Thrift.Type.STRING, 13);
-      output.writeString(this.bin);
       output.writeFieldEnd();
     }
     output.writeFieldStop();
@@ -44126,10 +44113,16 @@ MrkHistory = class {
 };
 MrkAlmexSysUser = class {
   constructor(args) {
+    this.id = null;
     this.login = null;
     this.confirmed = null;
     this.contragent = null;
+    this.createDate = null;
+    this.deleteDate = null;
     if (args) {
+      if (args.id !== undefined && args.id !== null) {
+        this.id = args.id;
+      }
       if (args.login !== undefined && args.login !== null) {
         this.login = args.login;
       }
@@ -44138,6 +44131,12 @@ MrkAlmexSysUser = class {
       }
       if (args.contragent !== undefined && args.contragent !== null) {
         this.contragent = args.contragent;
+      }
+      if (args.createDate !== undefined && args.createDate !== null) {
+        this.createDate = args.createDate;
+      }
+      if (args.deleteDate !== undefined && args.deleteDate !== null) {
+        this.deleteDate = args.deleteDate;
       }
     }
   }
@@ -44154,21 +44153,42 @@ MrkAlmexSysUser = class {
       switch (fid) {
         case 1:
         if (ftype == Thrift.Type.STRING) {
-          this.login = input.readString().value;
+          this.id = input.readString().value;
         } else {
           input.skip(ftype);
         }
         break;
         case 2:
-        if (ftype == Thrift.Type.BOOL) {
-          this.confirmed = input.readBool().value;
+        if (ftype == Thrift.Type.STRING) {
+          this.login = input.readString().value;
         } else {
           input.skip(ftype);
         }
         break;
         case 3:
         if (ftype == Thrift.Type.BOOL) {
+          this.confirmed = input.readBool().value;
+        } else {
+          input.skip(ftype);
+        }
+        break;
+        case 4:
+        if (ftype == Thrift.Type.BOOL) {
           this.contragent = input.readBool().value;
+        } else {
+          input.skip(ftype);
+        }
+        break;
+        case 5:
+        if (ftype == Thrift.Type.I64) {
+          this.createDate = input.readI64().value;
+        } else {
+          input.skip(ftype);
+        }
+        break;
+        case 6:
+        if (ftype == Thrift.Type.I64) {
+          this.deleteDate = input.readI64().value;
         } else {
           input.skip(ftype);
         }
@@ -44184,19 +44204,34 @@ MrkAlmexSysUser = class {
 
   write (output) {
     output.writeStructBegin('MrkAlmexSysUser');
+    if (this.id !== null && this.id !== undefined) {
+      output.writeFieldBegin('id', Thrift.Type.STRING, 1);
+      output.writeString(this.id);
+      output.writeFieldEnd();
+    }
     if (this.login !== null && this.login !== undefined) {
-      output.writeFieldBegin('login', Thrift.Type.STRING, 1);
+      output.writeFieldBegin('login', Thrift.Type.STRING, 2);
       output.writeString(this.login);
       output.writeFieldEnd();
     }
     if (this.confirmed !== null && this.confirmed !== undefined) {
-      output.writeFieldBegin('confirmed', Thrift.Type.BOOL, 2);
+      output.writeFieldBegin('confirmed', Thrift.Type.BOOL, 3);
       output.writeBool(this.confirmed);
       output.writeFieldEnd();
     }
     if (this.contragent !== null && this.contragent !== undefined) {
-      output.writeFieldBegin('contragent', Thrift.Type.BOOL, 3);
+      output.writeFieldBegin('contragent', Thrift.Type.BOOL, 4);
       output.writeBool(this.contragent);
+      output.writeFieldEnd();
+    }
+    if (this.createDate !== null && this.createDate !== undefined) {
+      output.writeFieldBegin('createDate', Thrift.Type.I64, 5);
+      output.writeI64(this.createDate);
+      output.writeFieldEnd();
+    }
+    if (this.deleteDate !== null && this.deleteDate !== undefined) {
+      output.writeFieldBegin('deleteDate', Thrift.Type.I64, 6);
+      output.writeI64(this.deleteDate);
       output.writeFieldEnd();
     }
     output.writeFieldStop();
@@ -44368,6 +44403,501 @@ MrkAlmexSysUserPage = class {
 
 };
 MRK_CURRENT_VERSION = 'mrk-1.0.1';
+//
+// Autogenerated by Thrift Compiler (0.13.0)
+//
+// DO NOT EDIT UNLESS YOU ARE SURE THAT YOU KNOW WHAT YOU ARE DOING
+//
+if (typeof Int64 === 'undefined' && typeof require === 'function') {
+  const Int64 = require('node-int64');
+}
+
+
+//HELPER FUNCTIONS AND STRUCTURES
+
+MrkAdminService_getMrkAlmexSysUserPage_args = class {
+  constructor(args) {
+    this.token = null;
+    this.filter = null;
+    if (args) {
+      if (args.token !== undefined && args.token !== null) {
+        this.token = args.token;
+      }
+      if (args.filter !== undefined && args.filter !== null) {
+        this.filter = new KazFilter(args.filter);
+      }
+    }
+  }
+
+  read (input) {
+    input.readStructBegin();
+    while (true) {
+      const ret = input.readFieldBegin();
+      const ftype = ret.ftype;
+      const fid = ret.fid;
+      if (ftype == Thrift.Type.STOP) {
+        break;
+      }
+      switch (fid) {
+        case 1:
+        if (ftype == Thrift.Type.STRING) {
+          this.token = input.readString().value;
+        } else {
+          input.skip(ftype);
+        }
+        break;
+        case 2:
+        if (ftype == Thrift.Type.STRUCT) {
+          this.filter = new KazFilter();
+          this.filter.read(input);
+        } else {
+          input.skip(ftype);
+        }
+        break;
+        default:
+          input.skip(ftype);
+      }
+      input.readFieldEnd();
+    }
+    input.readStructEnd();
+    return;
+  }
+
+  write (output) {
+    output.writeStructBegin('MrkAdminService_getMrkAlmexSysUserPage_args');
+    if (this.token !== null && this.token !== undefined) {
+      output.writeFieldBegin('token', Thrift.Type.STRING, 1);
+      output.writeString(this.token);
+      output.writeFieldEnd();
+    }
+    if (this.filter !== null && this.filter !== undefined) {
+      output.writeFieldBegin('filter', Thrift.Type.STRUCT, 2);
+      this.filter.write(output);
+      output.writeFieldEnd();
+    }
+    output.writeFieldStop();
+    output.writeStructEnd();
+    return;
+  }
+
+};
+MrkAdminService_getMrkAlmexSysUserPage_result = class {
+  constructor(args) {
+    this.success = null;
+    this.validError = null;
+    this.error = null;
+    if (args instanceof PreconditionException) {
+        this.validError = args;
+        return;
+    }
+    if (args instanceof ServerException) {
+        this.error = args;
+        return;
+    }
+    if (args) {
+      if (args.success !== undefined && args.success !== null) {
+        this.success = new MrkAlmexSysUserPage(args.success);
+      }
+      if (args.validError !== undefined && args.validError !== null) {
+        this.validError = args.validError;
+      }
+      if (args.error !== undefined && args.error !== null) {
+        this.error = args.error;
+      }
+    }
+  }
+
+  read (input) {
+    input.readStructBegin();
+    while (true) {
+      const ret = input.readFieldBegin();
+      const ftype = ret.ftype;
+      const fid = ret.fid;
+      if (ftype == Thrift.Type.STOP) {
+        break;
+      }
+      switch (fid) {
+        case 0:
+        if (ftype == Thrift.Type.STRUCT) {
+          this.success = new MrkAlmexSysUserPage();
+          this.success.read(input);
+        } else {
+          input.skip(ftype);
+        }
+        break;
+        case 1:
+        if (ftype == Thrift.Type.STRUCT) {
+          this.validError = new PreconditionException();
+          this.validError.read(input);
+        } else {
+          input.skip(ftype);
+        }
+        break;
+        case 2:
+        if (ftype == Thrift.Type.STRUCT) {
+          this.error = new ServerException();
+          this.error.read(input);
+        } else {
+          input.skip(ftype);
+        }
+        break;
+        default:
+          input.skip(ftype);
+      }
+      input.readFieldEnd();
+    }
+    input.readStructEnd();
+    return;
+  }
+
+  write (output) {
+    output.writeStructBegin('MrkAdminService_getMrkAlmexSysUserPage_result');
+    if (this.success !== null && this.success !== undefined) {
+      output.writeFieldBegin('success', Thrift.Type.STRUCT, 0);
+      this.success.write(output);
+      output.writeFieldEnd();
+    }
+    if (this.validError !== null && this.validError !== undefined) {
+      output.writeFieldBegin('validError', Thrift.Type.STRUCT, 1);
+      this.validError.write(output);
+      output.writeFieldEnd();
+    }
+    if (this.error !== null && this.error !== undefined) {
+      output.writeFieldBegin('error', Thrift.Type.STRUCT, 2);
+      this.error.write(output);
+      output.writeFieldEnd();
+    }
+    output.writeFieldStop();
+    output.writeStructEnd();
+    return;
+  }
+
+};
+MrkAdminService_changeMrkSysUser_args = class {
+  constructor(args) {
+    this.token = null;
+    this.toUpdate = null;
+    this.password = null;
+    this.idToRemove = null;
+    if (args) {
+      if (args.token !== undefined && args.token !== null) {
+        this.token = args.token;
+      }
+      if (args.toUpdate !== undefined && args.toUpdate !== null) {
+        this.toUpdate = new MrkAlmexSysUser(args.toUpdate);
+      }
+      if (args.password !== undefined && args.password !== null) {
+        this.password = args.password;
+      }
+      if (args.idToRemove !== undefined && args.idToRemove !== null) {
+        this.idToRemove = args.idToRemove;
+      }
+    }
+  }
+
+  read (input) {
+    input.readStructBegin();
+    while (true) {
+      const ret = input.readFieldBegin();
+      const ftype = ret.ftype;
+      const fid = ret.fid;
+      if (ftype == Thrift.Type.STOP) {
+        break;
+      }
+      switch (fid) {
+        case 1:
+        if (ftype == Thrift.Type.STRING) {
+          this.token = input.readString().value;
+        } else {
+          input.skip(ftype);
+        }
+        break;
+        case 2:
+        if (ftype == Thrift.Type.STRUCT) {
+          this.toUpdate = new MrkAlmexSysUser();
+          this.toUpdate.read(input);
+        } else {
+          input.skip(ftype);
+        }
+        break;
+        case 3:
+        if (ftype == Thrift.Type.STRING) {
+          this.password = input.readString().value;
+        } else {
+          input.skip(ftype);
+        }
+        break;
+        case 4:
+        if (ftype == Thrift.Type.STRING) {
+          this.idToRemove = input.readString().value;
+        } else {
+          input.skip(ftype);
+        }
+        break;
+        default:
+          input.skip(ftype);
+      }
+      input.readFieldEnd();
+    }
+    input.readStructEnd();
+    return;
+  }
+
+  write (output) {
+    output.writeStructBegin('MrkAdminService_changeMrkSysUser_args');
+    if (this.token !== null && this.token !== undefined) {
+      output.writeFieldBegin('token', Thrift.Type.STRING, 1);
+      output.writeString(this.token);
+      output.writeFieldEnd();
+    }
+    if (this.toUpdate !== null && this.toUpdate !== undefined) {
+      output.writeFieldBegin('toUpdate', Thrift.Type.STRUCT, 2);
+      this.toUpdate.write(output);
+      output.writeFieldEnd();
+    }
+    if (this.password !== null && this.password !== undefined) {
+      output.writeFieldBegin('password', Thrift.Type.STRING, 3);
+      output.writeString(this.password);
+      output.writeFieldEnd();
+    }
+    if (this.idToRemove !== null && this.idToRemove !== undefined) {
+      output.writeFieldBegin('idToRemove', Thrift.Type.STRING, 4);
+      output.writeString(this.idToRemove);
+      output.writeFieldEnd();
+    }
+    output.writeFieldStop();
+    output.writeStructEnd();
+    return;
+  }
+
+};
+MrkAdminService_changeMrkSysUser_result = class {
+  constructor(args) {
+    this.success = null;
+    this.validError = null;
+    this.error = null;
+    if (args instanceof PreconditionException) {
+        this.validError = args;
+        return;
+    }
+    if (args instanceof ServerException) {
+        this.error = args;
+        return;
+    }
+    if (args) {
+      if (args.success !== undefined && args.success !== null) {
+        this.success = new MrkAlmexSysUser(args.success);
+      }
+      if (args.validError !== undefined && args.validError !== null) {
+        this.validError = args.validError;
+      }
+      if (args.error !== undefined && args.error !== null) {
+        this.error = args.error;
+      }
+    }
+  }
+
+  read (input) {
+    input.readStructBegin();
+    while (true) {
+      const ret = input.readFieldBegin();
+      const ftype = ret.ftype;
+      const fid = ret.fid;
+      if (ftype == Thrift.Type.STOP) {
+        break;
+      }
+      switch (fid) {
+        case 0:
+        if (ftype == Thrift.Type.STRUCT) {
+          this.success = new MrkAlmexSysUser();
+          this.success.read(input);
+        } else {
+          input.skip(ftype);
+        }
+        break;
+        case 1:
+        if (ftype == Thrift.Type.STRUCT) {
+          this.validError = new PreconditionException();
+          this.validError.read(input);
+        } else {
+          input.skip(ftype);
+        }
+        break;
+        case 2:
+        if (ftype == Thrift.Type.STRUCT) {
+          this.error = new ServerException();
+          this.error.read(input);
+        } else {
+          input.skip(ftype);
+        }
+        break;
+        default:
+          input.skip(ftype);
+      }
+      input.readFieldEnd();
+    }
+    input.readStructEnd();
+    return;
+  }
+
+  write (output) {
+    output.writeStructBegin('MrkAdminService_changeMrkSysUser_result');
+    if (this.success !== null && this.success !== undefined) {
+      output.writeFieldBegin('success', Thrift.Type.STRUCT, 0);
+      this.success.write(output);
+      output.writeFieldEnd();
+    }
+    if (this.validError !== null && this.validError !== undefined) {
+      output.writeFieldBegin('validError', Thrift.Type.STRUCT, 1);
+      this.validError.write(output);
+      output.writeFieldEnd();
+    }
+    if (this.error !== null && this.error !== undefined) {
+      output.writeFieldBegin('error', Thrift.Type.STRUCT, 2);
+      this.error.write(output);
+      output.writeFieldEnd();
+    }
+    output.writeFieldStop();
+    output.writeStructEnd();
+    return;
+  }
+
+};
+MrkAdminServiceClient = class {
+  constructor(input, output) {
+    this.input = input;
+    this.output = (!output) ? input : output;
+    this.seqid = 0;
+  }
+
+  getMrkAlmexSysUserPage (token, filter) {
+    const self = this;
+    return new Promise((resolve, reject) => {
+      self.send_getMrkAlmexSysUserPage(token, filter, (error, result) => {
+        return error ? reject(error) : resolve(result);
+      });
+    });
+  }
+
+  send_getMrkAlmexSysUserPage (token, filter, callback) {
+    const params = {
+      token: token,
+      filter: filter
+    };
+    const args = new MrkAdminService_getMrkAlmexSysUserPage_args(params);
+    try {
+      this.output.writeMessageBegin('getMrkAlmexSysUserPage', Thrift.MessageType.CALL, this.seqid);
+      args.write(this.output);
+      this.output.writeMessageEnd();
+      const self = this;
+      this.output.getTransport().flush(true, () => {
+        let error = null, result = null;
+        try {
+          result = self.recv_getMrkAlmexSysUserPage();
+        } catch (e) {
+          error = e;
+        }
+        callback(error, result);
+      });
+    }
+    catch (e) {
+      if (typeof this.output.getTransport().reset === 'function') {
+        this.output.getTransport().reset();
+      }
+      throw e;
+    }
+  }
+
+  recv_getMrkAlmexSysUserPage () {
+    const ret = this.input.readMessageBegin();
+    const mtype = ret.mtype;
+    if (mtype == Thrift.MessageType.EXCEPTION) {
+      const x = new Thrift.TApplicationException();
+      x.read(this.input);
+      this.input.readMessageEnd();
+      throw x;
+    }
+    const result = new MrkAdminService_getMrkAlmexSysUserPage_result();
+    result.read(this.input);
+    this.input.readMessageEnd();
+
+    if (null !== result.validError) {
+      throw result.validError;
+    }
+    if (null !== result.error) {
+      throw result.error;
+    }
+    if (null !== result.success) {
+      return result.success;
+    }
+    throw 'getMrkAlmexSysUserPage failed: unknown result';
+  }
+
+  changeMrkSysUser (token, toUpdate, password, idToRemove) {
+    const self = this;
+    return new Promise((resolve, reject) => {
+      self.send_changeMrkSysUser(token, toUpdate, password, idToRemove, (error, result) => {
+        return error ? reject(error) : resolve(result);
+      });
+    });
+  }
+
+  send_changeMrkSysUser (token, toUpdate, password, idToRemove, callback) {
+    const params = {
+      token: token,
+      toUpdate: toUpdate,
+      password: password,
+      idToRemove: idToRemove
+    };
+    const args = new MrkAdminService_changeMrkSysUser_args(params);
+    try {
+      this.output.writeMessageBegin('changeMrkSysUser', Thrift.MessageType.CALL, this.seqid);
+      args.write(this.output);
+      this.output.writeMessageEnd();
+      const self = this;
+      this.output.getTransport().flush(true, () => {
+        let error = null, result = null;
+        try {
+          result = self.recv_changeMrkSysUser();
+        } catch (e) {
+          error = e;
+        }
+        callback(error, result);
+      });
+    }
+    catch (e) {
+      if (typeof this.output.getTransport().reset === 'function') {
+        this.output.getTransport().reset();
+      }
+      throw e;
+    }
+  }
+
+  recv_changeMrkSysUser () {
+    const ret = this.input.readMessageBegin();
+    const mtype = ret.mtype;
+    if (mtype == Thrift.MessageType.EXCEPTION) {
+      const x = new Thrift.TApplicationException();
+      x.read(this.input);
+      this.input.readMessageEnd();
+      throw x;
+    }
+    const result = new MrkAdminService_changeMrkSysUser_result();
+    result.read(this.input);
+    this.input.readMessageEnd();
+
+    if (null !== result.validError) {
+      throw result.validError;
+    }
+    if (null !== result.error) {
+      throw result.error;
+    }
+    if (null !== result.success) {
+      return result.success;
+    }
+    throw 'changeMrkSysUser failed: unknown result';
+  }
+};
 //
 // Autogenerated by Thrift Compiler (0.13.0)
 //
@@ -53000,164 +53530,6 @@ MrkUserService_changeMrkAccount_result = class {
   }
 
 };
-MrkUserService_getMrkAlmexSysUserPage_args = class {
-  constructor(args) {
-    this.token = null;
-    this.filter = null;
-    if (args) {
-      if (args.token !== undefined && args.token !== null) {
-        this.token = args.token;
-      }
-      if (args.filter !== undefined && args.filter !== null) {
-        this.filter = new KazFilter(args.filter);
-      }
-    }
-  }
-
-  read (input) {
-    input.readStructBegin();
-    while (true) {
-      const ret = input.readFieldBegin();
-      const ftype = ret.ftype;
-      const fid = ret.fid;
-      if (ftype == Thrift.Type.STOP) {
-        break;
-      }
-      switch (fid) {
-        case 1:
-        if (ftype == Thrift.Type.STRING) {
-          this.token = input.readString().value;
-        } else {
-          input.skip(ftype);
-        }
-        break;
-        case 2:
-        if (ftype == Thrift.Type.STRUCT) {
-          this.filter = new KazFilter();
-          this.filter.read(input);
-        } else {
-          input.skip(ftype);
-        }
-        break;
-        default:
-          input.skip(ftype);
-      }
-      input.readFieldEnd();
-    }
-    input.readStructEnd();
-    return;
-  }
-
-  write (output) {
-    output.writeStructBegin('MrkUserService_getMrkAlmexSysUserPage_args');
-    if (this.token !== null && this.token !== undefined) {
-      output.writeFieldBegin('token', Thrift.Type.STRING, 1);
-      output.writeString(this.token);
-      output.writeFieldEnd();
-    }
-    if (this.filter !== null && this.filter !== undefined) {
-      output.writeFieldBegin('filter', Thrift.Type.STRUCT, 2);
-      this.filter.write(output);
-      output.writeFieldEnd();
-    }
-    output.writeFieldStop();
-    output.writeStructEnd();
-    return;
-  }
-
-};
-MrkUserService_getMrkAlmexSysUserPage_result = class {
-  constructor(args) {
-    this.success = null;
-    this.validError = null;
-    this.error = null;
-    if (args instanceof PreconditionException) {
-        this.validError = args;
-        return;
-    }
-    if (args instanceof ServerException) {
-        this.error = args;
-        return;
-    }
-    if (args) {
-      if (args.success !== undefined && args.success !== null) {
-        this.success = new MrkAlmexSysUserPage(args.success);
-      }
-      if (args.validError !== undefined && args.validError !== null) {
-        this.validError = args.validError;
-      }
-      if (args.error !== undefined && args.error !== null) {
-        this.error = args.error;
-      }
-    }
-  }
-
-  read (input) {
-    input.readStructBegin();
-    while (true) {
-      const ret = input.readFieldBegin();
-      const ftype = ret.ftype;
-      const fid = ret.fid;
-      if (ftype == Thrift.Type.STOP) {
-        break;
-      }
-      switch (fid) {
-        case 0:
-        if (ftype == Thrift.Type.STRUCT) {
-          this.success = new MrkAlmexSysUserPage();
-          this.success.read(input);
-        } else {
-          input.skip(ftype);
-        }
-        break;
-        case 1:
-        if (ftype == Thrift.Type.STRUCT) {
-          this.validError = new PreconditionException();
-          this.validError.read(input);
-        } else {
-          input.skip(ftype);
-        }
-        break;
-        case 2:
-        if (ftype == Thrift.Type.STRUCT) {
-          this.error = new ServerException();
-          this.error.read(input);
-        } else {
-          input.skip(ftype);
-        }
-        break;
-        default:
-          input.skip(ftype);
-      }
-      input.readFieldEnd();
-    }
-    input.readStructEnd();
-    return;
-  }
-
-  write (output) {
-    output.writeStructBegin('MrkUserService_getMrkAlmexSysUserPage_result');
-    if (this.success !== null && this.success !== undefined) {
-      output.writeFieldBegin('success', Thrift.Type.STRUCT, 0);
-      this.success.write(output);
-      output.writeFieldEnd();
-    }
-    if (this.validError !== null && this.validError !== undefined) {
-      output.writeFieldBegin('validError', Thrift.Type.STRUCT, 1);
-      this.validError.write(output);
-      output.writeFieldEnd();
-    }
-    if (this.error !== null && this.error !== undefined) {
-      output.writeFieldBegin('error', Thrift.Type.STRUCT, 2);
-      this.error.write(output);
-      output.writeFieldEnd();
-    }
-    output.writeFieldStop();
-    output.writeStructEnd();
-    return;
-  }
-
-};
 MrkUserService_logout_args = class {
   constructor(args) {
     this.token = null;
@@ -53877,69 +54249,6 @@ MrkUserServiceClient = class {
       return result.success;
     }
     throw 'changeMrkAccount failed: unknown result';
-  }
-
-  getMrkAlmexSysUserPage (token, filter) {
-    const self = this;
-    return new Promise((resolve, reject) => {
-      self.send_getMrkAlmexSysUserPage(token, filter, (error, result) => {
-        return error ? reject(error) : resolve(result);
-      });
-    });
-  }
-
-  send_getMrkAlmexSysUserPage (token, filter, callback) {
-    const params = {
-      token: token,
-      filter: filter
-    };
-    const args = new MrkUserService_getMrkAlmexSysUserPage_args(params);
-    try {
-      this.output.writeMessageBegin('getMrkAlmexSysUserPage', Thrift.MessageType.CALL, this.seqid);
-      args.write(this.output);
-      this.output.writeMessageEnd();
-      const self = this;
-      this.output.getTransport().flush(true, () => {
-        let error = null, result = null;
-        try {
-          result = self.recv_getMrkAlmexSysUserPage();
-        } catch (e) {
-          error = e;
-        }
-        callback(error, result);
-      });
-    }
-    catch (e) {
-      if (typeof this.output.getTransport().reset === 'function') {
-        this.output.getTransport().reset();
-      }
-      throw e;
-    }
-  }
-
-  recv_getMrkAlmexSysUserPage () {
-    const ret = this.input.readMessageBegin();
-    const mtype = ret.mtype;
-    if (mtype == Thrift.MessageType.EXCEPTION) {
-      const x = new Thrift.TApplicationException();
-      x.read(this.input);
-      this.input.readMessageEnd();
-      throw x;
-    }
-    const result = new MrkUserService_getMrkAlmexSysUserPage_result();
-    result.read(this.input);
-    this.input.readMessageEnd();
-
-    if (null !== result.validError) {
-      throw result.validError;
-    }
-    if (null !== result.error) {
-      throw result.error;
-    }
-    if (null !== result.success) {
-      return result.success;
-    }
-    throw 'getMrkAlmexSysUserPage failed: unknown result';
   }
 
   logout (token) {

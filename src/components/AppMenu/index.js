@@ -18,7 +18,6 @@ const { Sider } = Layout;
 const AppMenu = ({ logout, location }) => {
   const [collapsed, setCollapsed] = useState(true);
   return <Sider
-    width={256}
     collapsible
     className={styles.sider}
     collapsed={collapsed}
