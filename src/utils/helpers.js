@@ -3,7 +3,7 @@ import { notification, Modal } from 'antd';
 import { uniqueId } from 'lodash';
 import store from 'redux/store';
 import { I18n } from 'react-redux-i18n';
-
+import * as Yup from 'yup';
 export const log = (...props) => {
   /* eslint-disable-next-line */
   if (process.env.NODE_ENV === 'development' || window.showLogs) console.log(...props);
@@ -56,4 +56,12 @@ export const notificationError = (error, key = uniqueId('notification_')) => {
     </>
   });
   log(key, error);
+};
+
+export const stringIsRequired = () => Yup.string()
+  .nullable()
+  .required(I18n.t('form.required'));
+
+export const isDate = value => {
+  return (value !== -1 && value !== null && value !== 0);
 };

@@ -10,7 +10,7 @@ import { uniqueId } from 'lodash';
 import { showModal } from 'react-redux-modal-provider';
 import { MrkAccountModal } from 'components/Modals';
 
-const Content = ({ data, count, page = 1, loading, getData }) => {
+const Content = ({ data, count, page = 1, loading, getData, createOrUpdate }) => {
 
   useEffect(() => {
     getData();
@@ -32,8 +32,8 @@ const Content = ({ data, count, page = 1, loading, getData }) => {
     onRow={(record) => {
       return {
         onClick: () => showModal(MrkAccountModal, {
-          id: record.id,
-          createOrUpdate: createOrUpdate
+          id: record.accountId,
+          onOk: createOrUpdate
         })
       };
     }}

@@ -34,7 +34,7 @@ const App = ({ loading, translations, locale }) => {
           </LayoutApp>
           <Redirect to="/" />
         </Switch>
-        <ModalProvider />
+        {process.env.NODE_ENV !== 'development' && <ModalProvider />}
       </ConfigProvider>}
   </>
   );

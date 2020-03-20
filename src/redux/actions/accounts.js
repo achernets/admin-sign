@@ -45,7 +45,7 @@ export const createOrUpdate = values => {
     try {
       const {
         auth: { token },
-        systemUsers: { page }
+        accounts: { page }
       } = getState();
       await api.MrkAdminServiceClient.changeMrkAccount(token, new MrkAccount(values));
       dispatch({

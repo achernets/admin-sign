@@ -50,7 +50,32 @@
     "blocked": "Заблокировать",
     "signed": "Подписанный"
   },
+  "MrkAccount": {
+    "confirmed": "Подтвержденный",
+    "contragent": "Контрагент",
+    "blocked": "Заблокировать"
+  },
+  "MrkOrganization": {
+    "name": "Название",
+    "edrpo": "edrpo",
+    "adress": "Адрес",
+    "regAdress": "Рег. адрес"
+  },
+  "MrkClient": {
+    "lastName": "Фамилия",
+    "firstName": "Имя",
+    "middleName": "Отчество",
+    "position": "Должность",
+    "birthDate": "Дата рождения",
+    "contacts": "Контакты",
+    "contacts_email": "Контактный email",
+    "contacts_phone": "Контактный телефон",
+    "inn": "ИНН",
+    "login": "Логин",
+    "chief": "Руководитель"
+  },
   "Modals": {
-    "MrkAlmexSysUser": "MrkAlmexSysUser"
+    "MrkAlmexSysUser": "Создать/ред. сис. пользователя",
+    "MrkAccount": "Ред. аккаунт"
   }
 }

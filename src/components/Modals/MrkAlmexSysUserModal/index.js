@@ -27,7 +27,7 @@ const MrkAccountModal = ({ show, hideModal, entity, onOk }) => {
     },
   };
   return <Modal
-    title="MrkAlmexSysUser"
+    title={I18n.t('Modals.MrkAlmexSysUser')}
     visible={show}
     onOk={async () => {
       try {
