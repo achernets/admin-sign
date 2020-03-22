@@ -20,6 +20,13 @@
   "form": {
     "required": "Обязательное"
   },
+  "navigations": {
+    "open": "Открыть",
+    "hide": "Скрыть",
+    "logout": "Выйти",
+    "accounts": "Аккаунты",
+    "systemUsers": "Сист. пользователи"
+  },
   "notification": {
     "info": "Информация",
     "MrkAlmexSysUser_removed": "Пользователь \"%{name}\" удалён",
@@ -77,5 +84,9 @@
   "Modals": {
     "MrkAlmexSysUser": "Создать/ред. сис. пользователя",
     "MrkAccount": "Ред. аккаунт"
+  },
+  "MrkAccountModal": {
+    "info_entity": "Информация о Юр. Лице",
+    "employee": "Сотрудник %{num}"
   }
 }
