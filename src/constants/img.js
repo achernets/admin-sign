@@ -1,1 +1,0 @@
-export const LOGO = require('../images/Logo.svg');
