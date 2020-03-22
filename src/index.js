@@ -1,6 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.scss';
+import 'antd/dist/antd.less';
 import App from './pages/App';
 import ModalProvider from 'react-redux-modal-provider';
 import { Provider } from 'react-redux';
