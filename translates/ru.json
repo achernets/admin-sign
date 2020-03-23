@@ -26,16 +26,13 @@
     "hide": "Скрыть",
     "logout": "Выйти",
     "accounts": "Аккаунты",
-    "systemUsers": "Сист. пользователи"
+    "systemUsers": "Сист. пользователи",
+    "users": "Админ пользователи"
   },
   "notification": {
     "info": "Информация",
     "MrkAlmexSysUser_removed": "Пользователь \"%{name}\" удалён",
-    "sendDocument_title": "Ваше письмо отправлено",
-    "registration_message": "Вы успешно зарегистрировались",
-    "registration_description": "Необходимо подтвердить ваш электронный ящик",
-    "profile_update_message": "Успешное обновление профиля",
-    "profile_update_description": "Все изменения вступят в силу после выхода из системы"
+    "MrkUser_removed": "Пользователь \"%{name}\" удалён"
   },
   "SignIn": {
     "locale_not_found": "Файл не найден",
@@ -46,8 +43,8 @@
   "MrkAlmexSysUser": {
     "login": "Логин",
     "createDate": "Дата создания",
-    "confirmed": "Подтвержденный",
-    "contragent": "Контрагент"
+    "confirmed": "Для подтвержденных",
+    "contragent": "Для контрагентов"
   },
   "MrkAggregateAccountInfo": {
     "name": "Название",
@@ -84,10 +81,17 @@
   },
   "Modals": {
     "MrkAlmexSysUser": "Создать/ред. сис. пользователя",
-    "MrkAccount": "Ред. аккаунт"
+    "MrkAccount": "Ред. аккаунт",
+    "MrkUserModal": "Создать/ред. админ пользователя"
   },
   "MrkAccountModal": {
     "info_entity": "Информация о Юр. Лице",
     "employee": "Сотрудник %{num}"
+  },
+  "MrkUser": {
+    "login": "Логин",
+    "firstName": "Имя",
+    "lastName": "Фамилия",
+    "middleName": "Отчество"
   }
 }
