@@ -54,13 +54,13 @@
     "confirmed": "Для подтвержденных",
     "contragent": "Для контрагентов",
     "signed": "Для подписанных",
-    "ogranisation": "Для организаций",
+    "organization": "Для организаций",
     "usePriority": "Приоритет"
   },
   "MrkAggregateAccountInfo": {
     "name": "Название",
     "code": "Код",
-    "ogranisation": "Организация",
+    "organization": "Организация",
     "confirmed": "Подтвержденный",
     "contragent": "Контрагент",
     "blocked": "Заблокировать",
