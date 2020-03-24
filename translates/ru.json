@@ -12,14 +12,22 @@
     "reset": "Сбросить",
     "save_changes": "Сохранить изменения",
     "find_total": "Найдено",
-    "form_is_invalid": "Не заполнены обязательные поля или не корректно заполнены поля"
+    "form_is_invalid": "Не заполнены обязательные поля или не корректно заполнены поля",
+    "search_by": "Искать по %{name}",
+    "search": "Искать"
+  },
+  "filters": {
+    "active": "Активно",
+    "not_active": "Не активно"
   },
   "confirmation": {
     "title": "Подтвердите действие",
     "okText": "Подтвердить"
   },
   "form": {
-    "required": "Обязательное"
+    "required": "Обязательное",
+    "min": "Минимум %{min}",
+    "max": "Максимум %{max}"
   },
   "navigations": {
     "open": "Открыть",
@@ -44,7 +52,10 @@
     "login": "Логин",
     "createDate": "Дата создания",
     "confirmed": "Для подтвержденных",
-    "contragent": "Для контрагентов"
+    "contragent": "Для контрагентов",
+    "signed": "Для подписанных",
+    "ogranisation": "Для организаций",
+    "usePriority": "Приоритет"
   },
   "MrkAggregateAccountInfo": {
     "name": "Название",
