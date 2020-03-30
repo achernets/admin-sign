@@ -51,10 +51,7 @@
   "MrkAlmexSysUser": {
     "login": "Логин",
     "createDate": "Дата создания",
-    "confirmed": "Для подтвержденных",
-    "contragent": "Для контрагентов",
-    "signed": "Для подписанных",
-    "organization": "Для организаций",
+    "allowedForType": "Тип",
     "usePriority": "Приоритет"
   },
   "MrkAggregateAccountInfo": {
@@ -104,5 +101,12 @@
     "firstName": "Имя",
     "lastName": "Фамилия",
     "middleName": "Отчество"
+  },
+  "MrkAccountType": {
+    "PERSON": "Персональный",
+    "PERSON_CONFIRMED": "Персональный подтвержденный",
+    "CONTRAGENT": "Контагент",
+    "LEGAL": "Организация",
+    "LEGAL_CONFIRMED": "Организация подтвержденная"
   }
 }
