@@ -1,6 +1,6 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "0208b6acc5e1ffe048fa6eba5adcdb40",
+    "revision": "3b186654c733f8abd0c778866a22da05",
     "url": "/admin-sign/index.html"
   },
   {
@@ -8,7 +8,7 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/admin-sign/static/css/3.5dafc8f7.chunk.css"
   },
   {
-    "revision": "f6844e4930c2ed1917fc",
+    "revision": "faa19953df54dd17c76d",
     "url": "/admin-sign/static/css/main.cf8a1a10.chunk.css"
   },
   {
@@ -32,8 +32,8 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/admin-sign/static/js/5.e4579bab.chunk.js"
   },
   {
-    "revision": "f6844e4930c2ed1917fc",
-    "url": "/admin-sign/static/js/main.ef2ef52f.chunk.js"
+    "revision": "faa19953df54dd17c76d",
+    "url": "/admin-sign/static/js/main.81a4c25b.chunk.js"
   },
   {
     "revision": "fb506cd3cb27a910a4e1",
