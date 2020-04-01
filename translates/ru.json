@@ -106,7 +106,7 @@
   "MrkAccountType": {
     "PERSON": "Персональный",
     "PERSON_CONFIRMED": "Персональный подтвержденный",
-    "CONTRAGENT": "Контагент",
+    "CONTRAGENT": "Контрагент",
     "LEGAL": "Организация",
     "LEGAL_CONFIRMED": "Организация подтвержденная"
   }
