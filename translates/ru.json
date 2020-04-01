@@ -57,6 +57,7 @@
   "MrkAggregateAccountInfo": {
     "name": "Название",
     "code": "Код",
+    "accType": "Тип",
     "organization": "Организация",
     "confirmed": "Подтвержденный",
     "contragent": "Контрагент",
