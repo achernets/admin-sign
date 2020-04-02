@@ -70,9 +70,9 @@
     "blocked": "Заблокировать"
   },
   "MrkOrganization": {
-    "name": "Название",
-    "edrpo": "edrpo",
-    "adress": "Адрес",
+    "name": "Название компании",
+    "edrpo": "ЕГРПОУ",
+    "adress": "Почтовый адрес",
     "regAdress": "Рег. адрес"
   },
   "MrkClient": {
