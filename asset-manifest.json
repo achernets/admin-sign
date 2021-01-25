@@ -3,8 +3,8 @@
     "static/js/0.18afe960.chunk.js": "/admin-sign/static/js/0.18afe960.chunk.js",
     "static/js/0.18afe960.chunk.js.map": "/admin-sign/static/js/0.18afe960.chunk.js.map",
     "main.css": "/admin-sign/static/css/main.736c6858.chunk.css",
-    "main.js": "/admin-sign/static/js/main.ebbfdfc1.chunk.js",
-    "main.js.map": "/admin-sign/static/js/main.ebbfdfc1.chunk.js.map",
+    "main.js": "/admin-sign/static/js/main.3c59cdef.chunk.js",
+    "main.js.map": "/admin-sign/static/js/main.3c59cdef.chunk.js.map",
     "runtime-main.js": "/admin-sign/static/js/runtime-main.b5ee1a94.js",
     "runtime-main.js.map": "/admin-sign/static/js/runtime-main.b5ee1a94.js.map",
     "static/css/3.75a360e9.chunk.css": "/admin-sign/static/css/3.75a360e9.chunk.css",
@@ -15,7 +15,7 @@
     "static/js/5.a13c327c.chunk.js": "/admin-sign/static/js/5.a13c327c.chunk.js",
     "static/js/5.a13c327c.chunk.js.map": "/admin-sign/static/js/5.a13c327c.chunk.js.map",
     "index.html": "/admin-sign/index.html",
-    "precache-manifest.3cb1c8b262dfa95c2d94ad9581e787a9.js": "/admin-sign/precache-manifest.3cb1c8b262dfa95c2d94ad9581e787a9.js",
+    "precache-manifest.54592c6f667d6f87a53f7453a4c708de.js": "/admin-sign/precache-manifest.54592c6f667d6f87a53f7453a4c708de.js",
     "service-worker.js": "/admin-sign/service-worker.js",
     "static/css/3.75a360e9.chunk.css.map": "/admin-sign/static/css/3.75a360e9.chunk.css.map",
     "static/css/main.736c6858.chunk.css.map": "/admin-sign/static/css/main.736c6858.chunk.css.map",
@@ -27,6 +27,6 @@
     "static/css/3.75a360e9.chunk.css",
     "static/js/3.d07ec6c0.chunk.js",
     "static/css/main.736c6858.chunk.css",
-    "static/js/main.ebbfdfc1.chunk.js"
+    "static/js/main.3c59cdef.chunk.js"
   ]
 }

@@ -73,7 +73,7 @@
   },
   "MrkOrganization": {
     "name": "Название компании",
-    "edrpo": "ЕГРПОУ",
+    "edrpo": "ЕГРПОУ / BIN",
     "adress": "Почтовый адрес",
     "regAdress": "Рег. адрес"
   },
